@@ -199,7 +199,7 @@ pub enum DownloadEvent {
 /// In-app updates stay off so CraftVPN cannot fetch Clash Verge builds or
 /// accept the upstream signing key. Host updates from this repository, with
 /// a key generated for CraftVPN, before turning this on.
-fn updates_enabled() -> bool {
+const fn updates_enabled() -> bool {
     false
 }
 /// A source delivering less than this per window is dropped for the next one.

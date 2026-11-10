@@ -27,9 +27,9 @@ const SettingPage = () => {
   )
 
   const toGithubDoc = useLockFn(() =>
-    openExternalUrl('https://github.com/ma906584241/clash-verge-rev#readme').catch(
-      onError,
-    ),
+    openExternalUrl(
+      'https://github.com/ma906584241/clash-verge-rev#readme',
+    ).catch(onError),
   )
 
   const mode = useThemeMode()

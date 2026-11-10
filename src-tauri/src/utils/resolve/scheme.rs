@@ -40,7 +40,7 @@ pub(super) async fn resolve_scheme(param: &str) -> Result<()> {
 }
 
 fn extract_subscription_info(link_parsed: &Url) -> Option<(std::string::String, Option<String>)> {
-    if !matches!(link_parsed.scheme(), "clash" | "clash-verge") {
+    if link_parsed.scheme() != "craftvpn" {
         return None;
     }
 
@@ -156,5 +156,30 @@ async fn refresh_core_config() {
             logging!(error, Type::Config, "Apply config error: {err:#}");
             handle::Handle::notice(NoticeStatus::UpdateFailed, format!("{err}"));
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::extract_subscription_info;
+    use tauri::Url;
+
+    #[test]
+    fn craftvpn_scheme_keeps_the_subscription_url() -> Result<(), &'static str> {
+        let link = Url::parse("craftvpn://install-config?url=https://example.com/sub.yaml&name=Home")
+            .map_err(|_| "subscription link did not parse")?;
+        let (url, name) = extract_subscription_info(&link).ok_or("craftvpn subscription link was dropped")?;
+
+        assert_eq!(url, "https://example.com/sub.yaml");
+        assert_eq!(name.as_deref(), Some("Home"));
+        Ok(())
+    }
+
+    #[test]
+    fn other_schemes_are_not_imported() -> Result<(), &'static str> {
+        let link =
+            Url::parse("clash://install-config?url=https://example.com/sub.yaml").map_err(|_| "link did not parse")?;
+        assert!(extract_subscription_info(&link).is_none());
+        Ok(())
     }
 }
