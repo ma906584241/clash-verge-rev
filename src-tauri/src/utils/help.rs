@@ -1,7 +1,7 @@
 use crate::core::notify::NoticeStatus;
 use crate::{config::with_encryption, process::AsyncHandler};
 use anyhow::{Context as _, Result, anyhow, bail};
-use clash_verge_logging::{Type, logging};
+use craft_verge_logging::{Type, logging};
 use nanoid::nanoid;
 use scopeguard::{ScopeGuard, guard};
 use serde::{Serialize, de::DeserializeOwned};
@@ -329,11 +329,11 @@ pub async fn open_core_latest_log() -> Result<()> {
         crate::core::manager::RunningMode::Service
     ) {
         let path = crate::utils::dirs::service_log_dir()?.join("service_latest.log");
-        let snapshot = crate::core::service::get_clash_log_snapshot_by_service().await?;
+        let snapshot = crate::core::service::get_craft_log_snapshot_by_service().await?;
         tokio::fs::write(&path, snapshot).await?;
         path
     } else {
-        crate::utils::dirs::clash_latest_log()?
+        crate::utils::dirs::craft_latest_log()?
     };
     open_latest_log(path)
 }

@@ -78,7 +78,7 @@ it('reports the permission refusal and finishes after installation falls back to
   dialog.props.onOk()
   await vi.waitFor(() => {
     expect(showNotice.warning).toHaveBeenCalledWith(
-      'settings.feedback.notifications.clashService.permissionFallback',
+      'settings.feedback.notifications.craftService.permissionFallback',
       { reason },
       0,
     )

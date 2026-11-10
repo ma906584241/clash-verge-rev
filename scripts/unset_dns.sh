@@ -23,7 +23,7 @@ function dns_of() {
     echo "$dns"
 }
 
-backup_header='# clash-verge-dns-managed'
+backup_header='# craft-verge-dns-managed'
 completed_backups=()
 
 function restore_dns() {

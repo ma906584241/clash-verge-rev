@@ -10,7 +10,7 @@ use crate::{
     },
     utils::dirs,
 };
-use clash_verge_logging::{Type, logging};
+use craft_verge_logging::{Type, logging};
 use smartstring::alias::String;
 use tokio::fs;
 
@@ -168,7 +168,7 @@ async fn handle_saved_profile_file(
     );
     match CoreManager::global().update_config_forced().await {
         Ok(outcome) if outcome.is_valid() => {
-            handle::Handle::refresh_clash();
+            handle::Handle::refresh_craft();
             Ok(ValidationOutcome::Valid)
         }
         Ok(outcome) => {

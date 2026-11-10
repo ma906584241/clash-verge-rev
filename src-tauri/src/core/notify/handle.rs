@@ -39,8 +39,8 @@ impl Handle {
         Self::app_handle().mihomo()
     }
 
-    pub fn refresh_clash() {
-        super::announce(super::Refresh::Clash);
+    pub fn refresh_craft() {
+        super::announce(super::Refresh::Craft);
     }
 
     pub fn refresh_verge() {

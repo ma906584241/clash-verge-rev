@@ -17,7 +17,7 @@ use crate::{
     process::AsyncHandler,
     utils::{init, server, window_manager::WindowManager},
 };
-use clash_verge_logging::{Type, logging, logging_error};
+use craft_verge_logging::{Type, logging, logging_error};
 
 #[cfg(target_os = "macos")]
 pub mod dns;
@@ -51,7 +51,7 @@ pub(crate) fn resolve_setup_async() {
 
 #[tracing::instrument(skip_all, level = "info")]
 async fn resolve_setup() {
-    logging!(info, Type::ClashVergeRev, "Version: {}", env!("CARGO_PKG_VERSION"));
+    logging!(info, Type::CraftVergeRev, "Version: {}", env!("CARGO_PKG_VERSION"));
 
     // Migrate before windows or timers can change the loaded config.
     logging_error!(Type::Setup, init::migrate_short_update_intervals().await);
@@ -90,7 +90,7 @@ async fn resolve_setup() {
         init_silent_updater(),
     );
 
-    Handle::refresh_clash();
+    Handle::refresh_craft();
     refresh_tray_menu().await;
     resolve_done();
 }
@@ -174,11 +174,11 @@ async fn init_silent_updater() {
     logging!(info, Type::Setup, "Silent updater initialized");
 }
 
-// Upstream has no session-end signal support on Linux; see crates/clash-verge-signal.
+// Upstream has no session-end signal support on Linux; see crates/craft-verge-signal.
 #[cfg(target_os = "linux")]
 pub(crate) fn init_signal() {
     logging!(debug, Type::Setup, "Initializing signal handlers...");
-    clash_verge_signal::register(feat::quit);
+    craft_verge_signal::register(feat::quit);
 }
 
 async fn init_work_config() {
@@ -201,7 +201,7 @@ async fn init_verge_config_before_window() -> bool {
 }
 
 async fn init_service_manager() {
-    clash_verge_service_ipc::set_config(Some(ServiceManager::config())).await;
+    craft_verge_service_ipc::set_config(Some(ServiceManager::config())).await;
 
     SERVICE_MANAGER.detect_startup_status().await;
 }

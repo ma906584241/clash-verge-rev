@@ -4,7 +4,7 @@ use crate::core::{proxy_control, sysopt::Sysopt};
 
 use gethostname::gethostname;
 use sysproxy::{Autoproxy, Sysproxy};
-use tauri_plugin_clash_verge_sysinfo;
+use tauri_plugin_craft_verge_sysinfo;
 
 #[tauri::command]
 #[specta::specta]
@@ -63,7 +63,7 @@ pub fn get_system_hostname() -> String {
 #[tauri::command]
 #[specta::specta]
 pub fn get_network_interfaces() -> Vec<String> {
-    tauri_plugin_clash_verge_sysinfo::list_network_interfaces()
+    tauri_plugin_craft_verge_sysinfo::list_network_interfaces()
 }
 
 #[tauri::command]

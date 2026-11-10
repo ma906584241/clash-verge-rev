@@ -20,9 +20,9 @@ const ItemWrapper = styled('div')`
 
 const HOTKEY_FUNC = [
   'open_or_close_dashboard',
-  'clash_mode_rule',
-  'clash_mode_global',
-  'clash_mode_direct',
+  'craft_mode_rule',
+  'craft_mode_global',
+  'craft_mode_direct',
   'toggle_system_proxy',
   'toggle_tun_mode',
   'entry_lightweight_mode',
@@ -32,9 +32,9 @@ const HOTKEY_FUNC = [
 const HOTKEY_FUNC_LABELS: Record<(typeof HOTKEY_FUNC)[number], string> = {
   open_or_close_dashboard:
     'settings.modals.hotkey.functions.openOrCloseDashboard',
-  clash_mode_rule: 'settings.modals.hotkey.functions.rule',
-  clash_mode_global: 'settings.modals.hotkey.functions.global',
-  clash_mode_direct: 'settings.modals.hotkey.functions.direct',
+  craft_mode_rule: 'settings.modals.hotkey.functions.rule',
+  craft_mode_global: 'settings.modals.hotkey.functions.global',
+  craft_mode_direct: 'settings.modals.hotkey.functions.direct',
   toggle_system_proxy: 'settings.modals.hotkey.functions.toggleSystemProxy',
   toggle_tun_mode: 'settings.modals.hotkey.functions.toggleTunMode',
   entry_lightweight_mode:

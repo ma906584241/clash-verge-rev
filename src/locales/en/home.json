@@ -19,7 +19,7 @@
         "traffic": "Traffic Stats Card",
         "tests": "Website Tests Card",
         "ip": "IP Information Card",
-        "clashInfo": "Clash Info Cards",
+        "craftInfo": "Craft Info Cards",
         "systemInfo": "System Info Cards"
       },
       "title": "Home Settings"
@@ -40,8 +40,8 @@
         "tunMode": "TUN Mode Intercept Info"
       }
     },
-    "clashInfo": {
-      "title": "Clash Info",
+    "craftInfo": {
+      "title": "Craft Info",
       "fields": {
         "coreVersion": "Core Version",
         "systemProxyAddress": "System Proxy Address",
@@ -137,7 +137,7 @@
       },
       "diagnostics": "Points: {{points}} | Compressed: {{compressed}} | FPS: {{fps}}"
     },
-    "clashMode": {
+    "craftMode": {
       "errors": {
         "communication": "Core communication error, please restart your computer and try again"
       },

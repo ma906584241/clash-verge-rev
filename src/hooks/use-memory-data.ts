@@ -33,7 +33,7 @@ export const useMemoryData = (options?: { enabled?: boolean }) => {
   const enabled = options?.enabled ?? true
 
   const { response, refresh } = useMihomoWsSubscription<IMemoryUsageItem>({
-    subscriptionKey: enabled ? 'getClashMemory' : null,
+    subscriptionKey: enabled ? 'getCraftMemory' : null,
     fallbackData: FALLBACK_MEMORY_USAGE,
     connect: () => MihomoWebSocket.connect_memory(),
     throttleMs: 500,
@@ -55,5 +55,5 @@ export const useMemoryData = (options?: { enabled?: boolean }) => {
     }),
   })
 
-  return { response, refreshGetClashMemory: refresh }
+  return { response, refreshGetCraftMemory: refresh }
 }

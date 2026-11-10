@@ -34,8 +34,8 @@ export const commands = {
   cancelUpdateDownload: () => __TAURI_INVOKE<void>('cancel_update_download'),
   restartCore: () => __TAURI_INVOKE<null>('restart_core'),
   /**  Replaces the managed core binary atomically instead of letting mihomo overwrite itself. */
-  upgradeClashCore: (force: boolean) =>
-    __TAURI_INVOKE<CoreUpgradeReport>('upgrade_clash_core', { force }),
+  upgradeCraftCore: (force: boolean) =>
+    __TAURI_INVOKE<CoreUpgradeReport>('upgrade_craft_core', { force }),
   /**  Returns one coherent core/service snapshot instead of independently refreshed state. */
   getRuntimeState: () =>
     __TAURI_INVOKE<RunStateView_Serialize>('get_runtime_state'),
@@ -52,16 +52,16 @@ export const commands = {
   repairService: () => __TAURI_INVOKE<ServiceInstallOutcome>('repair_service'),
   continueWithSidecar: () => __TAURI_INVOKE<null>('continue_with_sidecar'),
   syncRuntimeProviders: () => __TAURI_INVOKE<void>('sync_runtime_providers'),
-  getClashInfo: () => __TAURI_INVOKE<ClashInfo_Serialize>('get_clash_info'),
-  patchClashConfig: (payload: YamlMapping) =>
-    __TAURI_INVOKE<null>('patch_clash_config', { payload }),
-  patchClashMode: (payload: string) =>
-    __TAURI_INVOKE<null>('patch_clash_mode', { payload }),
+  getCraftInfo: () => __TAURI_INVOKE<CraftInfo_Serialize>('get_craft_info'),
+  patchCraftConfig: (payload: YamlMapping) =>
+    __TAURI_INVOKE<null>('patch_craft_config', { payload }),
+  patchCraftMode: (payload: string) =>
+    __TAURI_INVOKE<null>('patch_craft_mode', { payload }),
   /**  Reads the saved mode without depending on strict mihomo `/configs` deserialization. */
-  getClashMode: () => __TAURI_INVOKE<string | null>('get_clash_mode'),
-  changeClashCore: (clashCore: string) =>
-    __TAURI_INVOKE<CommandFailure_Serialize | null>('change_clash_core', {
-      clashCore,
+  getCraftMode: () => __TAURI_INVOKE<string | null>('get_craft_mode'),
+  changeCraftCore: (craftCore: string) =>
+    __TAURI_INVOKE<CommandFailure_Serialize | null>('change_craft_core', {
+      craftCore,
     }),
   getRuntimeConfig: () =>
     __TAURI_INVOKE<YamlMapping | null>('get_runtime_config'),
@@ -77,7 +77,7 @@ export const commands = {
       proxyChainConfig,
     }),
   invokeUwpTool: () => __TAURI_INVOKE<null>('invoke_uwp_tool'),
-  copyClashEnv: () => __TAURI_INVOKE<null>('copy_clash_env'),
+  copyCraftEnv: () => __TAURI_INVOKE<null>('copy_craft_env'),
   /**  Merges one selection pair into fresh backend state to avoid stale-list overwrites. */
   recordSelectedNode: (groupName: string, node: string) =>
     __TAURI_INVOKE<null>('record_selected_node', { groupName, node }),
@@ -115,7 +115,7 @@ export const commands = {
     __TAURI_INVOKE<string | null>('get_dns_config_content'),
   validateDnsConfig: () =>
     __TAURI_INVOKE<ValidationOutcome>('validate_dns_config'),
-  getClashLogs: () => __TAURI_INVOKE<string[]>('get_clash_logs'),
+  getCraftLogs: () => __TAURI_INVOKE<string[]>('get_craft_logs'),
   /**  获取Verge配置 */
   getVergeConfig: () => __TAURI_INVOKE<IVerge_Serialize>('get_verge_config'),
   /**  修改Verge配置 */
@@ -192,27 +192,27 @@ export type AutoProxy = {
   url: string
 }
 
-export type ClashInfo = ClashInfo_Serialize | ClashInfo_Deserialize
+export type CraftInfo = CraftInfo_Serialize | CraftInfo_Deserialize
 
-export type ClashInfo_Deserialize = {
-  /**  clash core port */
+export type CraftInfo_Deserialize = {
+  /**  craft core port */
   mixed_port: number
   socks_port: number
   port: number
   /**  same as `external-controller` */
   server: string
-  /**  clash secret */
+  /**  craft secret */
   secret?: string | null
 }
 
-export type ClashInfo_Serialize = {
-  /**  clash core port */
+export type CraftInfo_Serialize = {
+  /**  craft core port */
   mixed_port: number
   socks_port: number
   port: number
   /**  same as `external-controller` */
   server: string
-  /**  clash secret */
+  /**  craft secret */
   secret: string | null
 }
 
@@ -410,7 +410,7 @@ export type IVerge_Deserialize = {
   proxy_host?: string | null
   theme_setting?: IVergeTheme_Deserialize | null
   web_ui_list?: string[] | null
-  clash_core?: string | null
+  craft_core?: string | null
   /**  format: {func},{key} */
   hotkeys?: string[] | null
   enable_global_hotkey?: boolean | null
@@ -500,7 +500,7 @@ export type IVerge_Serialize = {
   proxy_host: string | null
   theme_setting: IVergeTheme_Serialize | null
   web_ui_list: string[] | null
-  clash_core?: string
+  craft_core?: string
   /**  format: {func},{key} */
   hotkeys?: string[]
   enable_global_hotkey: boolean | null
@@ -622,8 +622,8 @@ export type NoticeStatus =
   | 'tun_mode::auto_disable_failed'
   | 'app_restart::core_stop_failed'
   | 'app_quit::core_stop_failed'
-  | 'update_with_clash_proxy'
-  | 'update_failed_even_with_clash'
+  | 'update_with_craft_proxy'
+  | 'update_failed_even_with_craft'
   | 'reactivate_profiles::error'
   | 'update_failed'
   | 'config_validate::boot_error'
@@ -1118,7 +1118,7 @@ export type VergeEventPayloads =
   | VergeEventPayloads_Deserialize
 
 export type VergeEventPayloads_Deserialize = {
-  'verge://refresh-clash-config': null
+  'verge://refresh-craft-config': null
   'verge://refresh-verge-config': null
   'verge://refresh-profiles': null
   'verge://refresh-proxy-config': null
@@ -1132,7 +1132,7 @@ export type VergeEventPayloads_Deserialize = {
 }
 
 export type VergeEventPayloads_Serialize = {
-  'verge://refresh-clash-config': null
+  'verge://refresh-craft-config': null
   'verge://refresh-verge-config': null
   'verge://refresh-profiles': null
   'verge://refresh-proxy-config': null

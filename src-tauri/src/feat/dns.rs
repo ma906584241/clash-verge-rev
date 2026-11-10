@@ -1,6 +1,6 @@
 use crate::core::notify::{Refresh, announce};
 use anyhow::{Result, ensure};
-use clash_verge_draft::DraftTransaction;
+use craft_verge_draft::DraftTransaction;
 use serde::Serialize;
 use smartstring::alias::String;
 
@@ -81,7 +81,7 @@ pub async fn set_dns_override(
     // Core and memory state remain applied even when persistence fails.
     let result = verge.data_arc().save_file().await;
     announce(Refresh::Verge);
-    announce(Refresh::Clash);
+    announce(Refresh::Craft);
     result?;
     Ok(outcome)
 }

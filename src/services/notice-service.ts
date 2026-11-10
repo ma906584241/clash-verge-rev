@@ -61,13 +61,13 @@ const DEFAULT_DURATIONS: Readonly<Record<NoticeType, number>> = {
 
 const TRANSLATION_KEY_PATTERN = /^[A-Za-z0-9_-]+(?:\.[A-Za-z0-9_-]+)+$/
 const CODED_ERROR_TRANSLATION_KEYS: Readonly<Record<string, TranslationKey>> = {
-  CLASH_CONFIG_UPDATE_FAILED:
-    'settings.feedback.errors.clash.configUpdateFailed',
-  CLASH_MODE_UPDATE_FAILED: 'settings.feedback.errors.clash.modeUpdateFailed',
-  CORE_CHANGE_FAILED: 'settings.feedback.notifications.clash.changeFailed',
-  CORE_RESTART_FAILED: 'settings.feedback.errors.clash.restartFailed',
-  CORE_START_FAILED: 'settings.feedback.errors.clash.startFailed',
-  CORE_STOP_FAILED: 'settings.feedback.errors.clash.stopFailed',
+  CRAFT_CONFIG_UPDATE_FAILED:
+    'settings.feedback.errors.craft.configUpdateFailed',
+  CRAFT_MODE_UPDATE_FAILED: 'settings.feedback.errors.craft.modeUpdateFailed',
+  CORE_CHANGE_FAILED: 'settings.feedback.notifications.craft.changeFailed',
+  CORE_RESTART_FAILED: 'settings.feedback.errors.craft.restartFailed',
+  CORE_START_FAILED: 'settings.feedback.errors.craft.startFailed',
+  CORE_STOP_FAILED: 'settings.feedback.errors.craft.stopFailed',
   PROFILE_CREATE_FAILED: 'profiles.page.feedback.errors.createFailed',
   PROFILE_DELETE_FAILED: 'profiles.page.feedback.errors.deleteFailed',
   PROFILE_ENHANCE_FAILED: 'profiles.page.feedback.errors.enhanceFailed',
@@ -77,13 +77,13 @@ const CODED_ERROR_TRANSLATION_KEYS: Readonly<Record<string, TranslationKey>> = {
   PROFILE_REORDER_FAILED: 'profiles.page.feedback.errors.reorderFailed',
   PROFILE_SWITCH_FAILED: 'profiles.page.feedback.errors.switchFailed',
   PROFILE_UPDATE_FAILED: 'profiles.page.feedback.errors.updateFailed',
-  SERVICE_INSTALL_FAILED: 'settings.feedback.errors.clashService.installFailed',
+  SERVICE_INSTALL_FAILED: 'settings.feedback.errors.craftService.installFailed',
   SERVICE_REINSTALL_FAILED:
-    'settings.feedback.errors.clashService.reinstallFailed',
-  SERVICE_REPAIR_FAILED: 'settings.feedback.errors.clashService.repairFailed',
-  SERVICE_SIDECAR_FAILED: 'settings.feedback.errors.clashService.sidecarFailed',
+    'settings.feedback.errors.craftService.reinstallFailed',
+  SERVICE_REPAIR_FAILED: 'settings.feedback.errors.craftService.repairFailed',
+  SERVICE_SIDECAR_FAILED: 'settings.feedback.errors.craftService.sidecarFailed',
   SERVICE_UNINSTALL_FAILED:
-    'settings.feedback.errors.clashService.uninstallFailed',
+    'settings.feedback.errors.craftService.uninstallFailed',
   SYSPROXY_CORE_NOT_READY: 'settings.feedback.errors.sysproxy.coreNotReady',
   SYSPROXY_DIRECT_FALLBACK: 'settings.feedback.errors.sysproxy.directFallback',
   SYSPROXY_GUARD_STOPPED: 'settings.feedback.errors.sysproxy.guardStopped',

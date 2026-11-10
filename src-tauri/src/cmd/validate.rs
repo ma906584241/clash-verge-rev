@@ -3,7 +3,7 @@ use crate::core::{
     handle,
     validate::{ValidationErrorKind, ValidationOutcome},
 };
-use clash_verge_logging::{Type, logging};
+use craft_verge_logging::{Type, logging};
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum ValidationNoticeTarget {

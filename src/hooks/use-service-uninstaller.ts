@@ -11,7 +11,7 @@ export const useServiceUninstaller = () => {
 
   const uninstallServiceAndStartSidecar = useCallback(async () => {
     let uninstallError: unknown
-    showNotice.info('settings.statuses.clashService.uninstalling')
+    showNotice.info('settings.statuses.craftService.uninstalling')
     try {
       const result = await mutate(() => uninstallService(), {
         id: 'uninstall-service',
@@ -19,7 +19,7 @@ export const useServiceUninstaller = () => {
       })
       if (result.ok) {
         showNotice.success(
-          'settings.feedback.notifications.clashService.uninstallSuccess',
+          'settings.feedback.notifications.craftService.uninstallSuccess',
         )
       }
     } catch (error) {

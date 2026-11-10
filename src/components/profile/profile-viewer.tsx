@@ -334,7 +334,7 @@ export function ProfileViewer({ onChange, ref }: ProfileViewerProps) {
               <TextField
                 {...text}
                 {...field}
-                placeholder={`clash-verge/v${version}`}
+                placeholder={`craft-verge/v${version}`}
                 label={t('profiles.modals.profileForm.fields.userAgent')}
               />
             )}
@@ -427,7 +427,7 @@ export function ProfileViewer({ onChange, ref }: ProfileViewerProps) {
             render={({ field }) => (
               <StyledBox>
                 <InputLabel>
-                  {t('profiles.modals.profileForm.fields.useClashProxy')}
+                  {t('profiles.modals.profileForm.fields.useCraftProxy')}
                 </InputLabel>
                 <Switch
                   checked={field.value!}

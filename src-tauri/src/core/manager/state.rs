@@ -5,12 +5,12 @@ use crate::utils::retry::{RetryError, RetryPolicy, retry};
 use crate::{
     AsyncHandler,
     config::Config,
-    core::{handle, logger::Logger, manager::CLASH_LOGGER, proxy_control, service},
+    core::{handle, logger::Logger, manager::CRAFT_LOGGER, proxy_control, service},
     logging,
     utils::dirs,
 };
 use anyhow::{Context as _, Result};
-use clash_verge_logging::Type;
+use craft_verge_logging::Type;
 use log::Level;
 use std::num::NonZeroUsize;
 use std::path::Path;
@@ -20,7 +20,7 @@ use tauri_plugin_shell::ShellExt as _;
 pub(super) fn explain_core_occupancy(error: anyhow::Error) -> anyhow::Error {
     let detail = error.to_string();
     if detail.starts_with("process verge-mihomo") && detail.ends_with("; refusing a second core") {
-        error.context(clash_verge_i18n::t!("core.alreadyRunning").into_owned())
+        error.context(craft_verge_i18n::t!("core.alreadyRunning").into_owned())
     } else {
         error
     }
@@ -150,10 +150,10 @@ use {
 };
 
 impl CoreManager {
-    pub async fn get_clash_logs(&self) -> Result<Vec<String>> {
+    pub async fn get_craft_logs(&self) -> Result<Vec<String>> {
         match *self.get_running_mode() {
-            RunningMode::Service => service::get_clash_logs_by_service().await,
-            RunningMode::Sidecar => Ok(CLASH_LOGGER.get_logs()),
+            RunningMode::Service => service::get_craft_logs_by_service().await,
+            RunningMode::Sidecar => Ok(CRAFT_LOGGER.get_logs()),
             RunningMode::NotRunning => Ok(Vec::new()),
         }
     }
@@ -161,7 +161,7 @@ impl CoreManager {
     #[tracing::instrument(skip_all, level = "info", fields(pid = tracing::field::Empty))]
     pub(super) async fn start_core_by_sidecar(&self) -> Result<()> {
         self.wait_for_sidecar_exit().await?;
-        let execution = clash_verge_service_ipc::execution::reserve_sidecar()
+        let execution = craft_verge_service_ipc::execution::reserve_sidecar()
             .await
             .inspect_err(service::record_residual_service)
             .map_err(explain_core_occupancy)?;
@@ -182,17 +182,17 @@ impl CoreManager {
         #[cfg(not(target_os = "windows"))]
         let config_file = Config::generate_file().await?;
         let app_handle = handle::Handle::app_handle();
-        let clash_core = Config::verge().await.latest_arc().get_valid_clash_core();
+        let craft_core = Config::verge().await.latest_arc().get_valid_craft_core();
         let config_dir = dirs::app_home_dir()?;
         #[cfg(unix)]
         discard_unwritable_core_cache(&config_dir);
 
         #[cfg(unix)]
-        let previous_mask = unsafe { tauri_plugin_clash_verge_sysinfo::libc::umask(0o077) };
+        let previous_mask = unsafe { tauri_plugin_craft_verge_sysinfo::libc::umask(0o077) };
         let command = app_handle
             .shell()
-            .sidecar(clash_core.as_str())
-            .map_err(|error| anyhow::anyhow!("failed to build sidecar command for core {clash_core:?}: {error:#}"))?;
+            .sidecar(craft_core.as_str())
+            .map_err(|error| anyhow::anyhow!("failed to build sidecar command for core {craft_core:?}: {error:#}"))?;
         let command = command.args([
             "-d",
             dirs::path_to_str(&config_dir)?,
@@ -212,7 +212,7 @@ impl CoreManager {
         );
         let (mut rx, child) = command.spawn().map_err(|error| {
             anyhow::anyhow!(
-                "failed to start sidecar core {clash_core:?} with config {} and data directory {}: {error:#}",
+                "failed to start sidecar core {craft_core:?} with config {} and data directory {}: {error:#}",
                 config_file.display(),
                 config_dir.display()
             )
@@ -242,7 +242,7 @@ impl CoreManager {
 
         #[cfg(unix)]
         unsafe {
-            tauri_plugin_clash_verge_sysinfo::libc::umask(previous_mask)
+            tauri_plugin_craft_verge_sysinfo::libc::umask(previous_mask)
         };
 
         let pid = child.pid();
@@ -259,7 +259,7 @@ impl CoreManager {
                     | tauri_plugin_shell::process::CommandEvent::Stderr(line) => {
                         let message = String::from_utf8_lossy_owned(line);
                         Logger::global().writer_sidecar_log(Level::Error, &message);
-                        CLASH_LOGGER.append_log(message);
+                        CRAFT_LOGGER.append_log(message);
                     }
                     tauri_plugin_shell::process::CommandEvent::Terminated(term) => {
                         let _ = terminated.send(());
@@ -273,7 +273,7 @@ impl CoreManager {
                             String::from("Process terminated")
                         };
                         Logger::global().writer_sidecar_log(Level::Info, &message);
-                        CLASH_LOGGER.clear_logs();
+                        CRAFT_LOGGER.clear_logs();
                         manager.clear_terminated_sidecar(pid).await;
                         break;
                     }
@@ -456,7 +456,7 @@ mod core_cache_tests {
     use std::os::unix::fs::PermissionsExt as _;
 
     fn scratch(name: &str) -> anyhow::Result<std::path::PathBuf> {
-        let root = std::env::temp_dir().join(format!("clash-verge-core-cache-{name}-{}", std::process::id()));
+        let root = std::env::temp_dir().join(format!("craft-verge-core-cache-{name}-{}", std::process::id()));
         let _ = std::fs::remove_dir_all(&root);
         std::fs::create_dir_all(&root)?;
         Ok(root)
@@ -465,7 +465,7 @@ mod core_cache_tests {
     #[test]
     fn an_unwritable_cache_is_discarded() -> anyhow::Result<()> {
         // root ignores the permission bits, so the probe cannot fail there.
-        if unsafe { tauri_plugin_clash_verge_sysinfo::libc::geteuid() } == 0 {
+        if unsafe { tauri_plugin_craft_verge_sysinfo::libc::geteuid() } == 0 {
             return Ok(());
         }
         let root = scratch("unwritable")?;
@@ -528,7 +528,7 @@ mod readiness_tests {
             "process verge-mihomo-alpha.exe (PID 123) is still running; refusing a second core",
         ] {
             let error = super::explain_core_occupancy(anyhow::anyhow!(detail));
-            assert_eq!(error.to_string(), clash_verge_i18n::t!("core.alreadyRunning"));
+            assert_eq!(error.to_string(), craft_verge_i18n::t!("core.alreadyRunning"));
             assert_eq!(error.root_cause().to_string(), detail);
         }
         let error = super::explain_core_occupancy(anyhow::anyhow!("could not inspect remaining cores"));

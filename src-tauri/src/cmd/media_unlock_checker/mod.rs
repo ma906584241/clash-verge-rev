@@ -1,4 +1,4 @@
-pub use clash_verge_media_unlock::UnlockItem;
+pub use craft_verge_media_unlock::UnlockItem;
 use reqwest::{Client, Proxy};
 use std::time::Duration;
 use tauri::{command, ipc::Channel};
@@ -6,7 +6,7 @@ use tauri::{command, ipc::Channel};
 #[command]
 #[specta::specta]
 pub fn get_unlock_items() -> Vec<UnlockItem> {
-    clash_verge_media_unlock::default_unlock_items()
+    craft_verge_media_unlock::default_unlock_items()
 }
 
 async fn create_client() -> Result<Client, String> {
@@ -30,7 +30,7 @@ async fn create_client() -> Result<Client, String> {
 #[specta::specta]
 pub async fn check_media_unlock(on_complete: Channel<UnlockItem>) -> Result<Vec<UnlockItem>, String> {
     let client = create_client().await?;
-    Ok(clash_verge_media_unlock::check_media_unlock(&client, |item| {
+    Ok(craft_verge_media_unlock::check_media_unlock(&client, |item| {
         let _ = on_complete.send(item.clone());
     })
     .await)
@@ -40,5 +40,5 @@ pub async fn check_media_unlock(on_complete: Channel<UnlockItem>) -> Result<Vec<
 #[specta::specta]
 pub async fn check_media_unlock_item(name: String) -> Result<UnlockItem, String> {
     let client = create_client().await?;
-    clash_verge_media_unlock::check_media_unlock_item(&client, &name).await
+    craft_verge_media_unlock::check_media_unlock_item(&client, &name).await
 }

@@ -1,5 +1,5 @@
 {
-  "name": "Clash Verge Rev Development Environment",
+  "name": "Craft Verge Rev Development Environment",
   "image": "mcr.microsoft.com/devcontainers/base:ubuntu-24.04",
 
   "features": {
@@ -64,15 +64,15 @@
       "onAutoForward": "notify"
     },
     "7890": {
-      "label": "Clash HTTP Proxy",
+      "label": "Craft HTTP Proxy",
       "onAutoForward": "silent"
     },
     "7891": {
-      "label": "Clash SOCKS Proxy",
+      "label": "Craft SOCKS Proxy",
       "onAutoForward": "silent"
     },
     "9090": {
-      "label": "Clash API",
+      "label": "Craft API",
       "onAutoForward": "silent"
     }
   },
@@ -80,10 +80,10 @@
   "postCreateCommand": "bash .devcontainer/post-create.sh",
 
   "mounts": [
-    "source=clash-verge-node-modules,target=${containerWorkspaceFolder}/node_modules,type=volume",
-    "source=clash-verge-pnpm-store,target=/home/vscode/.local/share/pnpm/store,type=volume",
-    "source=clash-verge-cargo-registry,target=/home/vscode/.cargo/registry,type=volume",
-    "source=clash-verge-cargo-git,target=/home/vscode/.cargo/git,type=volume"
+    "source=craft-verge-node-modules,target=${containerWorkspaceFolder}/node_modules,type=volume",
+    "source=craft-verge-pnpm-store,target=/home/vscode/.local/share/pnpm/store,type=volume",
+    "source=craft-verge-cargo-registry,target=/home/vscode/.cargo/registry,type=volume",
+    "source=craft-verge-cargo-git,target=/home/vscode/.cargo/git,type=volume"
   ],
 
   "containerEnv": {
@@ -94,6 +94,6 @@
 
   "containerUser": "vscode",
   "remoteUser": "vscode",
-  "workspaceFolder": "/workspaces/clash-verge-rev",
+  "workspaceFolder": "/workspaces/craft-verge-rev",
   "shutdownAction": "stopContainer"
 }

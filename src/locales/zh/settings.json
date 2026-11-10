@@ -96,8 +96,8 @@
       "dark": "深色",
       "system": "系统"
     },
-    "clash": {
-      "title": "Clash 设置",
+    "craft": {
+      "title": "Craft 设置",
       "form": {
         "fields": {
           "allowLan": "局域网连接",
@@ -108,7 +108,7 @@
           "portConfig": "端口设置",
           "external": "外部控制",
           "webUI": "网页界面",
-          "clashCore": "Clash 内核",
+          "craftCore": "Craft 内核",
           "openUwpTool": "UWP 工具",
           "updateGeoData": "更新 GeoData",
           "tunnels": {
@@ -276,7 +276,7 @@
     }
   },
   "modals": {
-    "clashPort": {
+    "craftPort": {
       "title": "端口设置",
       "fields": {
         "mixed": "混合代理端口",
@@ -301,7 +301,7 @@
         "portTooHigh": "端口号不能大于 65535"
       }
     },
-    "clashCore": {
+    "craftCore": {
       "variants": {
         "release": "正式版",
         "alpha": "预览版"
@@ -624,7 +624,7 @@
         "placeholderInstruction": "使用 %host, %port, %secret 表示 主机, 端口, 访问密钥"
       },
       "errors": {
-        "clashInfoUnavailable": "内核连接信息暂不可用",
+        "craftInfoUnavailable": "内核连接信息暂不可用",
         "invalidServer": "内核服务地址“{{server}}”无效",
         "openFailed": "打开 Web UI 失败"
       }
@@ -655,7 +655,7 @@
   },
   "feedback": {
     "errors": {
-      "clash": {
+      "craft": {
         "configUpdateFailed": "更新内核配置失败",
         "modeUpdateFailed": "切换代理模式失败",
         "restartFailed": "重启内核失败",
@@ -663,7 +663,7 @@
         "serviceCoreStopped": "服务运行的内核意外停止",
         "stopFailed": "停止内核失败"
       },
-      "clashService": {
+      "craftService": {
         "installFailed": "安装服务失败",
         "uninstallFailed": "卸载服务失败",
         "reinstallFailed": "重新安装服务失败",
@@ -672,24 +672,24 @@
         "coreAlreadyRunning": "无法启动内核：已有内核进程正在运行。请退出相关应用或清理残留进程后重试。若仍无法解决，请重启电脑。"
       },
       "sysproxy": {
-        "privilegeRequired": "无法设置系统代理：macOS 以权限不足为由拒绝了这次修改。请安装 Clash Verge 服务；管理员也可以在系统设置 → 隐私与安全性的高级选项中，关闭访问系统范围设置需要管理员密码的要求。",
+        "privilegeRequired": "无法设置系统代理：macOS 以权限不足为由拒绝了这次修改。请安装 Craft Verge 服务；管理员也可以在系统设置 → 隐私与安全性的高级选项中，关闭访问系统范围设置需要管理员密码的要求。",
         "directFallback": "系统代理设置失败，已回退为直连。",
         "guardStopped": "系统代理守卫连续多次失败后已停止，系统代理不再被自动维持。",
-        "sidecarWhileServiceReady": "系统代理设置失败：Clash Verge 服务已就绪，但内核仍以 Sidecar 运行。重启内核即可切换到服务模式。",
-        "coreNotReady": "无法开启系统代理：内核尚未运行。请先启动内核（或安装/修复 Clash Verge 服务）后重试。",
+        "sidecarWhileServiceReady": "系统代理设置失败：Craft Verge 服务已就绪，但内核仍以 Sidecar 运行。重启内核即可切换到服务模式。",
+        "coreNotReady": "无法开启系统代理：内核尚未运行。请先启动内核（或安装/修复 Craft Verge 服务）后重试。",
         "systemCallFailed": "系统代理写入失败：Windows 系统调用未成功，通常是瞬时故障。请稍后重试。"
       }
     },
     "notifications": {
-      "clash": {
-        "restartSuccess": "已重启 Clash 内核",
+      "craft": {
+        "restartSuccess": "已重启 Craft 内核",
         "versionUpdated": "内核版本已更新",
         "alreadyLatestVersion": "已经是最新内核版本",
         "changeSuccess": "内核切换成功",
         "changeFailed": "无法切换内核",
         "geoDataUpdated": "已更新 GeoData"
       },
-      "clashService": {
+      "craftService": {
         "appDataNotOwned": "服务拒绝启动内核：磁盘上应用数据目录的所有者不是当前账户（常见于用户目录位于外置磁盘）。修复服务无法解决此问题，请在终端运行以下命令，然后重启软件：",
         "installSuccess": "已成功安装服务",
         "permissionFallback": "{{reason}} 已切换到普通模式（Sidecar），普通权限下无法使用 TUN。可按文档修复后重装服务；不想或不会修复时，可直接以管理员身份运行软件，无需安装服务。",
@@ -700,17 +700,17 @@
         "uninstallSuccess": "已成功卸载服务"
       },
       "updater": {
-        "withClashProxySuccess": "使用 Clash 代理更新成功",
-        "withClashProxyFailed": "使用 Clash 代理更新失败"
+        "withCraftProxySuccess": "使用 Craft 代理更新成功",
+        "withCraftProxyFailed": "使用 Craft 代理更新失败"
       }
     }
   },
   "statuses": {
-    "clash": {
+    "craft": {
       "stopping": "停止内核中...",
       "restarting": "重启内核中..."
     },
-    "clashService": {
+    "craftService": {
       "installing": "安装服务中...",
       "uninstalling": "卸载服务中..."
     }

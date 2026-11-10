@@ -140,7 +140,7 @@ type LogLevel = import('tauri-plugin-mihomo-api').LogLevel
 type LogFilter = 'all' | 'debug' | 'info' | 'warn' | 'err'
 type LogOrder = 'asc' | 'desc'
 
-interface IClashLog {
+interface ICraftLog {
   enable: boolean
   logLevel: LogLevel
   logFilter: LogFilter
@@ -181,7 +181,7 @@ interface IConnectionSetting {
   layout: 'table' | 'list'
 }
 
-type IClashInfo = import('@/services/bindings').ClashInfo
+type ICraftInfo = import('@/services/bindings').CraftInfo
 
 type IProfileItem = import('@/services/bindings').PrfItem_Serialize
 

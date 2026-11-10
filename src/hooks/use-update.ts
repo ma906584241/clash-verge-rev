@@ -1,5 +1,5 @@
 import { fetchCacheData, setCacheData, useQuery } from '@/services/query-client'
-import { checkUpdateSafe } from '@/services/update'
+import { APP_UPDATES_ENABLED, checkUpdateSafe } from '@/services/update'
 
 import { useVerge } from './use-verge'
 
@@ -23,9 +23,11 @@ export const useUpdate = (enabled: boolean = true) => {
   const { verge } = useVerge()
   const { auto_check_update } = verge || {}
 
-  const shouldCheck = enabled && auto_check_update !== false
+  const shouldCheck = APP_UPDATES_ENABLED && enabled && auto_check_update !== false
 
   const fetchUpdate = async () => {
+    if (!APP_UPDATES_ENABLED) return null
+
     const result = await checkUpdateSafe()
     updateLastCheckTime()
     return result
@@ -55,7 +57,7 @@ export const useUpdate = (enabled: boolean = true) => {
   })
 
   return {
-    updateInfo,
+    updateInfo: APP_UPDATES_ENABLED ? updateInfo : undefined,
     checkUpdate,
     loading: isValidating,
     lastCheckUpdate: lastCheckUpdate ?? null,

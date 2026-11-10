@@ -42,7 +42,7 @@ it.each([
   'explains an occupied core during %s and preserves diagnostics',
   async (operation, detail) => {
     if (operation === 'startup') {
-      showNotice.error('settings.feedback.errors.clash.startFailed', detail)
+      showNotice.error('settings.feedback.errors.craft.startFailed', detail)
     } else if (operation === 'restart') {
       showNotice.error({ code: 'CORE_RESTART_FAILED', detail })
     } else {

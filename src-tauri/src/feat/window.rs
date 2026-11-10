@@ -5,7 +5,7 @@ use crate::core::{CoreManager, handle};
 use crate::utils;
 use crate::utils::window_manager::WindowManager;
 use anyhow::{Context as _, anyhow};
-use clash_verge_logging::{Type, logging};
+use craft_verge_logging::{Type, logging};
 use parking_lot::Mutex;
 use std::sync::mpsc::RecvTimeoutError;
 use tokio::time::Duration;
@@ -234,7 +234,7 @@ where
 {
     let (sender, receiver) = std::sync::mpsc::sync_channel(1);
     std::thread::Builder::new()
-        .name("clash-verge-session-ending".into())
+        .name("craft-verge-session-ending".into())
         .spawn(move || {
             let runtime = match tokio::runtime::Builder::new_current_thread().enable_all().build() {
                 Ok(runtime) => runtime,

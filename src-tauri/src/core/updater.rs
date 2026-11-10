@@ -1,7 +1,7 @@
 use crate::{config::Config, singleton, utils::dirs};
 use anyhow::{Context as _, Result};
 use chrono::Utc;
-use clash_verge_logging::{Type, logging};
+use craft_verge_logging::{Type, logging};
 use parking_lot::Mutex;
 use serde::{Deserialize, Serialize};
 use std::{
@@ -279,14 +279,29 @@ async fn download_from(
 }
 
 impl SilentUpdater {
+    fn has_update_source(app_handle: &tauri::AppHandle) -> bool {
+        app_handle
+            .config()
+            .plugins
+            .0
+            .get("updater")
+            .and_then(|config| config.get("endpoints"))
+            .and_then(serde_json::Value::as_array)
+            .is_some_and(|endpoints| !endpoints.is_empty())
+    }
+
     /// Checks the server; Windows receives `/LANG` to suppress the NSIS language dialog,
     /// see `packages/windows/installer.nsi`.
     async fn check(app_handle: &tauri::AppHandle) -> Result<Option<Update>> {
+        if !Self::has_update_source(app_handle) {
+            return Ok(None);
+        }
+
         let updater_builder = app_handle.updater_builder();
         #[cfg(target_os = "windows")]
         let updater_builder = {
             let verge_lang = Config::verge().await.latest_arc().language.clone();
-            let lang_id = nsis_language_id(&clash_verge_i18n::current_language(verge_lang.as_deref()));
+            let lang_id = nsis_language_id(&craft_verge_i18n::current_language(verge_lang.as_deref()));
             updater_builder.installer_arg(format!("/LANG={lang_id}"))
         };
         Ok(updater_builder.build()?.check().await?)
@@ -298,6 +313,11 @@ impl SilentUpdater {
 
     /// Installs a newer cached update before normal startup, if the user confirms.
     pub async fn try_install_on_startup(&self, app_handle: &tauri::AppHandle) -> bool {
+        if !Self::has_update_source(app_handle) {
+            self.discard_pending();
+            return false;
+        }
+
         if !Config::verge().await.latest_arc().auto_check_update.unwrap_or(true) {
             Self::delete_cache();
             return false;
@@ -462,10 +482,10 @@ impl SilentUpdater {
     async fn ask_user_to_install(app_handle: &tauri::AppHandle, version: &str) -> bool {
         use tauri_plugin_dialog::{DialogExt as _, MessageDialogButtons, MessageDialogKind};
 
-        let title = clash_verge_i18n::t!("notifications.updateReady.title");
-        let body = clash_verge_i18n::t!("notifications.updateReady.body").replace("{version}", version);
-        let install_now = clash_verge_i18n::t!("notifications.updateReady.installNow").into_owned();
-        let later = clash_verge_i18n::t!("notifications.updateReady.later").into_owned();
+        let title = craft_verge_i18n::t!("notifications.updateReady.title");
+        let body = craft_verge_i18n::t!("notifications.updateReady.body").replace("{version}", version);
+        let install_now = craft_verge_i18n::t!("notifications.updateReady.installNow").into_owned();
+        let later = craft_verge_i18n::t!("notifications.updateReady.later").into_owned();
 
         let (tx, rx) = tokio::sync::oneshot::channel();
 
@@ -489,7 +509,7 @@ impl SilentUpdater {
         use tauri::{WebviewUrl, WebviewWindowBuilder};
 
         let window = match WebviewWindowBuilder::new(app_handle, "update-splash", WebviewUrl::App("index.html".into()))
-            .title("Clash Verge - Updating")
+            .title("Craft Verge - Updating")
             .inner_size(300.0, 180.0)
             .resizable(false)
             .maximizable(false)
@@ -654,6 +674,11 @@ impl SilentUpdater {
     }
 
     pub async fn start_background_check(&self, app_handle: tauri::AppHandle) {
+        if !Self::has_update_source(&app_handle) {
+            self.discard_pending();
+            return;
+        }
+
         // Permanent watcher: daily update cycles for the lifetime of the app.
         logging!(info, Type::System, "Silent updater: background task started");
 

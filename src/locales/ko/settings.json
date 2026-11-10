@@ -96,8 +96,8 @@
       "dark": "다크",
       "system": "시스템"
     },
-    "clash": {
-      "title": "Clash 설정",
+    "craft": {
+      "title": "Craft 설정",
       "form": {
         "fields": {
           "allowLan": "LAN 허용",
@@ -108,7 +108,7 @@
           "portConfig": "포트 설정",
           "external": "외부",
           "webUI": "Web UI",
-          "clashCore": "Clash 코어",
+          "craftCore": "Craft 코어",
           "openUwpTool": "UWP 도구 열기",
           "updateGeoData": "GeoData 업데이트",
           "tunnels": {
@@ -276,7 +276,7 @@
     }
   },
   "modals": {
-    "clashPort": {
+    "craftPort": {
       "title": "포트 설정",
       "fields": {
         "mixed": "혼합 포트",
@@ -301,7 +301,7 @@
         "portTooHigh": "포트는 65535 이하여야 합니다"
       }
     },
-    "clashCore": {
+    "craftCore": {
       "variants": {
         "release": "안정 버전",
         "alpha": "알파 버전"
@@ -624,7 +624,7 @@
         "placeholderInstruction": "host, port, secret을 %host, %port, %secret로 바꿔 입력하세요"
       },
       "errors": {
-        "clashInfoUnavailable": "코어 연결 정보를 사용할 수 없습니다",
+        "craftInfoUnavailable": "코어 연결 정보를 사용할 수 없습니다",
         "invalidServer": "코어 서버 주소 \"{{server}}\"이(가) 잘못되었습니다",
         "openFailed": "Web UI를 열지 못했습니다"
       }
@@ -655,7 +655,7 @@
   },
   "feedback": {
     "errors": {
-      "clash": {
+      "craft": {
         "configUpdateFailed": "코어 구성을 업데이트하지 못했습니다",
         "modeUpdateFailed": "프록시 모드를 변경하지 못했습니다",
         "restartFailed": "코어를 재시작하지 못했습니다",
@@ -663,7 +663,7 @@
         "serviceCoreStopped": "서비스에서 실행 중인 코어가 예기치 않게 중지되었습니다",
         "stopFailed": "코어를 중지하지 못했습니다"
       },
-      "clashService": {
+      "craftService": {
         "installFailed": "서비스를 설치하지 못했습니다",
         "uninstallFailed": "서비스를 제거하지 못했습니다",
         "reinstallFailed": "서비스를 다시 설치하지 못했습니다",
@@ -672,24 +672,24 @@
         "coreAlreadyRunning": "코어를 시작할 수 없습니다. 이미 실행 중인 코어 프로세스가 있습니다. 관련 앱이나 남아 있는 프로세스를 종료한 뒤 다시 시도하세요. 문제가 계속되면 컴퓨터를 다시 시작하세요."
       },
       "sysproxy": {
-        "privilegeRequired": "시스템 프록시를 설정할 수 없습니다: 권한이 부족하여 macOS가 변경을 거부했습니다. Clash Verge 서비스를 설치하십시오. 관리자라면 시스템 설정 → 개인 정보 보호 및 보안의 고급 옵션에서, 시스템 전체 설정에 관리자 암호를 요구하는 설정을 끌 수도 있습니다.",
+        "privilegeRequired": "시스템 프록시를 설정할 수 없습니다: 권한이 부족하여 macOS가 변경을 거부했습니다. Craft Verge 서비스를 설치하십시오. 관리자라면 시스템 설정 → 개인 정보 보호 및 보안의 고급 옵션에서, 시스템 전체 설정에 관리자 암호를 요구하는 설정을 끌 수도 있습니다.",
         "directFallback": "시스템 프록시 설정에 실패하여 직접 연결로 되돌렸습니다.",
         "guardStopped": "시스템 프록시 가드가 연속으로 실패하여 중지되었습니다. 시스템 프록시가 더 이상 자동으로 유지되지 않습니다.",
-        "sidecarWhileServiceReady": "시스템 프록시를 설정하지 못했습니다: Clash Verge 서비스는 준비되었지만 코어가 아직 Sidecar로 실행 중입니다. 코어를 재시작하면 서비스 모드로 전환됩니다.",
-        "coreNotReady": "코어가 실행 중이 아니어서 시스템 프록시를 켤 수 없습니다. 코어를 시작한 뒤(또는 Clash Verge 서비스를 설치/복구한 뒤) 다시 시도하세요.",
+        "sidecarWhileServiceReady": "시스템 프록시를 설정하지 못했습니다: Craft Verge 서비스는 준비되었지만 코어가 아직 Sidecar로 실행 중입니다. 코어를 재시작하면 서비스 모드로 전환됩니다.",
+        "coreNotReady": "코어가 실행 중이 아니어서 시스템 프록시를 켤 수 없습니다. 코어를 시작한 뒤(또는 Craft Verge 서비스를 설치/복구한 뒤) 다시 시도하세요.",
         "systemCallFailed": "Windows 시스템 호출이 실패하여 시스템 프록시를 기록하지 못했습니다. 대개 일시적인 문제이니 다시 시도하세요."
       }
     },
     "notifications": {
-      "clash": {
-        "restartSuccess": "Clash 코어가 재시작되었습니다",
+      "craft": {
+        "restartSuccess": "Craft 코어가 재시작되었습니다",
         "versionUpdated": "코어 버전이 업데이트되었습니다",
         "alreadyLatestVersion": "이미 최신 코어 버전을 사용 중입니다",
         "changeSuccess": "코어 변경 성공",
         "changeFailed": "코어 변경 실패",
         "geoDataUpdated": "GeoData가 업데이트되었습니다"
       },
-      "clashService": {
+      "craftService": {
         "appDataNotOwned": "서비스가 코어 시작을 거부했습니다. 디스크상의 앱 데이터 폴더 소유자가 현재 계정이 아닙니다(홈 폴더가 외장 드라이브에 있을 때 흔히 발생). 서비스를 복구해도 해결되지 않습니다. 터미널에서 다음 명령을 실행한 후 앱을 다시 시작하세요:",
         "installSuccess": "서비스가 설치되었습니다",
         "permissionFallback": "{{reason}} 일반 모드(Sidecar)로 전환했습니다. TUN에는 관리자 권한이 필요합니다. 안내에 따라 수정 후 서비스를 다시 설치하거나, 서비스 설치 없이 앱을 관리자 권한으로 실행하세요.",
@@ -700,17 +700,17 @@
         "uninstallSuccess": "서비스가 제거되었습니다"
       },
       "updater": {
-        "withClashProxySuccess": "Clash 프록시로 업데이트 성공",
-        "withClashProxyFailed": "Clash 프록시로도 업데이트 실패"
+        "withCraftProxySuccess": "Craft 프록시로 업데이트 성공",
+        "withCraftProxyFailed": "Craft 프록시로도 업데이트 실패"
       }
     }
   },
   "statuses": {
-    "clash": {
+    "craft": {
       "stopping": "코어 중지 중...",
       "restarting": "코어 재시작 중..."
     },
-    "clashService": {
+    "craftService": {
       "installing": "서비스 설치 중...",
       "uninstalling": "서비스 제거 중..."
     }

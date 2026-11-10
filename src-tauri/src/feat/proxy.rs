@@ -12,7 +12,7 @@ use crate::{
     },
 };
 use anyhow::Context as _;
-use clash_verge_logging::{Type, logging};
+use craft_verge_logging::{Type, logging};
 use std::env;
 use tauri_plugin_clipboard_manager::ClipboardExt as _;
 
@@ -96,8 +96,8 @@ pub async fn toggle_tun_mode(not_save_file: Option<bool>) -> bool {
     }
 }
 
-pub async fn copy_clash_env() -> anyhow::Result<()> {
-    let env_ip = env::var("CLASH_VERGE_REV_IP").ok();
+pub async fn copy_craft_env() -> anyhow::Result<()> {
+    let env_ip = env::var("CRAFT_VERGE_REV_IP").ok();
     let verge_cfg = Config::verge().await.latest_arc();
     let ip = env_ip
         .as_deref()

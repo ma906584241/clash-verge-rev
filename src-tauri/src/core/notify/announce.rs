@@ -4,7 +4,7 @@ use std::time::Duration;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Refresh {
-    Clash,
+    Craft,
     Verge,
     Profiles,
     Proxies,
@@ -44,7 +44,7 @@ pub fn announce(refresh: Refresh) {
 
 fn emit(refresh: Refresh) {
     Handle::send_event(match refresh {
-        Refresh::Clash => FrontendEvent::RefreshClash,
+        Refresh::Craft => FrontendEvent::RefreshCraft,
         Refresh::Verge => FrontendEvent::RefreshVerge,
         Refresh::Profiles => FrontendEvent::RefreshProfiles,
         Refresh::Proxies => FrontendEvent::RefreshProxyConfig,
@@ -59,17 +59,17 @@ mod tests {
     async fn bursts_keep_each_refresh_kind_and_rearm_during_delivery() -> anyhow::Result<()> {
         let batch = RefreshBatch::default();
         let delivered = Mutex::new(Vec::new());
-        assert!(batch.enqueue(Refresh::Clash));
-        for refresh in [Refresh::Verge, Refresh::Clash, Refresh::Profiles, Refresh::Proxies] {
+        assert!(batch.enqueue(Refresh::Craft));
+        for refresh in [Refresh::Verge, Refresh::Craft, Refresh::Profiles, Refresh::Proxies] {
             assert!(!batch.enqueue(refresh));
         }
         tokio::time::timeout(Duration::from_secs(1), async {
             batch
                 .flush(|refresh| {
                     delivered.lock().push(refresh);
-                    if refresh == Refresh::Clash {
-                        assert!(batch.enqueue(Refresh::Clash));
-                        assert!(!batch.enqueue(Refresh::Clash));
+                    if refresh == Refresh::Craft {
+                        assert!(batch.enqueue(Refresh::Craft));
+                        assert!(!batch.enqueue(Refresh::Craft));
                     }
                 })
                 .await;
@@ -79,11 +79,11 @@ mod tests {
         assert_eq!(
             *delivered.lock(),
             [
-                Refresh::Clash,
+                Refresh::Craft,
                 Refresh::Verge,
                 Refresh::Profiles,
                 Refresh::Proxies,
-                Refresh::Clash
+                Refresh::Craft
             ]
         );
         assert!(batch.enqueue(Refresh::Verge));

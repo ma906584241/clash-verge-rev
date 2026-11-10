@@ -17,8 +17,8 @@ use crate::{
     process::AsyncHandler,
 };
 use anyhow::{Context as _, Result, anyhow, bail};
-use clash_verge_draft::DraftTransaction;
-use clash_verge_logging::{Type, logging};
+use craft_verge_draft::DraftTransaction;
+use craft_verge_logging::{Type, logging};
 use scopeguard::{ScopeGuard, defer, guard};
 
 pub async fn probe_listener(request: ListenerProbe) -> Result<ListenerProbeOutcome> {
@@ -42,11 +42,11 @@ pub async fn save_proxy_ports(settings: ProxyPortSettings) -> Result<SaveProxyPo
     // Read first because transaction rollback discards all claimed drafts.
     let current = current_runtime_mapping().await?;
 
-    let clash = Config::clash().await;
+    let craft = Config::craft().await;
     let verge = Config::verge().await;
     let runtime = Config::runtime().await;
     // Roll back all three drafts if the candidate is rejected or fails.
-    let transaction = DraftTransaction::begin(vec![&clash, &verge, &runtime])?;
+    let transaction = DraftTransaction::begin(vec![&craft, &verge, &runtime])?;
 
     stage_proxy_ports(&settings).await;
     // Hide PAC while the staged ports are not yet serving traffic.
@@ -126,7 +126,7 @@ pub async fn save_proxy_ports(settings: ProxyPortSettings) -> Result<SaveProxyPo
     transaction.commit();
     // The save landed, so the port the app had borrowed is now irrelevant.
     let _ = ScopeGuard::into_inner(borrowed_port);
-    announce(Refresh::Clash);
+    announce(Refresh::Craft);
     announce(Refresh::Verge);
     logging!(info, Type::Config, "Proxy port configuration applied and persisted");
     Ok(SaveProxyPortsOutcome::Saved)
@@ -180,7 +180,7 @@ fn rejected_save_outcome(assessment: ListenerProbeOutcome) -> Result<Option<Save
 }
 
 async fn stage_proxy_ports(settings: &ProxyPortSettings) {
-    Config::clash().await.edit_draft(|draft| {
+    Config::craft().await.edit_draft(|draft| {
         draft.0.insert("mixed-port".into(), settings.mixed_port.into());
         draft.0.insert("socks-port".into(), settings.socks.port.into());
         draft.0.insert("port".into(), settings.http.port.into());
@@ -209,7 +209,7 @@ async fn stage_proxy_ports(settings: &ProxyPortSettings) {
 }
 
 async fn persist_proxy_port_sources() -> Result<()> {
-    Config::clash()
+    Config::craft()
         .await
         .latest_arc()
         .save_config()
@@ -226,7 +226,7 @@ async fn persist_proxy_port_sources() -> Result<()> {
 
 /// Discard candidate drafts before restoring files from committed configuration.
 async fn discard_proxy_port_drafts() {
-    Config::clash().await.discard();
+    Config::craft().await.discard();
     Config::verge().await.discard();
     Config::runtime().await.discard();
 }

@@ -1,13 +1,13 @@
 [workspace]
 members = [
   "src-tauri",
-  "crates/clash-verge-draft",
-  "crates/clash-verge-media-unlock",
-  "crates/clash-verge-logging",
-  "crates/clash-verge-signal",
-  "crates/tauri-plugin-clash-verge-sysinfo",
-  "crates/clash-verge-i18n",
-  "crates/clash-verge-limiter",
+  "crates/craft-verge-draft",
+  "crates/craft-verge-media-unlock",
+  "crates/craft-verge-logging",
+  "crates/craft-verge-signal",
+  "crates/tauri-plugin-craft-verge-sysinfo",
+  "crates/craft-verge-i18n",
+  "crates/craft-verge-limiter",
 ]
 resolver = "2"
 
@@ -51,14 +51,14 @@ split-debuginfo = "unpacked"
 muda = { git = "https://github.com/wonfen/muda.git", rev = "547de49352791653fbdfa785f20f3c7ece8468e2" }
 
 [workspace.dependencies]
-clash-verge-draft = { path = "crates/clash-verge-draft" }
-clash-verge-media-unlock = { path = "crates/clash-verge-media-unlock" }
-clash-verge-logging = { path = "crates/clash-verge-logging" }
-clash-verge-signal = { path = "crates/clash-verge-signal" }
-clash-verge-i18n = { path = "crates/clash-verge-i18n" }
-clash-verge-limiter = { path = "crates/clash-verge-limiter" }
+craft-verge-draft = { path = "crates/craft-verge-draft" }
+craft-verge-media-unlock = { path = "crates/craft-verge-media-unlock" }
+craft-verge-logging = { path = "crates/craft-verge-logging" }
+craft-verge-signal = { path = "crates/craft-verge-signal" }
+craft-verge-i18n = { path = "crates/craft-verge-i18n" }
+craft-verge-limiter = { path = "crates/craft-verge-limiter" }
 tracing-estuary = { git = "https://github.com/Tunglies/tracing-estuary.git", branch = "main" }
-tauri-plugin-clash-verge-sysinfo = { path = "crates/tauri-plugin-clash-verge-sysinfo" }
+tauri-plugin-craft-verge-sysinfo = { path = "crates/tauri-plugin-craft-verge-sysinfo" }
 tracing = "0.1.44"
 
 tauri = { version = "2.12.5" }

@@ -40,7 +40,7 @@ import {
 } from 'tauri-plugin-mihomo-api'
 
 import { TooltipIcon } from '@/components/base'
-import { useRuntimeConfig } from '@/hooks/use-clash'
+import { useRuntimeConfig } from '@/hooks/use-craft'
 import { useRecordSelection } from '@/hooks/use-record-selection'
 import { useAppRefreshers, useProxiesData } from '@/providers/app-data-context'
 import { updateProxyChainConfigInRuntime } from '@/services/cmds'

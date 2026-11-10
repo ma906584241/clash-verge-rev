@@ -6,7 +6,7 @@ use crate::{
     utils::resolve::is_resolve_done,
 };
 use anyhow::Result;
-use clash_verge_logging::{Type, logging, logging_error};
+use craft_verge_logging::{Type, logging, logging_error};
 use futures::StreamExt as _;
 use parking_lot::{Mutex, RwLock};
 use smartstring::alias::String;

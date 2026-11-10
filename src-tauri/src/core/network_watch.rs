@@ -4,7 +4,7 @@
 //! switch to another service leaves the proxy on the old one; both need the write repeated.
 
 use crate::{config::Config, core::CoreManager, core::proxy_control, process::AsyncHandler};
-use clash_verge_logging::{Type, logging};
+use craft_verge_logging::{Type, logging};
 use parking_lot::Mutex;
 use sysproxy::NetworkServiceMonitor;
 

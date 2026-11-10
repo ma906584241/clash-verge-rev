@@ -5,7 +5,7 @@ use crate::{
     core::notification::{self, FailedOperation},
     feat,
 };
-use clash_verge_draft::SharedDraft;
+use craft_verge_draft::SharedDraft;
 
 /// 获取Verge配置
 #[tauri::command]

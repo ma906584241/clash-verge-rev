@@ -19,7 +19,7 @@
         "traffic": "流量统计卡",
         "tests": "网站测试卡",
         "ip": "IP 信息卡",
-        "clashInfo": "Clash 信息卡",
+        "craftInfo": "Craft 信息卡",
         "systemInfo": "系统信息卡"
       },
       "title": "首页设置"
@@ -40,8 +40,8 @@
         "tunMode": "TUN 模式可以接管所有应用流量，适用于特殊不遵循系统代理设置的应用"
       }
     },
-    "clashInfo": {
-      "title": "Clash 信息",
+    "craftInfo": {
+      "title": "Craft 信息",
       "fields": {
         "coreVersion": "内核版本",
         "systemProxyAddress": "系统代理地址",
@@ -137,7 +137,7 @@
       },
       "diagnostics": "数据点：{{points}} | 压缩后：{{compressed}} | 帧率：{{fps}}"
     },
-    "clashMode": {
+    "craftMode": {
       "errors": {
         "communication": "内核通信错误，请重启电脑再试"
       },
@@ -149,7 +149,7 @@
       "descriptions": {
         "rule": "基于预设规则智能判断流量走向，提供灵活的代理策略",
         "global": "所有流量均通过代理服务器，适用于需要全局科学上网的场景",
-        "direct": "所有流量不经过代理节点，但经过 Clash 内核转发连接目标服务器，适用于需要通过内核进行分流的特定场景"
+        "direct": "所有流量不经过代理节点，但经过 Craft 内核转发连接目标服务器，适用于需要通过内核进行分流的特定场景"
       }
     }
   }

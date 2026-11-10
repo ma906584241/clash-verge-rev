@@ -3,7 +3,7 @@ use crate::{config::Config, process::AsyncHandler, utils::dirs};
 use anyhow::Error;
 use arc_swap::{ArcSwap, ArcSwapOption};
 use backon::{ConstantBuilder, Retryable as _};
-use clash_verge_logging::{Type, logging};
+use craft_verge_logging::{Type, logging};
 use reqwest_dav::list_cmd::{ListEntity, ListFile, ListMultiStatus};
 use smartstring::alias::String;
 use std::{
@@ -107,7 +107,7 @@ impl WebDavClient {
                     .use_rustls_tls()
                     .danger_accept_invalid_certs(true)
                     .timeout(Duration::from_secs(op.timeout()))
-                    .user_agent(format!("clash-verge/{APP_VERSION} ({OS} WebDAV-Client)"))
+                    .user_agent(format!("craft-verge/{APP_VERSION} ({OS} WebDAV-Client)"))
                     .redirect(reqwest::redirect::Policy::custom(|attempt| {
                         if attempt.previous().len() >= 5 {
                             attempt.error("重定向次数过多")
@@ -294,8 +294,8 @@ pub async fn create_backup() -> Result<(String, PathBuf), Error> {
             }
         }
     }
-    zip.start_file(dirs::CLASH_CONFIG, options)?;
-    zip.write_all(fs::read(dirs::clash_path()?).await?.as_slice())?;
+    zip.start_file(dirs::CRAFT_CONFIG, options)?;
+    zip.write_all(fs::read(dirs::craft_path()?).await?.as_slice())?;
 
     let verge_text = fs::read_to_string(dirs::verge_path()?).await?;
     let mut verge_config: serde_json::Value = serde_yaml_ng::from_str(&verge_text)?;

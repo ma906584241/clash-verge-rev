@@ -26,7 +26,7 @@ import { Suspense, lazy, useCallback, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { BasePage } from '@/components/base'
-import { ClashModeCard } from '@/components/home/clash-mode-card'
+import { CraftModeCard } from '@/components/home/craft-mode-card'
 import { CurrentProxyCard } from '@/components/home/current-proxy-card'
 import { EnhancedCard } from '@/components/home/enhanced-card'
 import { EnhancedTrafficStats } from '@/components/home/enhanced-traffic-stats'
@@ -47,9 +47,9 @@ const preloadIpInfoCard = () =>
   import('@/components/home/ip-info-card').then((module) => ({
     default: module.IpInfoCard,
   }))
-const preloadClashInfoCard = () =>
-  import('@/components/home/clash-info-card').then((module) => ({
-    default: module.ClashInfoCard,
+const preloadCraftInfoCard = () =>
+  import('@/components/home/craft-info-card').then((module) => ({
+    default: module.CraftInfoCard,
   }))
 const preloadSystemInfoCard = () =>
   import('@/components/home/system-info-card').then((module) => ({
@@ -58,7 +58,7 @@ const preloadSystemInfoCard = () =>
 
 const LazyTestCard = lazy(preloadTestCard)
 const LazyIpInfoCard = lazy(preloadIpInfoCard)
-const LazyClashInfoCard = lazy(preloadClashInfoCard)
+const LazyCraftInfoCard = lazy(preloadCraftInfoCard)
 const LazySystemInfoCard = lazy(preloadSystemInfoCard)
 
 // Used by bootstrap to initiate optional card imports without blocking render.
@@ -67,7 +67,7 @@ export const preloadHomePageCards = () =>
   Promise.all([
     preloadTestCard().catch(() => {}),
     preloadIpInfoCard().catch(() => {}),
-    preloadClashInfoCard().catch(() => {}),
+    preloadCraftInfoCard().catch(() => {}),
     preloadSystemInfoCard().catch(() => {}),
   ])
 
@@ -79,7 +79,7 @@ interface HomeCardsSettings {
   mode: boolean
   traffic: boolean
   info: boolean
-  clashinfo: boolean
+  craftinfo: boolean
   systeminfo: boolean
   test: boolean
   ip: boolean
@@ -93,7 +93,7 @@ const DEFAULT_HOME_CARDS: HomeCardsSettings = {
   network: true,
   mode: true,
   traffic: true,
-  clashinfo: true,
+  craftinfo: true,
   systeminfo: true,
   test: true,
   ip: true,
@@ -203,11 +203,11 @@ const HomeSettingsDialog = ({
           <FormControlLabel
             control={
               <Checkbox
-                checked={cards.clashinfo || false}
-                onChange={() => handleToggle('clashinfo')}
+                checked={cards.craftinfo || false}
+                onChange={() => handleToggle('craftinfo')}
               />
             }
-            label={t('home.page.settings.cards.clashInfo')}
+            label={t('home.page.settings.cards.craftInfo')}
           />
           <FormControlLabel
             control={
@@ -244,7 +244,7 @@ const HomePage = () => {
 
   // 文档链接函数
   const toGithubDoc = useLockFn(() =>
-    openExternalUrl('https://clash-verge-rev.github.io/index.html').catch(
+    openExternalUrl('https://www.aioperis.com/').catch(
       showNotice.error,
     ),
   )
@@ -275,7 +275,7 @@ const HomePage = () => {
       ),
       renderCard('proxy', <CurrentProxyCard />),
       renderCard('network', <NetworkSettingsCard />),
-      renderCard('mode', <ClashModeEnhancedCard />),
+      renderCard('mode', <CraftModeEnhancedCard />),
     ],
     [current, mutateProfiles, renderCard],
   )
@@ -306,9 +306,9 @@ const HomePage = () => {
         </Suspense>,
       ),
       renderCard(
-        'clashinfo',
+        'craftinfo',
         <Suspense fallback={<Skeleton variant="rectangular" height={200} />}>
-          <LazyClashInfoCard />
+          <LazyCraftInfoCard />
         </Suspense>,
       ),
       renderCard(
@@ -386,8 +386,8 @@ const NetworkSettingsCard = () => {
   )
 }
 
-// 增强版 Clash 模式卡片组件
-const ClashModeEnhancedCard = () => {
+// 增强版 Craft 模式卡片组件
+const CraftModeEnhancedCard = () => {
   const { t } = useTranslation()
   return (
     <EnhancedCard
@@ -396,7 +396,7 @@ const ClashModeEnhancedCard = () => {
       iconColor="info"
       action={null}
     >
-      <ClashModeCard />
+      <CraftModeCard />
     </EnhancedCard>
   )
 }

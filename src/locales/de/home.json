@@ -19,7 +19,7 @@
         "traffic": "Verkehrsstatistik-Karte",
         "tests": "Website-Tests-Karte",
         "ip": "IP-Informationen-Karte",
-        "clashInfo": "Clash-Informationen-Karten",
+        "craftInfo": "Craft-Informationen-Karten",
         "systemInfo": "Systeminformationen-Karten"
       },
       "title": "Startseite-Einstellungen"
@@ -40,8 +40,8 @@
         "tunMode": "Der TUN-Modus kann den gesamten Anwendungsverkehr übernehmen und eignet sich für spezielle Anwendungen, die die Systemproxy-Einstellungen nicht befolgen."
       }
     },
-    "clashInfo": {
-      "title": "Clash-Informationen",
+    "craftInfo": {
+      "title": "Craft-Informationen",
       "fields": {
         "coreVersion": "Kernversion",
         "systemProxyAddress": "Systemproxy-Adresse",
@@ -137,7 +137,7 @@
       },
       "diagnostics": "Punkte: {{points}} | Komprimiert: {{compressed}} | FPS: {{fps}}"
     },
-    "clashMode": {
+    "craftMode": {
       "errors": {
         "communication": "Kernkommunikationsfehler, bitte starten Sie den Computer neu und versuchen Sie es erneut"
       },

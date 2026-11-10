@@ -50,13 +50,13 @@ export const createEventBus = (deps: BusHandlerDeps) => {
   }
 
   const handlers: BusHandlers = {
-    'verge://refresh-clash-config': () =>
+    'verge://refresh-craft-config': () =>
       deps.revalidateKeys([
         'getProxyView',
         'getVersion',
-        'getClashConfig',
-        'getClashInfo',
-        'getClashMode',
+        'getCraftConfig',
+        'getCraftInfo',
+        'getCraftMode',
         'getRuntimeConfig',
         'getRules',
         'getRuleProviders',

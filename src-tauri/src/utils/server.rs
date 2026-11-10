@@ -6,7 +6,7 @@ use crate::{
     utils::{dirs, window_manager::WindowManager},
 };
 use anyhow::{Context as _, Result, bail};
-use clash_verge_logging::{Type, logging};
+use craft_verge_logging::{Type, logging};
 use parking_lot::Mutex;
 use reqwest::ClientBuilder;
 use serde::{Deserialize, Serialize};
@@ -127,7 +127,10 @@ async fn notify_existing_instance(record: &InstanceRecord) -> bool {
     };
     #[cfg(not(target_os = "macos"))]
     let request = if let Some(arg) = std::env::args().nth(1).as_deref() {
-        if arg.starts_with("clash:") {
+        if ["craft:", "craft-verge:", "clash:", "clash-verge:"]
+            .iter()
+            .any(|&scheme| arg.starts_with(scheme))
+        {
             client
                 .get(format!("http://127.0.0.1:{}/commands/scheme", record.port))
                 .query(&[("param", arg)])

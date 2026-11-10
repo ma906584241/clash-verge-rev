@@ -5,7 +5,7 @@ import { forwardRef, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { BaseDialog, Switch } from '@/components/base'
-import { useClash } from '@/hooks/use-clash'
+import { useCraft } from '@/hooks/use-craft'
 import { restartCore } from '@/services/cmds'
 import { mutate } from '@/services/mutate'
 import { showNotice } from '@/services/notice-service'
@@ -61,7 +61,7 @@ const deleteButtonStyle = {
   },
 }
 
-interface ClashHeaderConfigingRef {
+interface CraftHeaderConfigingRef {
   open: () => void
   close: () => void
 }
@@ -71,10 +71,10 @@ interface AllowOriginItem {
   value: string
 }
 
-export const HeaderConfiguration = forwardRef<ClashHeaderConfigingRef>(
+export const HeaderConfiguration = forwardRef<CraftHeaderConfigingRef>(
   (props, ref) => {
     const { t } = useTranslation()
-    const { clash, mutateClash, patchClash } = useClash()
+    const { craft, mutateCraft, patchCraft } = useCraft()
     const [open, setOpen] = useState(false)
 
     const lastKeyRef = useRef(0) // 用于生成唯一的key
@@ -83,7 +83,7 @@ export const HeaderConfiguration = forwardRef<ClashHeaderConfigingRef>(
       allowPrivateNetwork: boolean
       allowOrigins: AllowOriginItem[]
     }>(() => {
-      const cors = clash?.['external-controller-cors']
+      const cors = craft?.['external-controller-cors']
       const origins = cors?.['allow-origins'] ?? []
       return {
         allowPrivateNetwork: cors?.['allow-private-network'] ?? true,
@@ -130,7 +130,7 @@ export const HeaderConfiguration = forwardRef<ClashHeaderConfigingRef>(
           corsConfig.allowOrigins.map((origin) => origin.value),
         )
 
-        await patchClash({
+        await patchCraft({
           'external-controller-cors': {
             'allow-private-network': corsConfig.allowPrivateNetwork,
             'allow-origins': fullOrigins.filter(
@@ -142,7 +142,7 @@ export const HeaderConfiguration = forwardRef<ClashHeaderConfigingRef>(
           id: 'restart-core',
           errorNotice: false,
         })
-        await mutateClash()
+        await mutateCraft()
       },
       {
         manual: true,
@@ -158,7 +158,7 @@ export const HeaderConfiguration = forwardRef<ClashHeaderConfigingRef>(
 
     useSettingDialog(ref, 'external-controller-cors', open, () => ({
       open: () => {
-        const cors = clash?.['external-controller-cors']
+        const cors = craft?.['external-controller-cors']
         const origins = cors?.['allow-origins'] ?? []
         lastKeyRef.current = 0
         setCorsConfig({

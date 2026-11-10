@@ -23,6 +23,7 @@ import { useVerge } from '@/hooks/use-verge'
 import { getSystemInfo } from '@/services/cmds'
 import { showNotice } from '@/services/notice-service'
 import { useQuery } from '@/services/query-client'
+import { APP_UPDATES_ENABLED } from '@/services/update'
 import { version as appVersion } from '@root/package.json'
 
 import { EnhancedCard } from './enhanced-card'
@@ -55,12 +56,17 @@ export const SystemInfoCard = () => {
   })
 
   const lastCheckUpdateText = useMemo(
-    () => (lastCheckUpdate ? new Date(lastCheckUpdate).toLocaleString() : '-'),
-    [lastCheckUpdate],
+    () =>
+      APP_UPDATES_ENABLED
+        ? lastCheckUpdate
+          ? new Date(lastCheckUpdate).toLocaleString()
+          : '-'
+        : t('shared.statuses.disabled'),
+    [lastCheckUpdate, t],
   )
 
   useEffect(() => {
-    if (!verge?.auto_check_update) return
+    if (!APP_UPDATES_ENABLED || !verge?.auto_check_update) return
     if (readLastCheckTime() !== null) return
 
     updateLastCheckTime()
@@ -263,12 +269,12 @@ export const SystemInfoCard = () => {
           </Typography>
           <Typography
             variant="body2"
-            onClick={onCheckUpdate}
+            onClick={APP_UPDATES_ENABLED ? onCheckUpdate : undefined}
             sx={{
-              cursor: 'pointer',
-              textDecoration: 'underline',
+              cursor: APP_UPDATES_ENABLED ? 'pointer' : 'default',
+              textDecoration: APP_UPDATES_ENABLED ? 'underline' : 'none',
               fontWeight: 'medium',
-              '&:hover': { opacity: 0.7 },
+              '&:hover': { opacity: APP_UPDATES_ENABLED ? 0.7 : 1 },
             }}
           >
             {lastCheckUpdateText}

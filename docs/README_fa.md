@@ -1,12 +1,12 @@
 <h1 align="center">
-  <img src="../src-tauri/icons/icon.png" alt="Clash" width="128" />
+  <img src="../src-tauri/icons/icon.png" alt="Craft" width="128" />
   <br>
-  Continuation of <a href="https://github.com/zzzgydi/clash-verge">Clash Verge</a>
+  Continuation of <a href="https://www.aioperis.com/">Craft Verge</a>
   <br>
 </h1>
 
 <h3 align="center">
-  یک رابط کاربری گرافیکی Clash Meta که با <a href="https://github.com/tauri-apps/tauri">Tauri</a> ساخته شده است.
+  یک رابط کاربری گرافیکی Craft Meta که با <a href="https://github.com/tauri-apps/tauri">Tauri</a> ساخته شده است.
 </h3>
 
 <p align="center">
@@ -29,23 +29,23 @@
 
 ## نصب
 
-برای دانلود فایل نصبی متناسب با پلتفرم خود، به [صفحه انتشار](https://github.com/clash-verge-rev/clash-verge-rev/releases) مراجعه کنید.<br> ما بسته‌هایی برای ویندوز (x64/x86)، لینوکس (x64/arm64) و macOS 10.15+ (اینتل/اپل) ارائه می‌دهیم.
+برای دانلود فایل نصبی متناسب با پلتفرم خود، به [صفحه انتشار](https://www.aioperis.com/) مراجعه کنید.<br> ما بسته‌هایی برای ویندوز (x64/x86)، لینوکس (x64/arm64) و macOS 10.15+ (اینتل/اپل) ارائه می‌دهیم.
 
 #### انتخاب کانال انتشار
 
 | Channel     | توضیحات                                                                                           | Link                                                                                   |
 | :---------- | :------------------------------------------------------------------------------------------------ | :------------------------------------------------------------------------------------- |
-| Stable      | ساخت رسمی با قابلیت اطمینان بالا، ایده‌آل برای استفاده روزانه.                                    | [Release](https://github.com/clash-verge-rev/clash-verge-rev/releases)                 |
-| Alpha (EOL) | نسخه‌های قدیمی (Legacy builds) برای اعتبارسنجی خط لوله انتشار (publish pipeline) استفاده می‌شوند. | [Alpha](https://github.com/clash-verge-rev/clash-verge-rev/releases/tag/alpha)         |
-| AutoBuild   | نسخه‌های آزمایشی برای آزمایش و دریافت بازخورد. منتظر تغییرات آزمایشی باشید.                       | [AutoBuild](https://github.com/clash-verge-rev/clash-verge-rev/releases/tag/autobuild) |
+| Stable      | ساخت رسمی با قابلیت اطمینان بالا، ایده‌آل برای استفاده روزانه.                                    | [Release](https://www.aioperis.com/)                 |
+| Alpha (EOL) | نسخه‌های قدیمی (Legacy builds) برای اعتبارسنجی خط لوله انتشار (publish pipeline) استفاده می‌شوند. | [Alpha](https://www.aioperis.com/)         |
+| AutoBuild   | نسخه‌های آزمایشی برای آزمایش و دریافت بازخورد. منتظر تغییرات آزمایشی باشید.                       | [AutoBuild](https://www.aioperis.com/) |
 
 #### راهنماهای نصب و سوالات متداول
 
-برای مراحل نصب، عیب‌یابی و سوالات متداول، [مستندات پروژه](https://clash-verge-rev.github.io/) را مطالعه کنید.
+برای مراحل نصب، عیب‌یابی و سوالات متداول، [مستندات پروژه](https://www.aioperis.com/) را مطالعه کنید.
 
 ### کانال تلگرام
 
-برای اطلاع از آخرین اخبار به [@clash_verge_rev](https://t.me/clash_verge_re) بپیوندید.
+برای اطلاع از آخرین اخبار به [@clash_verge_rev](https://www.aioperis.com/) بپیوندید.
 
 ---
 
@@ -54,12 +54,12 @@
 #### [Doggygo VPN — شتاب‌دهنده جهانی عملکردگرا](https://cvr.dginv.click/#/register?code=oaxsAGo6)
 
 - سرویس شبکه برون مرزی با عملکرد بالا به همراه دوره‌های آزمایشی رایگان، طرح‌های تخفیف‌دار، امکان باز کردن قفل استریم و پشتیبانی درجه یک از پروتکل هیستریا.
-- از طریق لینک اختصاصی Clash Verge ثبت نام کنید تا یک دوره آزمایشی ۳ روزه با ۱ گیگابایت ترافیک در روز دریافت کنید: [ثبت نام](https://cvr.dginv.click/#/register?code=oaxsAGo6)
-- کوپن تخفیف ۲۰٪ ویژه کاربران Clash Verge: `verge20` (محدود به ۵۰۰ بار استفاده)
+- از طریق لینک اختصاصی Craft Verge ثبت نام کنید تا یک دوره آزمایشی ۳ روزه با ۱ گیگابایت ترافیک در روز دریافت کنید: [ثبت نام](https://cvr.dginv.click/#/register?code=oaxsAGo6)
+- کوپن تخفیف ۲۰٪ ویژه کاربران Craft Verge: `verge20` (محدود به ۵۰۰ بار استفاده)
 - بسته تخفیف‌دار از ۱۵.۸ ین در ماه برای ۱۶۰ گیگابایت، به علاوه ۲۰٪ تخفیف اضافی برای صورتحساب سالانه
 - توسط یک تیم خارجی با خدمات قابل اعتماد و تا 50٪ سهم درآمد اداره می‌شود
 - کلاسترهای متعادل بار با مسیرهای اختصاصی پرسرعت (سازگار با کلاینت‌های قدیمی)، تأخیر فوق‌العاده کم، پخش روان 4K
-- اولین ارائه‌دهنده جهانی با **پروتکل QUIC**، اکنون با پروتکل‌های سریع‌تر خانواده QUIC (بهترین ترکیب با کلاینت Clash Verge)
+- اولین ارائه‌دهنده جهانی با **پروتکل QUIC**، اکنون با پروتکل‌های سریع‌تر خانواده QUIC (بهترین ترکیب با کلاینت Craft Verge)
 - پشتیبانی از سرویس‌های استریم و دسترسی به ChatGPT
 - وبسایت رسمی: [https://狗狗加速.com](https://cvr.dginv.click/#/register?code=oaxsAGo6)
 
@@ -77,7 +77,7 @@
 ## ویژگی‌ها
 
 - ساخته شده بر اساس Rust با کارایی بالا و فریم‌ورک Tauri 2
-- با هسته جاسازی‌شده [Clash.Meta (mihomo)](https://github.com/MetaCubeX/mihomo) ارائه می‌شود و از تغییر به کانال «آلفا» پشتیبانی می‌کند.
+- با هسته جاسازی‌شده [Craft.Meta (mihomo)](https://github.com/MetaCubeX/mihomo) ارائه می‌شود و از تغییر به کانال «آلفا» پشتیبانی می‌کند.
 - رابط کاربری تمیز و مرتب با کنترل‌های رنگ تم، آیکون‌های گروه/سینی پروکسی و `تزریق CSS`
 - مدیریت پروفایل پیشرفته (ادغام و کمک‌کننده‌های اسکریپت) با نکات مربوط به سینتکس پیکربندی
 - کنترل‌های پروکسی سیستم، حالت محافظت و پشتیبانی از `TUN` (آداپتور شبکه مجازی)
@@ -86,11 +86,11 @@
 
 ### سوالات متداول
 
-برای راهنمایی‌های مربوط به هر پلتفرم، به [صفحه سوالات متداول](https://clash-verge-rev.github.io/faq/windows.html) مراجعه کنید.
+برای راهنمایی‌های مربوط به هر پلتفرم، به [صفحه سوالات متداول](https://www.aioperis.com/) مراجعه کنید.
 
 ### اهدا
 
-[پشتیبانی از توسعه Clash Verge Rev](https://github.com/sponsors/clash-verge-rev)
+[پشتیبانی از توسعه Craft Verge Rev](https://www.aioperis.com/)
 
 ## توسعه
 
@@ -110,13 +110,13 @@ pnpm dev
 
 ## تقدیر و تشکر
 
-Clash Verge Rev بر اساس این پروژه‌ها ساخته شده یا از آنها الهام گرفته است:
+Craft Verge Rev بر اساس این پروژه‌ها ساخته شده یا از آنها الهام گرفته است:
 
-- [zzzgydi/clash-verge](https://github.com/zzzgydi/clash-verge): یک رابط کاربری گرافیکی Clash مبتنی بر Tauri برای ویندوز، macOS و لینوکس..
+- [zzzgydi/craft-verge](https://www.aioperis.com/): یک رابط کاربری گرافیکی Craft مبتنی بر Tauri برای ویندوز، macOS و لینوکس..
 - [tauri-apps/tauri](https://github.com/tauri-apps/tauri): ساخت برنامه‌های دسکتاپ کوچک‌تر، سریع‌تر و امن‌تر با رابط کاربری وب.
-- [Dreamacro/clash](https://github.com/Dreamacro/clash): یک تونل مبتنی بر قانون که با زبان Go نوشته شده است.
+- [Dreamacro/craft](https://github.com/Dreamacro/clash): یک تونل مبتنی بر قانون که با زبان Go نوشته شده است.
 - [MetaCubeX/mihomo](https://github.com/MetaCubeX/mihomo): یک تونل مبتنی بر قانون که با زبان Go نوشته شده است.
-- [Fndroid/clash_for_windows_pkg](https://github.com/Fndroid/clash_for_windows_pkg): رابط کاربری گرافیکی Clash برای ویندوز و macOS.
+- [Fndroid/craft_for_windows_pkg](https://github.com/Fndroid/clash_for_windows_pkg): رابط کاربری گرافیکی Craft برای ویندوز و macOS.
 - [vitejs/vite](https://github.com/vitejs/vite): ابزارهای فرانت‌اند نسل بعدی با DX فوق‌العاده سریع.
 
 ## مجوز

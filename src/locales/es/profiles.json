@@ -40,8 +40,8 @@
         "updateFailed": "No se pudo actualizar la suscripción"
       },
       "notifications": {
-        "importRetry": "Error al importar la suscripción. Intentando con el proxy de Clash...",
-        "importFail": "Error al importar incluso con el proxy de Clash",
+        "importRetry": "Error al importar la suscripción. Intentando con el proxy de Craft...",
+        "importFail": "Error al importar incluso con el proxy de Craft",
         "importNeedsRefresh": "Profile imported but may need manual refresh",
         "importSuccess": "Profile imported successfully, please restart if not visible",
         "profileSwitched": "Suscripción cambiada",
@@ -122,7 +122,7 @@
         "httpTimeout": "HTTP Request Timeout",
         "updateInterval": "Intervalo de actualización",
         "useSystemProxy": "Usar proxy del sistema para actualizar",
-        "useClashProxy": "Usar proxy del núcleo para actualizar",
+        "useCraftProxy": "Usar proxy del núcleo para actualizar",
         "acceptInvalidCerts": "Allows Invalid Certificates (Danger)",
         "allowAutoUpdate": "Allow Auto Update"
       },
@@ -141,8 +141,8 @@
       },
       "feedback": {
         "notifications": {
-          "creationRetry": "Error al crear la suscripción. Intentando con el proxy de Clash...",
-          "creationSuccess": "Creación de la suscripción con el proxy de Clash exitosa"
+          "creationRetry": "Error al crear la suscripción. Intentando con el proxy de Craft...",
+          "creationSuccess": "Creación de la suscripción con el proxy de Craft exitosa"
         }
       }
     },

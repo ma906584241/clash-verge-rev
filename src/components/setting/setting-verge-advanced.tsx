@@ -15,7 +15,10 @@ import {
 } from '@/services/cmds'
 import { mutate } from '@/services/mutate'
 import { showNotice } from '@/services/notice-service'
-import { checkUpdateSafe as checkUpdate } from '@/services/update'
+import {
+  APP_UPDATES_ENABLED,
+  checkUpdateSafe as checkUpdate,
+} from '@/services/update'
 import { version } from '@root/package.json'
 
 import { BackupViewer } from './mods/backup-viewer'
@@ -85,7 +88,7 @@ const SettingVergeAdvanced = ({ onError: _ }: Props) => {
       <HotkeyViewer ref={hotkeyRef} />
       <MiscViewer ref={miscRef} />
       <LayoutViewer ref={layoutRef} />
-      <UpdateViewer ref={updateRef} />
+      {APP_UPDATES_ENABLED && <UpdateViewer ref={updateRef} />}
       <BackupViewer ref={backupRef} />
       <LiteModeViewer ref={liteModeRef} />
 
@@ -133,8 +136,11 @@ const SettingVergeAdvanced = ({ onError: _ }: Props) => {
 
       <SettingItem
         data-setting-target="settings.components.verge.advanced.fields.checkUpdates"
-        onClick={onCheckUpdate}
+        onClick={APP_UPDATES_ENABLED ? onCheckUpdate : undefined}
         label={t('settings.components.verge.advanced.fields.checkUpdates')}
+        secondary={
+          APP_UPDATES_ENABLED ? undefined : t('shared.statuses.disabled')
+        }
       />
 
       <SettingItem

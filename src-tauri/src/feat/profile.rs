@@ -8,7 +8,7 @@ use crate::{
     utils::help::{mask_err, mask_url},
 };
 use anyhow::{Result, bail};
-use clash_verge_logging::{Type, logging};
+use craft_verge_logging::{Type, logging};
 use smartstring::alias::String;
 
 /// Toggle proxy profile
@@ -136,7 +136,7 @@ async fn should_update_profile(uid: &String, ignore_auto_update: bool) -> Result
     }
 }
 
-#[tracing::instrument(skip_all, level = "info", fields(uid = %uid, strategy = tracing::field::Empty, configured_elapsed = tracing::field::Empty, clash_elapsed = tracing::field::Empty, system_elapsed = tracing::field::Empty))]
+#[tracing::instrument(skip_all, level = "info", fields(uid = %uid, strategy = tracing::field::Empty, configured_elapsed = tracing::field::Empty, craft_elapsed = tracing::field::Empty, system_elapsed = tracing::field::Empty))]
 async fn perform_profile_update(
     uid: &String,
     url: &String,
@@ -156,24 +156,24 @@ async fn perform_profile_update(
     #[derive(Clone, Copy)]
     enum Strategy {
         Configured,
-        Clash,
+        Craft,
         System,
     }
 
     let result =
-        crate::utils::retry::try_strategies(Strategy::Configured, [Strategy::Clash, Strategy::System], |strategy| {
+        crate::utils::retry::try_strategies(Strategy::Configured, [Strategy::Craft, Strategy::System], |strategy| {
             let mut options = merged_opt.clone();
             async move {
                 let (name, success, failure) = match strategy {
                     Strategy::Configured => (
                         "configured",
                         "[订阅更新] 更新订阅配置成功",
-                        "[订阅更新] 直接更新失败: {}，尝试使用Clash代理更新",
+                        "[订阅更新] 直接更新失败: {}，尝试使用Craft代理更新",
                     ),
-                    Strategy::Clash => (
-                        "clash",
-                        "[订阅更新] 使用 Clash代理 更新订阅配置成功",
-                        "[订阅更新] Clash代理更新失败: {}，尝试使用系统代理更新",
+                    Strategy::Craft => (
+                        "craft",
+                        "[订阅更新] 使用 Craft代理 更新订阅配置成功",
+                        "[订阅更新] Craft代理更新失败: {}，尝试使用系统代理更新",
                     ),
                     Strategy::System => (
                         "system",
@@ -183,9 +183,9 @@ async fn perform_profile_update(
                 };
                 match strategy {
                     Strategy::Configured => {}
-                    Strategy::Clash | Strategy::System => {
+                    Strategy::Craft | Strategy::System => {
                         let option = options.get_or_insert_with(PrfOption::default);
-                        option.self_proxy = Some(matches!(strategy, Strategy::Clash));
+                        option.self_proxy = Some(matches!(strategy, Strategy::Craft));
                         option.with_proxy = Some(matches!(strategy, Strategy::System));
                     }
                 }
@@ -194,7 +194,7 @@ async fn perform_profile_update(
                 let result = PrfItem::from_url(url, None, None, options.as_ref()).await;
                 let elapsed_field = match strategy {
                     Strategy::Configured => "configured_elapsed",
-                    Strategy::Clash => "clash_elapsed",
+                    Strategy::Craft => "craft_elapsed",
                     Strategy::System => "system_elapsed",
                 };
                 tracing::Span::current().record(elapsed_field, tracing::field::debug(started.elapsed()));
@@ -216,7 +216,7 @@ async fn perform_profile_update(
             // A persistence error must not replay a successful download with another transport.
             profiles_update_item_safe(uid, &mut item).await?;
             if !matches!(strategy, Strategy::Configured) {
-                handle::Handle::notice(NoticeStatus::UpdateWithClashProxy, profile_name.as_str());
+                handle::Handle::notice(NoticeStatus::UpdateWithCraftProxy, profile_name.as_str());
             }
             return Ok(());
         }
@@ -226,7 +226,7 @@ async fn perform_profile_update(
     let last_err = mask_err(&last_err.to_string());
     if is_mannual_trigger {
         handle::Handle::notice(
-            NoticeStatus::UpdateFailedEvenWithClash,
+            NoticeStatus::UpdateFailedEvenWithCraft,
             format!("{profile_name} - {last_err}"),
         );
     }
@@ -251,7 +251,7 @@ pub async fn update_profile(uid: &String, option: Option<&PrfOption>, is_mannual
     if should_refresh {
         logging!(debug, Type::Config, "[订阅更新] 更新内核配置");
         match CoreManager::global().update_config_with_force(is_mannual_trigger).await {
-            Ok(outcome) if outcome.is_valid() => announce(Refresh::Clash),
+            Ok(outcome) if outcome.is_valid() => announce(Refresh::Craft),
             Ok(outcome @ (ValidationOutcome::Skipped { .. } | ValidationOutcome::Busy)) if !is_mannual_trigger => {
                 logging!(info, Type::Config, "[订阅更新] 本次配置刷新已跳过: {}", outcome);
             }

@@ -6,7 +6,7 @@ use crate::{
 };
 use anyhow::Result;
 use chrono::Local;
-use clash_verge_logging::{Type, logging};
+use craft_verge_logging::{Type, logging};
 use std::{
     path::PathBuf,
     sync::{

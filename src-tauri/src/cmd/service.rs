@@ -58,7 +58,7 @@ where
     let Err(error) = installation else {
         return Ok(ServiceInstallOutcome::Installed);
     };
-    let Some(failure) = error.downcast_ref::<clash_verge_service_ipc::management::InstallationVerificationError>()
+    let Some(failure) = error.downcast_ref::<craft_verge_service_ipc::management::InstallationVerificationError>()
     else {
         return Err(proxy_aware_coded_error(&error, error_code));
     };
@@ -67,7 +67,7 @@ where
         .cores
         .iter()
         .filter_map(|core| match &core.availability {
-            clash_verge_service_ipc::CoreAvailability::Rejected { reason } => Some(format!("{}: {reason}", core.name)),
+            craft_verge_service_ipc::CoreAvailability::Rejected { reason } => Some(format!("{}: {reason}", core.name)),
             _ => None,
         })
         .collect::<Vec<_>>();
@@ -159,7 +159,7 @@ pub fn sync_runtime_providers() {
 #[allow(clippy::expect_used, reason = "tests assert by panicking")]
 mod tests {
     use super::{ServiceInstallOutcome, finish_service_installation};
-    use clash_verge_service_ipc::{
+    use craft_verge_service_ipc::{
         CoreAvailability, CoreInspection, InstallationStatus, ProtocolInfo, management::InstallationVerificationError,
     };
     use std::cell::Cell;

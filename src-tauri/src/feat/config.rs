@@ -1,15 +1,15 @@
 use crate::config::{Config, IVerge};
 use anyhow::Result;
-use clash_verge_draft::SharedDraft;
+use craft_verge_draft::SharedDraft;
 use serde_yaml_ng::Mapping;
 use tokio::sync::MutexGuard;
 
-pub async fn patch_clash(patch: &Mapping) -> Result<()> {
+pub async fn patch_craft(patch: &Mapping) -> Result<()> {
     let config_write = Config::try_lock_config_write()?;
     super::executor::apply(
         &config_write,
-        super::executor::Patch::Clash(patch),
-        super::effects::clash_effects(patch),
+        super::executor::Patch::Craft(patch),
+        super::effects::craft_effects(patch),
     )
     .await
 }

@@ -1,4 +1,4 @@
-pub const ITEM_LOCAL: &str = "# Profile Template for Clash Verge
+pub const ITEM_LOCAL: &str = "# Profile Template for Craft Verge
 
 proxies: []
 
@@ -7,13 +7,13 @@ proxy-groups: []
 rules: []
 ";
 
-pub const ITEM_MERGE: &str = "# Profile Enhancement Merge Template for Clash Verge
+pub const ITEM_MERGE: &str = "# Profile Enhancement Merge Template for Craft Verge
 
 profile:
   store-selected: true
 ";
 
-pub const ITEM_MERGE_EMPTY: &str = "# Profile Enhancement Merge Template for Clash Verge
+pub const ITEM_MERGE_EMPTY: &str = "# Profile Enhancement Merge Template for Craft Verge
 
 ";
 
@@ -24,7 +24,7 @@ function main(config, profileName) {
 }
 ";
 
-pub const ITEM_RULES: &str = "# Profile Enhancement Rules Template for Clash Verge
+pub const ITEM_RULES: &str = "# Profile Enhancement Rules Template for Craft Verge
 
 prepend: []
 
@@ -33,7 +33,7 @@ append: []
 delete: []
 ";
 
-pub const ITEM_PROXIES: &str = "# Profile Enhancement Proxies Template for Clash Verge
+pub const ITEM_PROXIES: &str = "# Profile Enhancement Proxies Template for Craft Verge
 
 prepend: []
 
@@ -42,7 +42,7 @@ append: []
 delete: []
 ";
 
-pub const ITEM_GROUPS: &str = "# Profile Enhancement Groups Template for Clash Verge
+pub const ITEM_GROUPS: &str = "# Profile Enhancement Groups Template for Craft Verge
 
 prepend: []
 

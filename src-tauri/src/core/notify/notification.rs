@@ -1,5 +1,5 @@
 use super::NoticeStatus;
-use clash_verge_logging::{Type, logging};
+use craft_verge_logging::{Type, logging};
 use parking_lot::Mutex;
 #[cfg(test)]
 use serde_json::json;
@@ -11,7 +11,7 @@ use tauri::{AppHandle, Emitter as _, Manager as _, WebviewWindow};
 
 #[derive(Debug, Clone)]
 pub enum FrontendEvent<'a> {
-    RefreshClash,
+    RefreshCraft,
     RefreshVerge,
     RefreshProfiles,
     RefreshProxyConfig,
@@ -380,7 +380,7 @@ fn sample_frontend_events(uid: &String) -> Vec<(FrontendEvent<'_>, &'static str,
     }
     .to_view();
     vec![
-        (FrontendEvent::RefreshClash, "verge://refresh-clash-config", json!(null)),
+        (FrontendEvent::RefreshCraft, "verge://refresh-craft-config", json!(null)),
         (FrontendEvent::RefreshVerge, "verge://refresh-verge-config", json!(null)),
         (FrontendEvent::RefreshProfiles, "verge://refresh-profiles", json!(null)),
         (
@@ -452,7 +452,7 @@ macro_rules! frontend_events {
 }
 
 frontend_events! {
-    refresh_clash: () = "verge://refresh-clash-config", FrontendEvent::RefreshClash => ();
+    refresh_craft: () = "verge://refresh-craft-config", FrontendEvent::RefreshCraft => ();
     refresh_verge: () = "verge://refresh-verge-config", FrontendEvent::RefreshVerge => ();
     refresh_profiles: () = "verge://refresh-profiles", FrontendEvent::RefreshProfiles => ();
     refresh_proxy: () = "verge://refresh-proxy-config", FrontendEvent::RefreshProxyConfig => ();

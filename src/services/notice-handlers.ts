@@ -77,8 +77,8 @@ const handlers: Record<
           shownStartupError = shown
           showNotice.error(
             failure.kind === 'serviceCoreStopped'
-              ? 'settings.feedback.errors.clash.serviceCoreStopped'
-              : 'settings.feedback.errors.clash.startFailed',
+              ? 'settings.feedback.errors.craft.serviceCoreStopped'
+              : 'settings.feedback.errors.craft.startFailed',
             failure.detail,
           )
         }
@@ -104,7 +104,7 @@ const handlers: Record<
         if (command) {
           if (shownOwnerNotice !== null) hideNotice(shownOwnerNotice)
           shownOwnerNotice = showNotice.warning(
-            'settings.feedback.notifications.clashService.appDataNotOwned',
+            'settings.feedback.notifications.craftService.appDataNotOwned',
             { command },
             0,
           )
@@ -119,7 +119,7 @@ const handlers: Record<
       .then((notice) => {
         if (notice?.kind === 'coreRejected') {
           showNotice.warning(
-            'settings.feedback.notifications.clashService.permissionFallback',
+            'settings.feedback.notifications.craftService.permissionFallback',
             { reason: notice.reason },
             0,
           )
@@ -127,7 +127,7 @@ const handlers: Record<
           requestService({ reason: 'serviceNotAutoStarted' })
         } else if (notice) {
           showNotice.warning(
-            'settings.feedback.notifications.clashService.sidecarFallback',
+            'settings.feedback.notifications.craftService.sidecarFallback',
           )
         }
       })
@@ -180,14 +180,14 @@ const handlers: Record<
       'layout.feedback.errors.quitCoreStopFailed',
       msg || undefined,
     ),
-  update_with_clash_proxy: (msg) =>
+  update_with_craft_proxy: (msg) =>
     showNotice.success(
-      'settings.feedback.notifications.updater.withClashProxySuccess',
+      'settings.feedback.notifications.updater.withCraftProxySuccess',
       msg,
     ),
-  update_failed_even_with_clash: (msg) =>
+  update_failed_even_with_craft: (msg) =>
     showNotice.error(
-      'settings.feedback.notifications.updater.withClashProxyFailed',
+      'settings.feedback.notifications.updater.withCraftProxyFailed',
       msg,
     ),
   'reactivate_profiles::error': (msg) => showNotice.error(msg),
@@ -218,21 +218,21 @@ const handlers: Record<
     showNotice.error('shared.feedback.validation.merge.mappingError', msg),
   'config_core::change_success': (msg) =>
     showNotice.success(
-      'settings.feedback.notifications.clash.changeSuccess',
+      'settings.feedback.notifications.craft.changeSuccess',
       msg,
     ),
   'config_core::change_error': (msg) =>
-    showNotice.error('settings.feedback.notifications.clash.changeFailed', msg),
+    showNotice.error('settings.feedback.notifications.craft.changeFailed', msg),
   'mixed_port::fallback': (msg) => {
     const [oldPort, newPort] = msg.split(',')
-    showNotice.info('settings.modals.clashPort.messages.automaticFallback', {
+    showNotice.info('settings.modals.craftPort.messages.automaticFallback', {
       oldPort,
       newPort,
     })
   },
   'mixed_port::fallback_error': (msg) =>
     showNotice.error(
-      'settings.modals.clashPort.messages.automaticFallbackFailed',
+      'settings.modals.craftPort.messages.automaticFallbackFailed',
       { error: msg },
     ),
 }

@@ -30,8 +30,8 @@ export type {
   UnlockItem,
 } from './bindings'
 
-export async function copyClashEnv() {
-  return commands.copyClashEnv()
+export async function copyCraftEnv() {
+  return commands.copyCraftEnv()
 }
 
 export async function getProfiles(): Promise<IProfilesConfig> {
@@ -106,13 +106,13 @@ export async function patchProfile(index: string, profile: ProfilePatch) {
   })
 }
 
-export async function getClashInfo() {
-  return commands.getClashInfo()
+export async function getCraftInfo() {
+  return commands.getCraftInfo()
 }
 
 // Fallback mode read independent of strict mihomo `/configs` deserialization.
-export async function getClashMode() {
-  return commands.getClashMode()
+export async function getCraftMode() {
+  return commands.getCraftMode()
 }
 
 export async function getRuntimeConfig() {
@@ -144,12 +144,12 @@ export async function updateProxyChainConfigInRuntime(
   return outcome
 }
 
-export async function patchClashConfig(payload: Partial<IConfigData>) {
-  return commands.patchClashConfig(payload as Record<string, JsonValue>)
+export async function patchCraftConfig(payload: Partial<IConfigData>) {
+  return commands.patchCraftConfig(payload as Record<string, JsonValue>)
 }
 
-export async function patchClashMode(payload: string) {
-  return commands.patchClashMode(payload)
+export async function patchCraftMode(payload: string) {
+  return commands.patchCraftMode(payload)
 }
 
 /** Sends one selection pair so the backend can merge against current profile state. */
@@ -173,10 +173,10 @@ export async function getProxyView(): Promise<ProxyViewV1> {
   return view
 }
 
-export async function getClashLogs() {
+export async function getCraftLogs() {
   const regex = /time="(.+?)"\s+level=(.+?)\s+msg="(.+?)"/
   const newRegex = /(.+?)\s+(.+?)\s+(.+)/
-  const logs = await commands.getClashLogs()
+  const logs = await commands.getCraftLogs()
 
   return logs.reduce<ILogItem[]>((acc, log) => {
     const result = log.match(regex)
@@ -275,16 +275,16 @@ export async function getEmbeddedServerPort() {
   return commands.getEmbeddedServerPort()
 }
 
-export async function changeClashCore(clashCore: string) {
-  return commands.changeClashCore(clashCore)
+export async function changeCraftCore(craftCore: string) {
+  return commands.changeCraftCore(craftCore)
 }
 
 export async function restartCore() {
   return commands.restartCore()
 }
 
-export async function upgradeClashCore(force = false) {
-  return commands.upgradeClashCore(force)
+export async function upgradeCraftCore(force = false) {
+  return commands.upgradeCraftCore(force)
 }
 
 export async function restartApp() {

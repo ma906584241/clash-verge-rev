@@ -15,7 +15,7 @@ import { forwardRef, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { BaseDialog } from '@/components/base'
-import { useClash } from '@/hooks/use-clash'
+import { useCraft } from '@/hooks/use-craft'
 import { useProxiesData } from '@/providers/app-data-context'
 import { probeListener, type ListenerTransport } from '@/services/cmds'
 import { showNotice } from '@/services/notice-service'
@@ -82,7 +82,7 @@ const buildInitialValues = (): TunnelFormValues => ({
 
 export const TunnelsViewer = forwardRef<TunnelsViewerRef>((_, ref) => {
   const { t } = useTranslation()
-  const { clash, mutateClash, patchClash } = useClash()
+  const { craft, mutateCraft, patchCraft } = useCraft()
 
   const [open, setOpen] = useState(false)
   const [expanded, setExpanded] = useState(false)
@@ -92,10 +92,10 @@ export const TunnelsViewer = forwardRef<TunnelsViewerRef>((_, ref) => {
   useSettingDialog(ref, 'tunnels-viewer', open, () => ({
     open: () => {
       setValues(buildInitialValues())
-      setDraftTunnels(() => clash?.tunnels ?? [])
+      setDraftTunnels(() => craft?.tunnels ?? [])
       setOpen(true)
       // 如果没有隧道，则自动展开
-      setExpanded((clash?.tunnels ?? []).length === 0)
+      setExpanded((craft?.tunnels ?? []).length === 0)
     },
     close: () => {
       setOpen(false)
@@ -167,8 +167,8 @@ export const TunnelsViewer = forwardRef<TunnelsViewerRef>((_, ref) => {
 
   const handleSave = async () => {
     try {
-      await patchClash({ tunnels: draftTunnels })
-      await mutateClash()
+      await patchCraft({ tunnels: draftTunnels })
+      await mutateCraft()
       showNotice.success('shared.feedback.notifications.common.saveSuccess')
       setOpen(false)
     } catch (err: any) {
@@ -182,7 +182,7 @@ export const TunnelsViewer = forwardRef<TunnelsViewerRef>((_, ref) => {
     // 基础非空校验
     if (!localAddr || !localPort || !targetAddr || !targetPort) {
       showNotice.error(
-        'settings.sections.clash.form.fields.tunnels.messages.incomplete',
+        'settings.sections.craft.form.fields.tunnels.messages.incomplete',
       )
       return
     }
@@ -191,7 +191,7 @@ export const TunnelsViewer = forwardRef<TunnelsViewerRef>((_, ref) => {
     const localHost = normalizeListenHost(localAddr)
     if (!localHost) {
       showNotice.error(
-        'settings.sections.clash.form.fields.tunnels.messages.invalidLocalAddr',
+        'settings.sections.craft.form.fields.tunnels.messages.invalidLocalAddr',
       )
       return
     }
@@ -199,7 +199,7 @@ export const TunnelsViewer = forwardRef<TunnelsViewerRef>((_, ref) => {
     // 本地端口校验 (port)
     if (!isValidPort(localPort)) {
       showNotice.error(
-        'settings.sections.clash.form.fields.tunnels.messages.invalidLocalPort',
+        'settings.sections.craft.form.fields.tunnels.messages.invalidLocalPort',
       )
       return
     }
@@ -207,7 +207,7 @@ export const TunnelsViewer = forwardRef<TunnelsViewerRef>((_, ref) => {
     const targetHost = normalizeHost(targetAddr)
     if (!targetHost) {
       showNotice.error(
-        'settings.sections.clash.form.fields.tunnels.messages.invalidTargetAddr',
+        'settings.sections.craft.form.fields.tunnels.messages.invalidTargetAddr',
       )
       return
     }
@@ -215,7 +215,7 @@ export const TunnelsViewer = forwardRef<TunnelsViewerRef>((_, ref) => {
     // 目标端口校验 (port)
     if (!isValidPort(targetPort)) {
       showNotice.error(
-        'settings.sections.clash.form.fields.tunnels.messages.invalidTargetPort',
+        'settings.sections.craft.form.fields.tunnels.messages.invalidTargetPort',
       )
       return
     }
@@ -227,7 +227,7 @@ export const TunnelsViewer = forwardRef<TunnelsViewerRef>((_, ref) => {
       : undefined
     if (latestProxyState.binding && !latestSelectedProxy) {
       showNotice.error(
-        'settings.sections.clash.form.fields.tunnels.messages.incomplete',
+        'settings.sections.craft.form.fields.tunnels.messages.incomplete',
       )
       return
     }
@@ -251,7 +251,7 @@ export const TunnelsViewer = forwardRef<TunnelsViewerRef>((_, ref) => {
         transports,
       })
       if (outcome.status === 'conflict') {
-        showNotice.error('settings.modals.clashPort.messages.portInUse', {
+        showNotice.error('settings.modals.craftPort.messages.portInUse', {
           port: outcome.port,
         })
         return
@@ -285,7 +285,7 @@ export const TunnelsViewer = forwardRef<TunnelsViewerRef>((_, ref) => {
   return (
     <BaseDialog
       open={open}
-      title={t('settings.sections.clash.form.fields.tunnels.title')}
+      title={t('settings.sections.craft.form.fields.tunnels.title')}
       contentSx={{ width: 450 }}
       okBtn={t('shared.actions.save')}
       cancelBtn={t('shared.actions.cancel')}
@@ -302,19 +302,19 @@ export const TunnelsViewer = forwardRef<TunnelsViewerRef>((_, ref) => {
         {draftTunnels.length > 0 && (
           <>
             <ListItem
-              data-setting-target="settings.sections.clash.form.fields.tunnels.existing"
+              data-setting-target="settings.sections.craft.form.fields.tunnels.existing"
               sx={{ padding: '4px 0', opacity: 0.6 }}
             >
               <ListItemText
                 primary={t(
-                  'settings.sections.clash.form.fields.tunnels.existing',
+                  'settings.sections.craft.form.fields.tunnels.existing',
                 )}
               />
             </ListItem>
             <List component="nav">
               {tunnelEntries.map((item) => (
                 <ListItem
-                  data-setting-target="settings.sections.clash.form.fields.tunnels.default"
+                  data-setting-target="settings.sections.craft.form.fields.tunnels.default"
                   key={`${item.key}`}
                   sx={{ padding: '4px 0' }}
                   secondaryAction={
@@ -332,7 +332,7 @@ export const TunnelsViewer = forwardRef<TunnelsViewerRef>((_, ref) => {
                     primary={`${item.address} → ${item.target}`}
                     secondary={`${item.network.join(', ')} · ${
                       item.proxy ??
-                      t('settings.sections.clash.form.fields.tunnels.default')
+                      t('settings.sections.craft.form.fields.tunnels.default')
                     }`}
                   />
                 </ListItem>
@@ -348,14 +348,14 @@ export const TunnelsViewer = forwardRef<TunnelsViewerRef>((_, ref) => {
         >
           <ListItemText
             primary={t(
-              'settings.sections.clash.form.fields.tunnels.actions.addNew',
+              'settings.sections.craft.form.fields.tunnels.actions.addNew',
             )}
           />
           {expanded ? <ExpandLess /> : <ExpandMore />}
         </ListItemButton>
         {expanded && (
           <ListItem
-            data-setting-target="settings.sections.clash.form.fields.tunnels.protocols"
+            data-setting-target="settings.sections.craft.form.fields.tunnels.protocols"
             sx={{ padding: '8px 0' }}
           >
             <div style={{ width: '100%' }}>
@@ -364,7 +364,7 @@ export const TunnelsViewer = forwardRef<TunnelsViewerRef>((_, ref) => {
               <ListItem sx={{ padding: '6px 2px' }}>
                 <ListItemText
                   primary={t(
-                    'settings.sections.clash.form.fields.tunnels.protocols',
+                    'settings.sections.craft.form.fields.tunnels.protocols',
                   )}
                 />
                 <Select
@@ -386,12 +386,12 @@ export const TunnelsViewer = forwardRef<TunnelsViewerRef>((_, ref) => {
 
               {/* 本地监听地址 */}
               <ListItem
-                data-setting-target="settings.sections.clash.form.fields.tunnels.localAddr"
+                data-setting-target="settings.sections.craft.form.fields.tunnels.localAddr"
                 sx={{ padding: '6px 2px' }}
               >
                 <ListItemText
                   primary={t(
-                    'settings.sections.clash.form.fields.tunnels.localAddr',
+                    'settings.sections.craft.form.fields.tunnels.localAddr',
                   )}
                 />
                 <TextField
@@ -408,12 +408,12 @@ export const TunnelsViewer = forwardRef<TunnelsViewerRef>((_, ref) => {
 
               {/* 本地监听端口 */}
               <ListItem
-                data-setting-target="settings.sections.clash.form.fields.tunnels.localPort"
+                data-setting-target="settings.sections.craft.form.fields.tunnels.localPort"
                 sx={{ padding: '6px 2px' }}
               >
                 <ListItemText
                   primary={t(
-                    'settings.sections.clash.form.fields.tunnels.localPort',
+                    'settings.sections.craft.form.fields.tunnels.localPort',
                   )}
                 />
                 <TextField
@@ -431,12 +431,12 @@ export const TunnelsViewer = forwardRef<TunnelsViewerRef>((_, ref) => {
 
               {/* 目标服务器地址 */}
               <ListItem
-                data-setting-target="settings.sections.clash.form.fields.tunnels.targetAddr"
+                data-setting-target="settings.sections.craft.form.fields.tunnels.targetAddr"
                 sx={{ padding: '6px 2px' }}
               >
                 <ListItemText
                   primary={t(
-                    'settings.sections.clash.form.fields.tunnels.targetAddr',
+                    'settings.sections.craft.form.fields.tunnels.targetAddr',
                   )}
                 />
                 <TextField
@@ -453,12 +453,12 @@ export const TunnelsViewer = forwardRef<TunnelsViewerRef>((_, ref) => {
 
               {/* 目标服务器端口 */}
               <ListItem
-                data-setting-target="settings.sections.clash.form.fields.tunnels.targetPort"
+                data-setting-target="settings.sections.craft.form.fields.tunnels.targetPort"
                 sx={{ padding: '6px 2px' }}
               >
                 <ListItemText
                   primary={t(
-                    'settings.sections.clash.form.fields.tunnels.targetPort',
+                    'settings.sections.craft.form.fields.tunnels.targetPort',
                   )}
                 />
                 <TextField
@@ -476,20 +476,20 @@ export const TunnelsViewer = forwardRef<TunnelsViewerRef>((_, ref) => {
 
               {/* 代理组 */}
               <ListItem
-                data-setting-target="settings.sections.clash.form.fields.tunnels.proxyGroup"
+                data-setting-target="settings.sections.craft.form.fields.tunnels.proxyGroup"
                 sx={{ padding: '6px 2px' }}
               >
                 <ListItemText
                   primary={
                     <>
                       {t(
-                        'settings.sections.clash.form.fields.tunnels.proxyGroup',
+                        'settings.sections.craft.form.fields.tunnels.proxyGroup',
                       )}
                       <span style={{ fontSize: '0.9rem', color: 'gray' }}>
                         {' '}
                         (
                         {t(
-                          'settings.sections.clash.form.fields.tunnels.optional',
+                          'settings.sections.craft.form.fields.tunnels.optional',
                         )}
                         )
                       </span>
@@ -529,7 +529,7 @@ export const TunnelsViewer = forwardRef<TunnelsViewerRef>((_, ref) => {
                   }}
                 >
                   <MenuItem value="">
-                    {t('settings.sections.clash.form.fields.tunnels.default')}
+                    {t('settings.sections.craft.form.fields.tunnels.default')}
                   </MenuItem>
                   {groupNames.map((name) => (
                     <MenuItem key={name} value={name}>
@@ -541,20 +541,20 @@ export const TunnelsViewer = forwardRef<TunnelsViewerRef>((_, ref) => {
 
               {/* 代理节点 */}
               <ListItem
-                data-setting-target="settings.sections.clash.form.fields.tunnels.proxyNode"
+                data-setting-target="settings.sections.craft.form.fields.tunnels.proxyNode"
                 sx={{ padding: '6px 2px' }}
               >
                 <ListItemText
                   primary={
                     <>
                       {t(
-                        'settings.sections.clash.form.fields.tunnels.proxyNode',
+                        'settings.sections.craft.form.fields.tunnels.proxyNode',
                       )}
                       <span style={{ fontSize: '0.9rem', color: 'gray' }}>
                         {' '}
                         (
                         {t(
-                          'settings.sections.clash.form.fields.tunnels.optional',
+                          'settings.sections.craft.form.fields.tunnels.optional',
                         )}
                         )
                       </span>
@@ -584,7 +584,7 @@ export const TunnelsViewer = forwardRef<TunnelsViewerRef>((_, ref) => {
                   disabled={!effectiveGroup} // 没选组就禁用
                 >
                   <MenuItem value="">
-                    {t('settings.sections.clash.form.fields.tunnels.default')}
+                    {t('settings.sections.craft.form.fields.tunnels.default')}
                   </MenuItem>
                   {proxyOptions.map(({ memberIndex, member }) => (
                     <MenuItem
@@ -604,7 +604,7 @@ export const TunnelsViewer = forwardRef<TunnelsViewerRef>((_, ref) => {
 
               {/* 添加按钮 */}
               <Button
-                data-setting-target="settings.sections.clash.form.fields.tunnels.actions.add"
+                data-setting-target="settings.sections.craft.form.fields.tunnels.actions.add"
                 variant="contained"
                 size="small"
                 sx={{
@@ -616,7 +616,7 @@ export const TunnelsViewer = forwardRef<TunnelsViewerRef>((_, ref) => {
                 color="success"
                 onClick={handleAdd}
               >
-                {t('settings.sections.clash.form.fields.tunnels.actions.add')}
+                {t('settings.sections.craft.form.fields.tunnels.actions.add')}
               </Button>
             </div>
           </ListItem>

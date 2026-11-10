@@ -1,18 +1,18 @@
-import { useClashInfo, useRuntimeConfig } from '@/hooks/use-clash'
+import { useCraftInfo, useRuntimeConfig } from '@/hooks/use-craft'
 import { useVerge } from '@/hooks/use-verge'
-import { useClashConfigData } from '@/providers/app-data-context'
+import { useCraftConfigData } from '@/providers/app-data-context'
 import { resolveDisplayedMixedPort } from '@/utils/mixed-port'
 
 export const useDisplayedMixedPort = () => {
-  const { clashConfig } = useClashConfigData()
+  const { craftConfig } = useCraftConfigData()
   const { data: runtimeConfig } = useRuntimeConfig()
-  const { clashInfo } = useClashInfo()
+  const { craftInfo } = useCraftInfo()
   const { verge } = useVerge()
 
   return resolveDisplayedMixedPort({
-    live: clashConfig?.mixedPort,
+    live: craftConfig?.mixedPort,
     runtime: runtimeConfig?.['mixed-port'],
     selected: verge?.verge_mixed_port,
-    merge: clashInfo?.mixed_port,
+    merge: craftInfo?.mixed_port,
   })
 }

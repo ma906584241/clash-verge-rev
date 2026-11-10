@@ -32,7 +32,7 @@ export const useTrafficData = (options?: { enabled?: boolean }) => {
     graphData: { appendData },
   } = useTrafficMonitorEnhanced({ subscribe: false, enabled })
   const { response, refresh } = useMihomoWsSubscription<ITrafficItem>({
-    subscriptionKey: enabled ? 'getClashTraffic' : null,
+    subscriptionKey: enabled ? 'getCraftTraffic' : null,
     fallbackData: FALLBACK_TRAFFIC,
     connect: () => MihomoWebSocket.connect_traffic(),
     throttleMs: 200,
@@ -55,5 +55,5 @@ export const useTrafficData = (options?: { enabled?: boolean }) => {
     }),
   })
 
-  return { response, refreshGetClashTraffic: refresh }
+  return { response, refreshGetCraftTraffic: refresh }
 }

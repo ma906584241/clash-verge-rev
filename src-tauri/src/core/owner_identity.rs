@@ -1,6 +1,6 @@
 use crate::utils::dirs;
 use anyhow::{Context as _, Result};
-use clash_verge_service_ipc::{OwnerCredentials, OwnerIdentity};
+use craft_verge_service_ipc::{OwnerCredentials, OwnerIdentity};
 use std::path::Path;
 
 pub(crate) fn current_owner_credentials() -> Result<OwnerCredentials> {
@@ -85,8 +85,8 @@ pub(crate) fn current_user_pipe_sddl() -> Result<String> {
 #[cfg(windows)]
 mod windows_owner {
     use anyhow::{Context as _, Result, bail};
-    use clash_verge_logging::{Type, logging};
-    use clash_verge_service_ipc::OWNER_TOKEN_FILE_NAME;
+    use craft_verge_logging::{Type, logging};
+    use craft_verge_service_ipc::OWNER_TOKEN_FILE_NAME;
     use std::ffi::c_void;
     use std::io::{Read as _, Write as _};
     use std::os::windows::ffi::OsStrExt as _;
@@ -758,7 +758,7 @@ mod windows_owner {
 #[cfg(test)]
 mod tests {
     use super::current_owner_credentials_for_root;
-    use clash_verge_service_ipc::OwnerIdentity;
+    use craft_verge_service_ipc::OwnerIdentity;
 
     #[cfg(unix)]
     #[test]

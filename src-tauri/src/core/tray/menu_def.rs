@@ -1,4 +1,4 @@
-use clash_verge_i18n::t;
+use craft_verge_i18n::t;
 use std::borrow::Cow;
 
 macro_rules! define_menu {
@@ -43,7 +43,7 @@ define_menu! {
     open_dir => OPEN_DIR, "tray_open_dir", "tray.openDir",
     app_log => APP_LOG, "tray_app_log", "tray.appLog",
     core_log => CORE_LOG, "tray_core_log", "tray.coreLog",
-    restart_clash => RESTART_CLASH, "tray_restart_clash", "tray.restartClash",
+    restart_craft => RESTART_CRAFT, "tray_restart_craft", "tray.restartCraft",
     restart_app => RESTART_APP, "tray_restart_app", "tray.restartApp",
     verge_version => VERGE_VERSION, "tray_verge_version", "tray.vergeVersion",
     more => MORE, "tray_more", "tray.more",

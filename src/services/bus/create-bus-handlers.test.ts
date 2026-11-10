@@ -109,7 +109,7 @@ it.each([
     bus.onWindowFocus()
     await flush()
     expect(showNotice.error).toHaveBeenCalledExactlyOnceWith(
-      'settings.feedback.errors.clash.startFailed',
+      'settings.feedback.errors.craft.startFailed',
       detail,
     )
   },
@@ -126,7 +126,7 @@ it('delivers an early core startup failure once after listeners mount', async ()
   bus.handlers['verge://notice-message'](['core_start::error', ''])
   await flush()
   expect(showNotice.error).toHaveBeenCalledExactlyOnceWith(
-    'settings.feedback.errors.clash.startFailed',
+    'settings.feedback.errors.craft.startFailed',
     detail,
   )
 })
@@ -193,7 +193,7 @@ it('explains a startup core rejection instead of the generic fallback notice', a
   await flush()
 
   expect(showNotice.warning).toHaveBeenCalledExactlyOnceWith(
-    'settings.feedback.notifications.clashService.permissionFallback',
+    'settings.feedback.notifications.craftService.permissionFallback',
     { reason },
     0,
   )

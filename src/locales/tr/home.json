@@ -19,7 +19,7 @@
         "traffic": "Trafik İstatistikleri Kartı",
         "tests": "Web Sitesi Testleri Kartı",
         "ip": "IP Bilgi Kartı",
-        "clashInfo": "Clash Bilgi Kartları",
+        "craftInfo": "Craft Bilgi Kartları",
         "systemInfo": "Sistem Bilgi Kartları"
       },
       "title": "Ana Sayfa Ayarları"
@@ -40,8 +40,8 @@
         "tunMode": "TUN modu tüm uygulama trafiğini ele alabilir, sistem vekil ayarlarını takip etmeyen özel uygulamalar için uygundur"
       }
     },
-    "clashInfo": {
-      "title": "Clash Bilgisi",
+    "craftInfo": {
+      "title": "Craft Bilgisi",
       "fields": {
         "coreVersion": "Çekirdek Sürümü",
         "systemProxyAddress": "Sistem Vekil Adresi",
@@ -137,7 +137,7 @@
       },
       "diagnostics": "Nokta: {{points}} | Sıkıştırılmış: {{compressed}} | FPS: {{fps}}"
     },
-    "clashMode": {
+    "craftMode": {
       "errors": {
         "communication": "Çekirdek iletişim hatası, lütfen bilgisayarınızı yeniden başlatıp tekrar deneyin"
       },

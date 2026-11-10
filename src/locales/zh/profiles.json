@@ -40,8 +40,8 @@
         "updateFailed": "更新订阅失败"
       },
       "notifications": {
-        "importRetry": "订阅导入失败，尝试使用 Clash 代理导入",
-        "importFail": "使用 Clash 代理导入订阅失败",
+        "importRetry": "订阅导入失败，尝试使用 Craft 代理导入",
+        "importFail": "使用 Craft 代理导入订阅失败",
         "importNeedsRefresh": "订阅已导入，但可能需要手动刷新",
         "importSuccess": "订阅已成功导入，如未显示请重启应用",
         "profileSwitched": "订阅已切换",
@@ -122,7 +122,7 @@
         "httpTimeout": "HTTP 请求超时",
         "updateInterval": "更新间隔",
         "useSystemProxy": "使用系统代理更新",
-        "useClashProxy": "使用内核代理更新",
+        "useCraftProxy": "使用内核代理更新",
         "acceptInvalidCerts": "允许无效证书（危险）",
         "allowAutoUpdate": "允许自动更新"
       },
@@ -141,8 +141,8 @@
       },
       "feedback": {
         "notifications": {
-          "creationRetry": "订阅创建失败，尝试使用 Clash 代理创建",
-          "creationSuccess": "使用 Clash 代理创建订阅成功"
+          "creationRetry": "订阅创建失败，尝试使用 Craft 代理创建",
+          "creationSuccess": "使用 Craft 代理创建订阅成功"
         }
       }
     },

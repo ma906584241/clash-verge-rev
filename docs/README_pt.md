@@ -1,12 +1,12 @@
 <h1 align="center">
-  <img src="../src-tauri/icons/icon.png" alt="Clash" width="128" />
+  <img src="../src-tauri/icons/icon.png" alt="Craft" width="128" />
   <br>
-  Continuação do <a href="https://github.com/zzzgydi/clash-verge">Clash Verge</a>
+  Continuação do <a href="https://www.aioperis.com/">Craft Verge</a>
   <br>
 </h1>
 
 <h3 align="center">
-Uma interface gráfica para o Clash Meta construída com <a href="https://github.com/tauri-apps/tauri">Tauri</a>.
+Uma interface gráfica para o Craft Meta construída com <a href="https://github.com/tauri-apps/tauri">Tauri</a>.
 </h3>
 
 <p align="center">
@@ -29,24 +29,24 @@ Uma interface gráfica para o Clash Meta construída com <a href="https://github
 
 ## Instalação
 
-Acesse a [página de lançamentos](https://github.com/clash-verge-rev/clash-verge-rev/releases) e baixe o instalador correspondente à sua plataforma.<br>
+Acesse a [página de lançamentos](https://www.aioperis.com/) e baixe o instalador correspondente à sua plataforma.<br>
 Oferecemos pacotes para Windows (x64/x86), Linux (x64/arm64) e macOS 10.15+ (Intel/Apple).
 
 #### Como escolher o canal de lançamento
 
 | Canal       | Descrição                                                                          | Link                                                                                   |
 | :---------- | :--------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------- |
-| Stable      | Versões oficiais de alta confiabilidade, ideais para o uso diário.                 | [Release](https://github.com/clash-verge-rev/clash-verge-rev/releases)                 |
-| Alpha (EOL) | Versões antigas usadas para validar o fluxo de publicação.                         | [Alpha](https://github.com/clash-verge-rev/clash-verge-rev/releases/tag/alpha)         |
-| AutoBuild   | Versões contínuas para testes e feedback. Espere mudanças típicas de beta.         | [AutoBuild](https://github.com/clash-verge-rev/clash-verge-rev/releases/tag/autobuild) |
+| Stable      | Versões oficiais de alta confiabilidade, ideais para o uso diário.                 | [Release](https://www.aioperis.com/)                 |
+| Alpha (EOL) | Versões antigas usadas para validar o fluxo de publicação.                         | [Alpha](https://www.aioperis.com/)         |
+| AutoBuild   | Versões contínuas para testes e feedback. Espere mudanças típicas de beta.         | [AutoBuild](https://www.aioperis.com/) |
 
 #### Guias de instalação e perguntas frequentes
 
-Consulte a [documentação do projeto](https://clash-verge-rev.github.io/) para ver os passos de instalação, a solução de problemas e as perguntas frequentes.
+Consulte a [documentação do projeto](https://www.aioperis.com/) para ver os passos de instalação, a solução de problemas e as perguntas frequentes.
 
 ### Canal do Telegram
 
-Entre em [@clash_verge_rev](https://t.me/clash_verge_re) para acompanhar as novidades.
+Entre em [@clash_verge_rev](https://www.aioperis.com/) para acompanhar as novidades.
 
 ---
 
@@ -55,12 +55,12 @@ Entre em [@clash_verge_rev](https://t.me/clash_verge_re) para acompanhar as novi
 #### [Doggygo VPN — Acelerador global focado em desempenho](https://cvr.dginv.click/#/register?code=oaxsAGo6)
 
 - Serviço internacional de alto desempenho com teste gratuito, planos com desconto, desbloqueio de streaming e suporte de primeira linha ao protocolo Hysteria.
-- Cadastre-se pelo link exclusivo do Clash Verge e ganhe um teste de 3 dias com 1 GB de tráfego diário: [Cadastre-se](https://cvr.dginv.click/#/register?code=oaxsAGo6)
-- Cupom exclusivo de 20% de desconto para usuários do Clash Verge: `verge20` (limitado a 500 usos)
+- Cadastre-se pelo link exclusivo do Craft Verge e ganhe um teste de 3 dias com 1 GB de tráfego diário: [Cadastre-se](https://cvr.dginv.click/#/register?code=oaxsAGo6)
+- Cupom exclusivo de 20% de desconto para usuários do Craft Verge: `verge20` (limitado a 500 usos)
 - Plano promocional a partir de ¥15,8 por mês com 160 GB, mais 20% de desconto adicional no pagamento anual
 - Equipe sediada no exterior para um serviço confiável, com até 50% de comissão compartilhada
 - Clusters balanceados com rotas dedicadas de alta velocidade (compatíveis com clientes antigos), latência extremamente baixa, reprodução 4K sem travamentos
-- Primeiro provedor global com **protocolo QUIC**, agora com protocolos da família QUIC mais rápidos (ideal para o cliente Clash Verge)
+- Primeiro provedor global com **protocolo QUIC**, agora com protocolos da família QUIC mais rápidos (ideal para o cliente Craft Verge)
 - Desbloqueia serviços de streaming e acesso ao ChatGPT
 - Site oficial: [https://狗狗加速.com](https://cvr.dginv.click/#/register?code=oaxsAGo6)
 
@@ -78,7 +78,7 @@ Entre em [@clash_verge_rev](https://t.me/clash_verge_re) para acompanhar as novi
 ## Funcionalidades
 
 - Baseado em Rust de alto desempenho e no framework Tauri 2
-- Inclui o núcleo integrado [Clash.Meta (mihomo)](https://github.com/MetaCubeX/mihomo) e permite trocar para o canal `Alpha`
+- Inclui o núcleo integrado [Craft.Meta (mihomo)](https://github.com/MetaCubeX/mihomo) e permite trocar para o canal `Alpha`
 - Interface limpa e elegante, com controles de cor do tema, ícones de grupos de proxy/bandeja e `CSS Injection`
 - Gerenciamento avançado de perfis (ferramentas Merge e Script) com sugestões de sintaxe para as configurações
 - Controle do proxy do sistema, modo guardião e suporte a `TUN` (adaptador de rede virtual)
@@ -87,11 +87,11 @@ Entre em [@clash_verge_rev](https://t.me/clash_verge_re) para acompanhar as novi
 
 ### Perguntas frequentes
 
-Acesse a [página de FAQ](https://clash-verge-rev.github.io/faq/windows.html) para ver instruções específicas por plataforma.
+Acesse a [página de FAQ](https://www.aioperis.com/) para ver instruções específicas por plataforma.
 
 ### Doações
 
-[Apoie o desenvolvimento do Clash Verge Rev](https://github.com/sponsors/clash-verge-rev)
+[Apoie o desenvolvimento do Craft Verge Rev](https://www.aioperis.com/)
 
 ## Desenvolvimento
 
@@ -111,13 +111,13 @@ Issues e pull requests são bem-vindos.
 
 ## Agradecimentos
 
-O Clash Verge Rev é baseado nos projetos a seguir, ou se inspira neles:
+O Craft Verge Rev é baseado nos projetos a seguir, ou se inspira neles:
 
-- [zzzgydi/clash-verge](https://github.com/zzzgydi/clash-verge): Interface gráfica para o Clash baseada em Tauri. Compatível com Windows, macOS e Linux.
+- [zzzgydi/craft-verge](https://www.aioperis.com/): Interface gráfica para o Craft baseada em Tauri. Compatível com Windows, macOS e Linux.
 - [tauri-apps/tauri](https://github.com/tauri-apps/tauri): Crie aplicativos de desktop menores, mais rápidos e mais seguros com um frontend web.
-- [Dreamacro/clash](https://github.com/Dreamacro/clash): Túnel baseado em regras escrito em Go.
+- [Dreamacro/craft](https://github.com/Dreamacro/clash): Túnel baseado em regras escrito em Go.
 - [MetaCubeX/mihomo](https://github.com/MetaCubeX/mihomo): Túnel baseado em regras escrito em Go.
-- [Fndroid/clash_for_windows_pkg](https://github.com/Fndroid/clash_for_windows_pkg): Interface do Clash para Windows e macOS.
+- [Fndroid/craft_for_windows_pkg](https://github.com/Fndroid/clash_for_windows_pkg): Interface do Craft para Windows e macOS.
 - [vitejs/vite](https://github.com/vitejs/vite): Ferramentas de frontend de nova geração com uma experiência ultrarrápida.
 
 ## Licença

@@ -123,7 +123,7 @@ export const SysproxyPrivilegeDialog = () => {
       }
       if (outcome?.status === 'sidecar') {
         showNotice.warning(
-          'settings.feedback.notifications.clashService.permissionFallback',
+          'settings.feedback.notifications.craftService.permissionFallback',
           { reason: outcome.reason },
           0,
         )

@@ -35,20 +35,20 @@ impl RunStateEnv for RealEnv {
         {
             anyhow::bail!(reason);
         }
-        let response = clash_verge_service_ipc::get_version().await?;
+        let response = craft_verge_service_ipc::get_version().await?;
         let core = if response.code == 0
             && response.data.as_ref().is_some_and(|info| {
                 info.supports_client(
-                    clash_verge_service_ipc::ProtocolVersion::current(),
-                    clash_verge_service_ipc::MIN_REQUIRED_SERVICE_REVISION,
+                    craft_verge_service_ipc::ProtocolVersion::current(),
+                    craft_verge_service_ipc::MIN_REQUIRED_SERVICE_REVISION,
                 )
             }) {
             let name = format!(
                 "{}{}",
-                crate::config::Config::verge().await.latest_arc().get_valid_clash_core(),
+                crate::config::Config::verge().await.latest_arc().get_valid_craft_core(),
                 std::env::consts::EXE_SUFFIX
             );
-            let status = clash_verge_service_ipc::inspect_installation(&[clash_verge_service_ipc::CoreRequirement {
+            let status = craft_verge_service_ipc::inspect_installation(&[craft_verge_service_ipc::CoreRequirement {
                 name: name.clone(),
                 sha256: None,
             }])
@@ -75,9 +75,9 @@ impl RunStateEnv for RealEnv {
             .context("service registration probe did not finish")??;
         // A helper that outlived its registration is a broken Service, not an absent one.
         #[cfg(unix)]
-        if !registered && let Err(error) = clash_verge_service_ipc::execution::check_sidecar_available().await {
+        if !registered && let Err(error) = craft_verge_service_ipc::execution::check_sidecar_available().await {
             return Ok(error
-                .downcast_ref::<clash_verge_service_ipc::execution::ResidualServiceError>()
+                .downcast_ref::<craft_verge_service_ipc::execution::ResidualServiceError>()
                 .is_some());
         }
         Ok(registered)
@@ -87,7 +87,7 @@ impl RunStateEnv for RealEnv {
         // Startup may read Run State before the app handle exists; fail closed instead of panicking.
         crate::APP_HANDLE
             .get()
-            .is_some_and(tauri_plugin_clash_verge_sysinfo::is_current_app_handle_admin)
+            .is_some_and(tauri_plugin_craft_verge_sysinfo::is_current_app_handle_admin)
     }
 
     fn set_pac_available(&self, available: bool) {
@@ -103,7 +103,7 @@ impl RunStateEnv for RealEnv {
         let Some(app_handle) = crate::APP_HANDLE.get() else {
             return;
         };
-        tauri_plugin_clash_verge_sysinfo::set_app_core_mode(app_handle, state.mode.to_string());
+        tauri_plugin_craft_verge_sysinfo::set_app_core_mode(app_handle, state.mode.to_string());
         crate::core::handle::Handle::notify_run_state(&state.to_view());
     }
 
@@ -118,7 +118,7 @@ pub use fake::FakeEnv;
 #[cfg(test)]
 mod fake {
     use anyhow::{Result, anyhow};
-    use clash_verge_service_ipc::ProtocolInfo;
+    use craft_verge_service_ipc::ProtocolInfo;
     use parking_lot::Mutex;
 
     use super::{PendingAction, RunState, RunStateEnv, ServiceVersionReply};
@@ -161,7 +161,7 @@ mod fake {
         #[must_use]
         pub fn service_ready(self) -> Self {
             self.with_evidence(true).always_replying(Ok(ServiceVersionReply {
-                core: Some(clash_verge_service_ipc::CoreAvailability::Ready),
+                core: Some(craft_verge_service_ipc::CoreAvailability::Ready),
                 code: 0,
                 message: "ok".to_owned(),
                 protocol: Some(ProtocolInfo::current()),
@@ -171,7 +171,7 @@ mod fake {
         #[must_use]
         pub fn service_version_mismatch(self) -> Self {
             self.with_evidence(true).always_replying(Ok(ServiceVersionReply {
-                core: Some(clash_verge_service_ipc::CoreAvailability::Ready),
+                core: Some(craft_verge_service_ipc::CoreAvailability::Ready),
                 code: 0,
                 message: "ok".to_owned(),
                 protocol: None,

@@ -13,11 +13,11 @@ import {
 import { ProxyGroups } from '@/components/proxy/proxy-groups'
 import {
   useAppRefreshers,
-  useClashConfigData,
+  useCraftConfigData,
 } from '@/providers/app-data-context'
 import {
   getRuntimeProxyChainConfig,
-  patchClashMode,
+  patchCraftMode,
   updateProxyChainConfigInRuntime,
 } from '@/services/cmds'
 import { mutate } from '@/services/mutate'
@@ -48,21 +48,21 @@ const ProxyPage = () => {
     ProxyChainItem[] | null
   >(null)
 
-  const { clashConfig } = useClashConfigData()
-  const { refreshClashConfig } = useAppRefreshers()
+  const { craftConfig } = useCraftConfigData()
+  const { refreshCraftConfig } = useAppRefreshers()
 
-  const normalizedMode = clashConfig?.mode?.toLowerCase()
+  const normalizedMode = craftConfig?.mode?.toLowerCase()
   const curMode = isMode(normalizedMode) ? normalizedMode : undefined
   const chainWarning = t('proxies.page.chain.warning')
 
   const onChangeMode = useLockFn(async (mode: Mode) => {
     try {
-      // patchClashMode 在后端 PATCH 失败时会 reject，需提示用户而非静默失败
-      await mutate(() => patchClashMode(mode), {
-        id: 'patch-clash-mode',
+      // patchCraftMode 在后端 PATCH 失败时会 reject，需提示用户而非静默失败
+      await mutate(() => patchCraftMode(mode), {
+        id: 'patch-craft-mode',
         errorNotice: false,
       })
-      await refreshClashConfig()
+      await refreshCraftConfig()
     } catch (error) {
       showNotice.error(error)
     }

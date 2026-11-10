@@ -16,8 +16,8 @@ use crate::{
     },
 };
 use anyhow::{Result, ensure};
-use clash_verge_logging::{Type, logging};
-use clash_verge_service_ipc::{MacosProxyConfig, OwnerSessionProof, ProxyApplyOutcome};
+use craft_verge_logging::{Type, logging};
+use craft_verge_service_ipc::{MacosProxyConfig, OwnerSessionProof, ProxyApplyOutcome};
 use std::{
     future::Future,
     sync::atomic::{AtomicU64, Ordering},
@@ -683,7 +683,7 @@ mod tests {
         service_proxy_config,
     };
     use crate::{config::IVerge, core::manager::RunningMode};
-    use clash_verge_service_ipc::{MacosProxyConfig, OwnerSessionProof, ProxyApplyOutcome};
+    use craft_verge_service_ipc::{MacosProxyConfig, OwnerSessionProof, ProxyApplyOutcome};
     use parking_lot::Mutex;
     use std::sync::{
         Arc,

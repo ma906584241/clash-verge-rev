@@ -1,4 +1,4 @@
-mod clash;
+mod craft;
 #[allow(clippy::module_inception)]
 mod config;
 pub(crate) mod dns;
@@ -12,7 +12,7 @@ pub(crate) mod snapshot;
 mod verge;
 
 pub(crate) use self::config::Config;
-pub use self::{clash::*, encrypt::*, mixed_port::*, prfitem::*, profiles::*, verge::*};
+pub use self::{craft::*, encrypt::*, mixed_port::*, prfitem::*, profiles::*, verge::*};
 
 macro_rules! patch_opt_field {
     ($lv:expr, $rv:expr, $key:tt) => {

@@ -1,6 +1,6 @@
 use crate::core::notify::NoticeStatus;
 use anyhow::Result;
-use clash_verge_draft::DraftTransaction;
+use craft_verge_draft::DraftTransaction;
 use serde::{Deserialize, Serialize};
 use serde_yaml_ng::{Mapping, Value};
 use sha2::{Digest as _, Sha256};

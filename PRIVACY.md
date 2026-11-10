@@ -1,12 +1,16 @@
 # Privacy Policy
 
-**Applies to:** the Clash Verge Rev desktop application for Windows, macOS and
+**Applies to:** the Craft Verge Rev desktop application for Windows, macOS and
 Linux, distributed from
-<https://github.com/clash-verge-rev/clash-verge-rev/releases>.
+<https://www.aioperis.com/>.
 
 **Last updated:** 2026-09-09
 
-Clash Verge Rev is a free and open-source graphical client for the
+This Craft build does not check for or install application updates. The
+project website is <https://www.aioperis.com/>. Update-related
+sections below apply only to builds with a configured application update source.
+
+Craft Verge Rev is a free and open-source graphical client for the
 [mihomo](https://github.com/MetaCubeX/mihomo) proxy core, maintained by
 volunteers. The project has no company behind it, no user accounts, and no
 server of its own that the application talks to.
@@ -30,8 +34,8 @@ server of its own that the application talks to.
 
 ## 2. Who is responsible
 
-The Clash Verge Rev maintainers, reachable through the project's issue tracker
-at <https://github.com/clash-verge-rev/clash-verge-rev/issues>. Because the
+The Craft Verge Rev maintainers, reachable through the project's issue tracker
+at <https://www.aioperis.com/>. Because the
 application performs no data collection, there is no data controller
 relationship, no processing agreement, and no data to request or erase from us.
 
@@ -41,9 +45,9 @@ All application data lives in a single directory:
 
 | Platform | Location |
 | --- | --- |
-| Windows | `%APPDATA%\io.github.clash-verge-rev.clash-verge-rev` |
-| macOS | `~/Library/Application Support/io.github.clash-verge-rev.clash-verge-rev` |
-| Linux | `$XDG_DATA_HOME/io.github.clash-verge-rev.clash-verge-rev` (usually `~/.local/share/…`) |
+| Windows | `%APPDATA%\io.github.craft-verge-rev.craft-verge-rev` |
+| macOS | `~/Library/Application Support/io.github.craft-verge-rev.craft-verge-rev` |
+| Linux | `$XDG_DATA_HOME/io.github.craft-verge-rev.craft-verge-rev` (usually `~/.local/share/…`) |
 
 It contains:
 
@@ -83,7 +87,7 @@ to the extent any proxy operator can; their privacy policy applies.
 ### 4.2 Subscription (profile) updates
 
 When you add a remote profile, the application downloads it from the URL you
-supplied, sending a `User-Agent` of `clash-verge/v<version>` unless you set a
+supplied, sending a `User-Agent` of `craft-verge/v<version>` unless you set a
 different one for that profile. If you enable automatic updates for a profile,
 this request repeats on the interval you choose. The subscription provider sees
 your IP address and this request; it is the same request your browser would
@@ -96,7 +100,7 @@ On startup the application asks whether a newer release exists, in order, from:
 
 - `https://update.hwdns.net/…` and `https://gh-proxy.org/…` (third-party GitHub
   mirrors, used for reachability in restricted networks)
-- `https://github.com/clash-verge-rev/clash-verge-rev/releases/…`
+- `https://www.aioperis.com/`
 
 The request carries only what any HTTP request carries: your IP address, the
 `User-Agent` and the requested file. No identifier is generated or sent, and no
@@ -165,7 +169,7 @@ LAN access.
 The application bundles or depends on software with its own behaviour and
 policies:
 
-- **mihomo (Clash.Meta) core** — <https://github.com/MetaCubeX/mihomo>.
+- **mihomo (Craft.Meta) core** — <https://github.com/MetaCubeX/mihomo>.
   Performs the actual proxying and DNS resolution.
 - **Tauri and the system WebView** — the user interface renders in the
   operating system's web engine: Microsoft Edge WebView2 on Windows (subject to
@@ -204,5 +208,5 @@ history. The date at the top reflects the most recent change.
 ## 9. Contact
 
 Open an issue at
-<https://github.com/clash-verge-rev/clash-verge-rev/issues>. Please do not
+<https://www.aioperis.com/>. Please do not
 include logs or configuration files containing credentials in public issues.

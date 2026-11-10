@@ -12,8 +12,8 @@ use crate::{
     },
 };
 use anyhow::{Context as _, Result, bail};
-use clash_verge_draft::Draft;
-use clash_verge_logging::{Type, logging};
+use craft_verge_draft::Draft;
+use craft_verge_logging::{Type, logging};
 use parking_lot::Mutex;
 use serde::{Deserialize, Serialize};
 use serde_yaml_ng::Mapping;
@@ -139,7 +139,7 @@ impl IProfiles {
     }
 
     pub async fn save_file(&self) -> Result<()> {
-        help::save_yaml(&dirs::profiles_path()?, self, Some("# Profiles Config for Clash Verge")).await
+        help::save_yaml(&dirs::profiles_path()?, self, Some("# Profiles Config for Craft Verge")).await
     }
 
     /// 只修改current，valid和chain
@@ -905,7 +905,7 @@ async fn settle_pending_selections(selected: &[PrfSelected], completed: &mut Has
                     return Ok(());
                 }
                 if is_activation_current(*generation) {
-                    announce(Refresh::Clash);
+                    announce(Refresh::Craft);
                 }
                 Err(RetryError::Retry(()))
             })
@@ -954,7 +954,7 @@ async fn activate_selected_nodes_worker(
     }
 
     if is_activation_current(generation) {
-        announce(Refresh::Clash);
+        announce(Refresh::Craft);
     }
 
     let plan = if needs_confirmation {
@@ -978,7 +978,7 @@ async fn activate_selected_nodes_worker(
             return Ok(());
         };
         if confirmed_activated_count > 0 && is_activation_current(generation) {
-            announce(Refresh::Clash);
+            announce(Refresh::Craft);
         }
         confirmed_plan
     } else {
@@ -1066,7 +1066,7 @@ fn activate_selected_nodes_with(repair: SelectionRepair) -> tokio::sync::oneshot
                 .clone()
                 .unwrap_or_default();
 
-            if Config::clash().await.latest_arc().get_mode().as_deref() == Some("global")
+            if Config::craft().await.latest_arc().get_mode().as_deref() == Some("global")
                 && let Err(err) = leave_default_global_exit().await
             {
                 logging!(warn, Type::Config, "failed to move GLOBAL off its default: {err:#}");
@@ -1074,7 +1074,7 @@ fn activate_selected_nodes_with(repair: SelectionRepair) -> tokio::sync::oneshot
 
             if selected.is_empty() {
                 if is_activation_current(generation) {
-                    announce(Refresh::Clash);
+                    announce(Refresh::Craft);
                 }
                 return Ok(());
             }
@@ -1086,7 +1086,7 @@ fn activate_selected_nodes_with(repair: SelectionRepair) -> tokio::sync::oneshot
             if let Err(err) = result {
                 logging!(error, Type::Config, "failed to activate selected nodes: {err:#}");
                 // The profile itself is already active even if node restoration failed.
-                announce(Refresh::Clash);
+                announce(Refresh::Craft);
             }
             update_tray_after_activation(generation).await;
             logging!(debug, Type::Config, "activating selected nodes done!");

@@ -18,7 +18,7 @@ use std::{
 
 use anyhow::{Context as _, Result, bail};
 use arc_swap::ArcSwap;
-use clash_verge_logging::{Type, logging};
+use craft_verge_logging::{Type, logging};
 use parking_lot::Mutex;
 use tokio::sync::Notify;
 
@@ -494,10 +494,10 @@ mod tests {
 
     fn ready_reply() -> ServiceVersionReply {
         ServiceVersionReply {
-            core: Some(clash_verge_service_ipc::CoreAvailability::Ready),
+            core: Some(craft_verge_service_ipc::CoreAvailability::Ready),
             code: 0,
             message: "ok".to_owned(),
-            protocol: Some(clash_verge_service_ipc::ProtocolInfo::current()),
+            protocol: Some(craft_verge_service_ipc::ProtocolInfo::current()),
         }
     }
 

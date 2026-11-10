@@ -16,8 +16,8 @@ use crate::{
     feat,
     utils::{dirs, help},
 };
-use clash_verge_draft::{Draft, SharedDraft};
-use clash_verge_logging::{Type, logging, logging_error};
+use craft_verge_draft::{Draft, SharedDraft};
+use craft_verge_logging::{Type, logging, logging_error};
 use scopeguard::defer;
 use smartstring::alias::String;
 use std::sync::atomic::{AtomicBool, Ordering};
@@ -45,7 +45,7 @@ pub async fn get_profiles() -> CmdResult<SharedDraft<IProfiles>> {
 pub async fn enhance_profiles() -> CmdResult<ValidationOutcome> {
     match feat::enhance_profiles().await {
         Ok(outcome) if outcome.is_valid() => {
-            handle::Handle::refresh_clash();
+            handle::Handle::refresh_craft();
             Ok(outcome)
         }
         Ok(outcome) => {
@@ -199,7 +199,7 @@ pub async fn delete_profile(index: std::string::String) -> CmdResult {
         logging!(warn, Type::Cmd, "异步更新托盘菜单失败: {e:#}");
     }
     if should_update {
-        handle::Handle::refresh_clash();
+        handle::Handle::refresh_craft();
         if let Some(current) = current.as_ref() {
             handle::Handle::notify_profile_changed(current);
         }
@@ -546,7 +546,7 @@ mod tests {
     use super::{commit_current_profile, run_profile_config_update_transition};
     use crate::config::{IProfiles, PrfItem};
     use crate::core::validate::ValidationOutcome;
-    use clash_verge_draft::Draft;
+    use craft_verge_draft::Draft;
     use std::{
         sync::{
             Arc,

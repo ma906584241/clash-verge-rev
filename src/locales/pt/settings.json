@@ -96,8 +96,8 @@
       "dark": "Escuro",
       "system": "Sistema"
     },
-    "clash": {
-      "title": "Configurações do Clash",
+    "craft": {
+      "title": "Configurações do Craft",
       "form": {
         "fields": {
           "allowLan": "Permitir LAN",
@@ -108,7 +108,7 @@
           "portConfig": "Configuração de Portas",
           "external": "Externo",
           "webUI": "Web UI",
-          "clashCore": "Núcleo do Clash",
+          "craftCore": "Núcleo do Craft",
           "openUwpTool": "Abrir ferramenta UWP",
           "updateGeoData": "Atualizar GeoData",
           "tunnels": {
@@ -276,7 +276,7 @@
     }
   },
   "modals": {
-    "clashPort": {
+    "craftPort": {
       "title": "Configuração de Portas",
       "fields": {
         "mixed": "Porta Mista",
@@ -301,7 +301,7 @@
         "portTooHigh": "A porta deve ser 65535 ou menor"
       }
     },
-    "clashCore": {
+    "craftCore": {
       "variants": {
         "release": "Versão Release",
         "alpha": "Versão Alpha"
@@ -624,7 +624,7 @@
         "placeholderInstruction": "Substitua host, port, secret por %host, %port, %secret"
       },
       "errors": {
-        "clashInfoUnavailable": "As informações de conexão do núcleo não estão disponíveis",
+        "craftInfoUnavailable": "As informações de conexão do núcleo não estão disponíveis",
         "invalidServer": "O endereço do servidor do núcleo \"{{server}}\" é inválido",
         "openFailed": "Falha ao abrir a Web UI"
       }
@@ -655,7 +655,7 @@
   },
   "feedback": {
     "errors": {
-      "clash": {
+      "craft": {
         "configUpdateFailed": "Falha ao atualizar a configuração do núcleo",
         "modeUpdateFailed": "Falha ao alterar o modo de proxy",
         "restartFailed": "Falha ao reiniciar o núcleo",
@@ -663,7 +663,7 @@
         "serviceCoreStopped": "O núcleo do serviço parou inesperadamente",
         "stopFailed": "Falha ao parar o núcleo"
       },
-      "clashService": {
+      "craftService": {
         "installFailed": "Falha ao instalar o serviço",
         "uninstallFailed": "Falha ao desinstalar o serviço",
         "reinstallFailed": "Falha ao reinstalar o serviço",
@@ -672,24 +672,24 @@
         "coreAlreadyRunning": "Não é possível iniciar o núcleo: já há um processo do núcleo em execução. Feche o aplicativo correspondente ou encerre o processo remanescente e tente novamente. Se o problema persistir, reinicie o computador."
       },
       "sysproxy": {
-        "privilegeRequired": "Não é possível definir o proxy do sistema: o macOS recusou a alteração por falta de privilégios. Instale o serviço do Clash Verge; um administrador também pode desativar a exigência de senha de administrador para configurações do sistema, nas opções avançadas em Ajustes do Sistema → Privacidade e Segurança.",
+        "privilegeRequired": "Não é possível definir o proxy do sistema: o macOS recusou a alteração por falta de privilégios. Instale o serviço do Craft Verge; um administrador também pode desativar a exigência de senha de administrador para configurações do sistema, nas opções avançadas em Ajustes do Sistema → Privacidade e Segurança.",
         "directFallback": "Falha ao definir o proxy do sistema; o tráfego foi revertido para conexão direta.",
         "guardStopped": "A proteção do proxy do sistema parou após falhar várias vezes ao executar. O proxy do sistema não está mais sendo mantido.",
-        "sidecarWhileServiceReady": "Não foi possível definir o proxy do sistema porque o núcleo ainda está em execução como Sidecar, embora o serviço do Clash Verge esteja pronto. Reinicie o núcleo para mudar para o modo serviço.",
-        "coreNotReady": "Não foi possível ativar o proxy do sistema porque o núcleo não está em execução. Inicie o núcleo (ou instale/repare o serviço do Clash Verge) e tente novamente.",
+        "sidecarWhileServiceReady": "Não foi possível definir o proxy do sistema porque o núcleo ainda está em execução como Sidecar, embora o serviço do Craft Verge esteja pronto. Reinicie o núcleo para mudar para o modo serviço.",
+        "coreNotReady": "Não foi possível ativar o proxy do sistema porque o núcleo não está em execução. Inicie o núcleo (ou instale/repare o serviço do Craft Verge) e tente novamente.",
         "systemCallFailed": "Não foi possível gravar o proxy do sistema porque uma chamada de sistema do Windows falhou. Geralmente é temporário, então tente novamente."
       }
     },
     "notifications": {
-      "clash": {
-        "restartSuccess": "Núcleo do Clash Reiniciado",
+      "craft": {
+        "restartSuccess": "Núcleo do Craft Reiniciado",
         "versionUpdated": "Versão do Núcleo Atualizada",
         "alreadyLatestVersion": "Já Está Usando a Versão Mais Recente do Núcleo",
         "changeSuccess": "Núcleo alterado com sucesso",
         "changeFailed": "Falha ao alterar o núcleo",
         "geoDataUpdated": "GeoData Atualizado"
       },
-      "clashService": {
+      "craftService": {
         "appDataNotOwned": "O serviço se recusou a iniciar o núcleo porque, no disco, a pasta de dados do aplicativo não pertence à sua conta (comum quando a pasta pessoal está em um disco externo). Reparar o serviço não resolverá isso. Execute este comando em um terminal e reinicie o aplicativo:",
         "installSuccess": "Serviço Instalado com Sucesso",
         "permissionFallback": "{{reason}} Mudou para o modo normal (Sidecar); o TUN requer privilégios de administrador. Siga o guia para corrigir e reinstalar o serviço. Se preferir não corrigir ou não souber como, execute o aplicativo como administrador sem instalar o serviço.",
@@ -700,17 +700,17 @@
         "uninstallSuccess": "Serviço Desinstalado com Sucesso"
       },
       "updater": {
-        "withClashProxySuccess": "Atualização com o proxy do Clash concluída com sucesso",
-        "withClashProxyFailed": "A atualização falhou mesmo com o proxy do Clash"
+        "withCraftProxySuccess": "Atualização com o proxy do Craft concluída com sucesso",
+        "withCraftProxyFailed": "A atualização falhou mesmo com o proxy do Craft"
       }
     }
   },
   "statuses": {
-    "clash": {
+    "craft": {
       "stopping": "Parando o Núcleo...",
       "restarting": "Reiniciando o Núcleo..."
     },
-    "clashService": {
+    "craftService": {
       "installing": "Instalando o Serviço...",
       "uninstalling": "Desinstalando o Serviço..."
     }

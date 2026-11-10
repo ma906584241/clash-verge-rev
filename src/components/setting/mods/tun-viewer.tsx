@@ -19,7 +19,7 @@ import {
   DialogRef,
   Switch,
 } from '@/components/base'
-import { useClash } from '@/hooks/use-clash'
+import { useCraft } from '@/hooks/use-craft'
 import { enhanceProfiles } from '@/services/cmds'
 import { mutate } from '@/services/mutate'
 import { showNotice } from '@/services/notice-service'
@@ -42,7 +42,7 @@ const splitRouteExcludeAddress = (value: string) =>
 export function TunViewer({ ref }: { ref?: Ref<DialogRef> }) {
   const { t } = useTranslation()
 
-  const { clash, mutateClash, patchClash } = useClash()
+  const { craft, mutateCraft, patchCraft } = useCraft()
 
   const [open, setOpen] = useState(false)
   const [values, setValues] = useState({
@@ -72,23 +72,23 @@ export function TunViewer({ ref }: { ref?: Ref<DialogRef> }) {
   useSettingDialog(ref, 'tun-viewer', open, () => ({
     open: () => {
       setOpen(true)
-      const nextAutoRoute = clash?.tun['auto-route'] ?? true
-      const rawAutoRedirect = clash?.tun['auto-redirect'] ?? false
+      const nextAutoRoute = craft?.tun['auto-route'] ?? true
+      const rawAutoRedirect = craft?.tun['auto-redirect'] ?? false
       const computedAutoRedirect =
         OS === 'linux' ? (nextAutoRoute ? rawAutoRedirect : false) : false
       setValues({
-        stack: clash?.tun.stack ?? 'mips',
-        device: clash?.tun.device ?? (OS === 'macos' ? 'utun1024' : 'Mihomo'),
+        stack: craft?.tun.stack ?? 'mips',
+        device: craft?.tun.device ?? (OS === 'macos' ? 'utun1024' : 'Mihomo'),
         autoRoute: nextAutoRoute,
-        routeExcludeAddress: (clash?.tun['route-exclude-address'] ?? []).join(
+        routeExcludeAddress: (craft?.tun['route-exclude-address'] ?? []).join(
           ',',
         ),
         autoRedirect: computedAutoRedirect,
-        autoDetectInterface: clash?.tun['auto-detect-interface'] ?? true,
-        dnsHijack: clash?.tun['dns-hijack'] ?? ['any:53'],
-        strictRoute: clash?.tun['strict-route'] ?? false,
-        mtu: clash?.tun.mtu ?? 1500,
-        dnsMode: clash?.tun['dns-mode'] ?? '',
+        autoDetectInterface: craft?.tun['auto-detect-interface'] ?? true,
+        dnsHijack: craft?.tun['dns-hijack'] ?? ['any:53'],
+        strictRoute: craft?.tun['strict-route'] ?? false,
+        mtu: craft?.tun.mtu ?? 1500,
+        dnsMode: craft?.tun['dns-mode'] ?? '',
       })
     },
     close: () => setOpen(false),
@@ -126,8 +126,8 @@ export function TunViewer({ ref }: { ref?: Ref<DialogRef> }) {
         'strict-route': values.strictRoute,
         mtu: values.mtu ?? 1500,
       }
-      await patchClash({ tun })
-      await mutateClash(
+      await patchCraft({ tun })
+      await mutateCraft(
         (old) => ({
           ...old!,
           tun,
@@ -186,8 +186,8 @@ export function TunViewer({ ref }: { ref?: Ref<DialogRef> }) {
                 mtu: 1500,
                 dnsMode: '',
               })
-              await patchClash({ tun })
-              await mutateClash(
+              await patchCraft({ tun })
+              await mutateCraft(
                 (old) => ({
                   ...old!,
                   tun,

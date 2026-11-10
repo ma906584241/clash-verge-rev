@@ -4,7 +4,7 @@ use crate::core::notify::NoticeStatus;
 
 use std::sync::atomic::{AtomicBool, Ordering};
 
-use clash_verge_logging::{Type, logging};
+use craft_verge_logging::{Type, logging};
 use scopeguard::defer;
 
 use crate::{

@@ -1,4 +1,4 @@
-use super::{Config, IClashTemp, IVerge, MixedPort};
+use super::{Config, ICraftTemp, IVerge, MixedPort};
 use crate::core::notify::NoticeStatus;
 use crate::{
     constants::timing,
@@ -13,8 +13,8 @@ use crate::{
     utils::port::find_next_available_port,
 };
 use anyhow::{Context as _, Result, anyhow, bail};
-use clash_verge_draft::DraftTransaction;
-use clash_verge_logging::{Type, logging};
+use craft_verge_draft::DraftTransaction;
+use craft_verge_logging::{Type, logging};
 use parking_lot::Mutex;
 use serde_yaml_ng::Value;
 use std::{collections::HashSet, net::SocketAddr, str::FromStr as _};
@@ -31,13 +31,13 @@ static STARTUP_CORE_BLOCK_REASON: Mutex<Option<String>> = Mutex::new(None);
 impl Config {
     pub(crate) async fn resolve_startup_mixed_port() -> Result<bool> {
         let _config_write = Self::lock_config_write().await;
-        let clash = Self::clash().await.latest_arc();
+        let craft = Self::craft().await.latest_arc();
         let verge = Self::verge().await.latest_arc();
         // A retry must re-examine the port this session actually tried, not the one still named
         // on disk, or it keeps picking the same replacement instead of walking past it.
-        let selected_port = MixedPort::session_fallback().unwrap_or_else(|| clash.get_mixed_port());
+        let selected_port = MixedPort::session_fallback().unwrap_or_else(|| craft.get_mixed_port());
         let bind_scope =
-            ListenerBindScope::from_mapping(&clash.0).context("failed to derive mixed proxy listener scope")?;
+            ListenerBindScope::from_mapping(&craft.0).context("failed to derive mixed proxy listener scope")?;
 
         if owned_service_core_uses_port(selected_port).await {
             logging!(
@@ -70,7 +70,7 @@ impl Config {
             }
         }
 
-        let reserved = configured_listener_ports(&clash, &verge);
+        let reserved = configured_listener_ports(&craft, &verge);
         let candidate = AsyncHandler::spawn_blocking(move || {
             find_next_available_port(selected_port, &reserved, |port| {
                 bind_scope.mixed_port_is_available(port)
@@ -107,7 +107,7 @@ impl Config {
 
         transaction.commit();
         record_fallback(old_port, new_port);
-        Handle::refresh_clash();
+        Handle::refresh_craft();
         logging!(
             warn,
             Type::Config,
@@ -213,7 +213,7 @@ async fn owned_service_core_uses_port(port: u16) -> bool {
             return false;
         }
     };
-    let response = match clash_verge_service_ipc::get_status(&credentials).await {
+    let response = match craft_verge_service_ipc::get_status(&credentials).await {
         Ok(response) => response,
         Err(error) => {
             logging!(
@@ -262,16 +262,16 @@ async fn owned_service_core_uses_port(port: u16) -> bool {
     }
 }
 
-fn configured_listener_ports(clash: &IClashTemp, verge: &IVerge) -> HashSet<u16> {
+fn configured_listener_ports(craft: &ICraftTemp, verge: &IVerge) -> HashSet<u16> {
     let mut ports = HashSet::new();
     // Exclude the Mixed Port because it is being reassigned.
     for key in proxy_listener_keys().filter(|key| *key != MIXED_PORT_KEY) {
-        if let Some(port) = mapping_port(&clash.0, key) {
+        if let Some(port) = mapping_port(&craft.0, key) {
             ports.insert(port);
         }
     }
 
-    if let Ok(controller) = SocketAddr::from_str(IClashTemp::guard_server_ctrl(&clash.0).as_str()) {
+    if let Ok(controller) = SocketAddr::from_str(ICraftTemp::guard_server_ctrl(&craft.0).as_str()) {
         ports.insert(controller.port());
     }
 
@@ -319,11 +319,11 @@ mod listener_key_tests {
 #[cfg(test)]
 mod tests {
     use super::configured_listener_ports;
-    use crate::config::{IClashTemp, IVerge};
+    use crate::config::{ICraftTemp, IVerge};
 
     #[test]
     fn configured_ports_include_disabled_listener_assignments() {
-        let ports = configured_listener_ports(&IClashTemp::template(), &IVerge::template());
+        let ports = configured_listener_ports(&ICraftTemp::template(), &IVerge::template());
         assert!(ports.contains(&7898));
         assert!(ports.contains(&7899));
         assert!(ports.contains(&9097));

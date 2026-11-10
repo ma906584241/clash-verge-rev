@@ -19,7 +19,7 @@
         "traffic": "Cartão de estatísticas de tráfego",
         "tests": "Cartão de testes de sites",
         "ip": "Cartão de informações de IP",
-        "clashInfo": "Cartões de informações do Clash",
+        "craftInfo": "Cartões de informações do Craft",
         "systemInfo": "Cartões de informações do sistema"
       },
       "title": "Configurações do início"
@@ -40,8 +40,8 @@
         "tunMode": "Informações de interceptação do modo TUN"
       }
     },
-    "clashInfo": {
-      "title": "Informações do Clash",
+    "craftInfo": {
+      "title": "Informações do Craft",
       "fields": {
         "coreVersion": "Versão do núcleo",
         "systemProxyAddress": "Endereço do proxy do sistema",
@@ -137,7 +137,7 @@
       },
       "diagnostics": "Pontos: {{points}} | Agrupados: {{compressed}} | FPS: {{fps}}"
     },
-    "clashMode": {
+    "craftMode": {
       "errors": {
         "communication": "Erro de comunicação com o núcleo, reinicie o computador e tente novamente"
       },

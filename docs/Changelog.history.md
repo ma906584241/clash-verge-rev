@@ -373,7 +373,7 @@
 - 修复首页当前代理状态偶尔不同步的问题
 - 修复 URLTest 代理组未出现在部分代理组选择列表中的问题
 - 修复切换代理模式失败时未正确显示错误的问题
-- 修复重新加载 Clash 配置后规则页面数据未及时刷新的问题
+- 修复重新加载 Craft 配置后规则页面数据未及时刷新的问题
 - 修复全局快捷键隐藏主窗口行为异常的问题
 - 修复外部控制器 CORS 编辑时输入框可能丢失焦点的问题
 - 修复日志刷新时页面可能被强制滚动到底部的问题
@@ -439,7 +439,7 @@
 ## v2.5.0
 
 > [!IMPORTANT]
-> 关于版本的说明：Clash Verge 版本号遵循 x.y.z：x 为重大架构变更，y 为功能新增，z 为 Bug 修复。
+> 关于版本的说明：Craft Verge 版本号遵循 x.y.z：x 为重大架构变更，y 为功能新增，z 为 Bug 修复。
 
 - **Mihomo(Meta) 内核升级至 v1.19.25**
 
@@ -916,7 +916,7 @@
 - 修复静默启动时托盘工具栏轻量模式开启与关闭状态的同步
 - 修复导入订阅时非 http 协议链接被错误尝试导入
 - 修复切换节点后页面长时间 loading 及缓存过期导致的数据不同步问题
-- 修复将快捷键名称更名为 `Clash Verge`之后无法删除图标和无法删除注册表
+- 修复将快捷键名称更名为 `Craft Verge`之后无法删除图标和无法删除注册表
 - 修复`DNS`覆写 `fallback` `proxy server` `nameserver` `direct Nameserver` 字段支持留空
 - 修复`DNS`覆写 `nameserver-policy` 字段无法正确识别 `geo` 库
 - 修复搜索框输入特殊字符崩溃
@@ -1056,7 +1056,7 @@
   - 切换规则页自动刷新数据
   - 非激活订阅编辑时不再触发配置重载
   - 优化托盘速率显示，macOS 下默认关闭
-  - Windows 快捷键名称更名为 `Clash Verge`
+  - Windows 快捷键名称更名为 `Craft Verge`
   - 更新失败可回退至使用代理重试
   - 支持异步端口查找与保存，端口支持随机生成
   - 修改端口检测范围至 `1111-65536`
@@ -1086,7 +1086,7 @@
 - 仅在Ubuntu 22.04/24.04，Fedora 41 **Gnome桌面环境** 做过简单测试，不保证其他其他Linux发行版可用，将在未来做进一步适配和调优
 - MacOS 自定义图标与速率显示推荐图标尺寸为 256x256。其他尺寸（可能）会导致不正常图标和速率间隙
 - MacOS 下 墙贴主要为浅色，Tray 图标深色时图标闪烁；彩色 Tray 速率颜色淡
-- Linux 下 Clash Verge Rev 内存占用显著高于 Windows / MacOS
+- Linux 下 Craft Verge Rev 内存占用显著高于 Windows / MacOS
 
 ### 2.2.3 相对于 2.2.2
 
@@ -1107,14 +1107,14 @@
 #### 新增了：
 
 - Mihomo(Meta)内核升级至 1.19.4
-- Clash Verge Rev 从现在开始不再强依赖系统服务和管理权限
+- Craft Verge Rev 从现在开始不再强依赖系统服务和管理权限
 - 支持根据用户偏好选择Sidecar(用户空间)模式或安装服务
 - 增加载入初始配置文件的错误提示，防止切换到错误的订阅配置
 - 检测是否以管理员模式运行软件，如果是提示无法使用开机自启
 - 代理组显示节点数量
 - 统一运行模式检测，支持管理员模式下开启TUN模式
 - 托盘切换代理模式会根据设置自动断开之前连接
-- 如订阅获取失败回退使用Clash内核代理再次尝试
+- 如订阅获取失败回退使用Craft内核代理再次尝试
 
 #### 移除了：
 
@@ -1136,7 +1136,7 @@
 
 感谢 Tunglies 对 Verge 后端重构，性能优化做出的重大贡献！
 
-代号释义： 本次发布在功能上的大幅扩展。新首页设计为用户带来全新交互体验，DNS 覆写功能增强网络控制能力，解锁测试页面助力内容访问自由度提升，轻量模式提供灵活使用选择。此外，macOS 应用菜单集成、sidecar 模式、诊断信息导出等新特性进一步丰富了软件的适用场景。这些新增功能显著拓宽了 Clash Verge 的功能边界，为用户提供了更强大的工具和可能性。
+代号释义： 本次发布在功能上的大幅扩展。新首页设计为用户带来全新交互体验，DNS 覆写功能增强网络控制能力，解锁测试页面助力内容访问自由度提升，轻量模式提供灵活使用选择。此外，macOS 应用菜单集成、sidecar 模式、诊断信息导出等新特性进一步丰富了软件的适用场景。这些新增功能显著拓宽了 Craft Verge 的功能边界，为用户提供了更强大的工具和可能性。
 
 #### 已知问题
 
@@ -1164,14 +1164,14 @@
 
 1. **首页**
    - 修复 Direct 模式首页无法渲染
-   - 修复 首页启用轻量模式导致 ClashVergeRev 从托盘退出
+   - 修复 首页启用轻量模式导致 CraftVergeRev 从托盘退出
    - 修复 系统代理标识判断不准的问题
    - 修复 系统代理地址错误的问题
    - 代理模式“多余的切换动画”
 2. **系统**
    - 修复 MacOS 无法使用快捷键粘贴/选择/复制订阅地址。
    - 修复 代理端口设置同步问题。
-   - 修复 Linux 无法与 Mihomo 核心 和 ClashVergeRev 服务通信
+   - 修复 Linux 无法与 Mihomo 核心 和 CraftVergeRev 服务通信
 3. **界面**
    - 修复 连接详情卡没有跟随主题色
 4. **轻量模式**
@@ -1185,7 +1185,7 @@
    - 新增托盘进入轻量模式支持
    - 新增进入轻量模式快捷键支持
 3. **系统**
-   - 在 ClashVergeRev 对 Mihomo 进行操作时，总是尝试确保两者运行
+   - 在 CraftVergeRev 对 Mihomo 进行操作时，总是尝试确保两者运行
    - 服务器模式下启动mihomo内核的时候查找并停止其他已经存在的内核进程，防止内核假死等问题带来的通信失败
 4. **托盘**
    - 新增 MacOS 启用托盘速率显示时，可选隐藏托盘图标显示
@@ -1283,7 +1283,7 @@
 
 ##### 2.1.1相对2.1.0(已下架不再提供)更新了：
 
-- 检测所需的Clash Verge Service版本（杀毒软件误报可能与此有关，因为检测和安装新版本Service需管理员权限）
+- 检测所需的Craft Verge Service版本（杀毒软件误报可能与此有关，因为检测和安装新版本Service需管理员权限）
 - MacOS下支持彩色托盘图标和更好速率显示（感谢Tunglies）
 - 文件类型判断不准导致脚本检测报错的问题
 - 打开Win下的阴影(Win10因底层兼容性问题，可能圆角和边框显示不太完美)
@@ -1297,7 +1297,7 @@
 
 - 新增窗口状态实时监控与自动保存功能
 - 增强核心配置变更时的验证与错误处理机制
-- 支持通过环境变量 `CLASH_VERGE_REV_IP`自定义复制IP地址
+- 支持通过环境变量 `CRAFT_VERGE_REV_IP`自定义复制IP地址
 - 添加连接表列宽持久化设置与进程过滤功能
 - 新增代理组首字母导航与动态滚动定位功能
 - 实现连接追踪暂停/恢复功能
@@ -1313,7 +1313,7 @@
 - 重构代理列表渲染逻辑，提升布局计算效率
 - 优化代理数据更新机制，采用乐观UI策略
 - 改进虚拟列表渲染性能（Virtuoso）
-- 提升主窗口Clash模式切换速度（感谢Tunglies）
+- 提升主窗口Craft模式切换速度（感谢Tunglies）
 - 加速内核关闭流程并优化管理逻辑
 - 优化节点延迟刷新速率
 - 改进托盘网速显示更新逻辑
@@ -1376,7 +1376,7 @@
 ### Notice
 
 - !!使用出现异常的，打开设置-->配置目录 备份 后 删除所有文件 尝试是否正常!！
-- 历时3个月的紧密开发与严格测试稳定版2.0.0终于发布了：巨量改进与性能、稳定性提升，目前Clash Verge Rev已经有了比肩cfw的健壮性；而且更强大易用！
+- 历时3个月的紧密开发与严格测试稳定版2.0.0终于发布了：巨量改进与性能、稳定性提升，目前Craft Verge Rev已经有了比肩cfw的健壮性；而且更强大易用！
 - 由于更改了服务安装逻辑，每次更新安装需要输入系统密码卸载老版本服务和安装新版本服务，以后可以丝滑使用tun(虚拟网卡)模式
 
 ### 2.0.3相对于2.0.2改进修复了：
@@ -1425,7 +1425,7 @@
 ### Notice
 
 - !!使用出现异常的，打开设置-->配置目录 备份 后 删除所有文件 尝试是否正常!！
-- 历时3个月的紧密开发与严格测试稳定版2.0.0终于发布了：巨量改进与性能、稳定性提升，目前Clash Verge Rev已经有了比肩cfw的健壮性；而且更强大易用！
+- 历时3个月的紧密开发与严格测试稳定版2.0.0终于发布了：巨量改进与性能、稳定性提升，目前Craft Verge Rev已经有了比肩cfw的健壮性；而且更强大易用！
 - 由于更改了服务安装逻辑，Mac/Linux 首次安装需要输入系统密码卸载和安装服务，以后可以丝滑使用 tun(虚拟网卡)模式
 - 因 Tauri 2.0 底层 bug，关闭窗口后保留webview进程，优点是再次打开面板更快，缺点是内存使用略有增加
 
@@ -1532,7 +1532,7 @@
 
 ### Notice
 
-- Clash Verge Rev 目前已进入稳定周期，日后更新将着重于 bug 修复与内核常规升级
+- Craft Verge Rev 目前已进入稳定周期，日后更新将着重于 bug 修复与内核常规升级
 
 ### Features
 
@@ -1784,14 +1784,14 @@
 
 ### Features
 
-- 鼠标悬浮显示当前订阅的名称 [#938](https://github.com/clash-verge-rev/clash-verge-rev/pull/938)
-- 日志过滤支持正则表达式 [#959](https://github.com/clash-verge-rev/clash-verge-rev/pull/959)
-- 更新 Clash 内核到 1.18.4
+- 鼠标悬浮显示当前订阅的名称 [#938](https://www.aioperis.com/)
+- 日志过滤支持正则表达式 [#959](https://www.aioperis.com/)
+- 更新 Craft 内核到 1.18.4
 
 ### Bugs Fixes
 
 - 修复 Linux KDE 环境下系统代理无法开启的问题
-- 窗口最大化图标调整 [#924](https://github.com/clash-verge-rev/clash-verge-rev/pull/924)
+- 窗口最大化图标调整 [#924](https://www.aioperis.com/)
 - 修改 MacOS 托盘点击行为(左键菜单，右键点击事件)
 - 修复 MacOS 服务模式安装失败的问题
 
@@ -1802,28 +1802,28 @@
 ### Features
 
 - Meta(mihomo)内核回退 1.18.1（当前新版内核 hy2 协议有 bug，等修复后更新）
-- 多处界面细节调整 [#724](https://github.com/clash-verge-rev/clash-verge-rev/pull/724) [#799](https://github.com/clash-verge-rev/clash-verge-rev/pull/799) [#900](https://github.com/clash-verge-rev/clash-verge-rev/pull/900) [#901](https://github.com/clash-verge-rev/clash-verge-rev/pull/901)
+- 多处界面细节调整 [#724](https://www.aioperis.com/) [#799](https://www.aioperis.com/) [#900](https://www.aioperis.com/) [#901](https://www.aioperis.com/)
 - Linux 下新增服务模式
 - 新增订阅卡片右键可以打开机场首页
-- url-test 支持手动选择、节点组 fixed 节点使用角标展示 [#840](https://github.com/clash-verge-rev/clash-verge-rev/pull/840)
-- Clash 配置、Merge 配置提供 JSON Schema 语法支持、连接界面调整 [#887](https://github.com/clash-verge-rev/clash-verge-rev/pull/887)
-- 修改 Merge 配置文件默认内容 [#889](https://github.com/clash-verge-rev/clash-verge-rev/pull/889)
+- url-test 支持手动选择、节点组 fixed 节点使用角标展示 [#840](https://www.aioperis.com/)
+- Craft 配置、Merge 配置提供 JSON Schema 语法支持、连接界面调整 [#887](https://www.aioperis.com/)
+- 修改 Merge 配置文件默认内容 [#889](https://www.aioperis.com/)
 - 修改 tun 模式默认 mtu 为 1500，老版本升级，需在 tun 模式设置下“重置为默认值”。
-- 使用 npm 安装 meta-json-schema [#895](https://github.com/clash-verge-rev/clash-verge-rev/pull/895)
-- 更新部分翻译 [#904](https://github.com/clash-verge-rev/clash-verge-rev/pull/904)
+- 使用 npm 安装 meta-json-schema [#895](https://www.aioperis.com/)
+- 更新部分翻译 [#904](https://www.aioperis.com/)
 - 支持 ico 格式的任务栏图标
 
 ### Bugs Fixes
 
 - 修复 Linux KDE 环境下系统代理无法开启的问题
 - 修复延迟检测动画问题
-- 窗口最大化图标调整 [#816](https://github.com/clash-verge-rev/clash-verge-rev/pull/816)
-- 修复 Windows 某些情况下无法安装服务模式 [#822](https://github.com/clash-verge-rev/clash-verge-rev/pull/822)
-- UI 细节修复 [#821](https://github.com/clash-verge-rev/clash-verge-rev/pull/821)
+- 窗口最大化图标调整 [#816](https://www.aioperis.com/)
+- 修复 Windows 某些情况下无法安装服务模式 [#822](https://www.aioperis.com/)
+- UI 细节修复 [#821](https://www.aioperis.com/)
 - 修复使用默认编辑器打开配置文件
-- 修复内核文件在特定目录也可以更新的问题 [#857](https://github.com/clash-verge-rev/clash-verge-rev/pull/857)
+- 修复内核文件在特定目录也可以更新的问题 [#857](https://www.aioperis.com/)
 - 修复服务模式的安装目录问题
-- 修复删除配置文件的“更新间隔”出现的问题 [#907](https://github.com/clash-verge-rev/clash-verge-rev/issues/907)
+- 修复删除配置文件的“更新间隔”出现的问题 [#907](https://www.aioperis.com/)
 
 ### 已知问题（历史遗留问题，暂未找到有效解决方案）
 
@@ -1985,7 +1985,7 @@
 
 ### Features
 
-- 删除 Clash 字段过滤功能
+- 删除 Craft 字段过滤功能
 - 添加 socks 端口和 http 端口设置
 - 升级内核到 1.18.1
 
@@ -2005,7 +2005,7 @@
 
 - 优化了系统代理开启的代码，解决了稀有场景下代理开启卡顿的问题
 - 添加 MacOS 下的 debug 日志，以便日后调试稀有场景下 MacOS 下无法开启系统代理的问题
-- MacOS 关闭 GUI 时同步杀除后台 GUI [#306](https://github.com/clash-verge-rev/clash-verge-rev/issues/306)
+- MacOS 关闭 GUI 时同步杀除后台 GUI [#306](https://www.aioperis.com/)
 
 ### Bugs Fixes
 
@@ -2076,7 +2076,7 @@
 
 ### Features
 
-- 更新 Clash Meta(mihomo) 内核到 v1.18.0
+- 更新 Craft Meta(mihomo) 内核到 v1.18.0
 - 支持 URL Scheme(暂时仅支持 Windows)
 - 添加窗口置顶按钮
 - UI 优化调整
@@ -2132,7 +2132,7 @@
 ### Break Changes
 
 - 更改配置文件路径到标准目录(可以保证卸载时没有残留)
-- 更改 appid 为 `io.github.clash-verge-rev.clash-verge-rev`
+- 更改 appid 为 `io.github.craft-verge-rev.craft-verge-rev`
 - 建议卸载旧版本后再安装新版本，该版本安装后不会使用旧版配置文件，你可以手动将旧版配置文件迁移到新版配置文件目录下
 
 ### Features
@@ -2140,7 +2140,7 @@
 - 移除页面切换动画
 - 更改 Tun 模式托盘图标颜色
 - Portable 版本默认使用当前目录作为配置文件目录
-- 禁用 Clash 字段过滤时隐藏 Clash 字段选项
+- 禁用 Craft 字段过滤时隐藏 Craft 字段选项
 - 优化拖拽时光标样式
 
 ### Bugs Fixes
@@ -2156,10 +2156,10 @@
 
 ### Features
 
-- update clash meta core to mihomo 1.17.0
-- support both clash meta stable release and prerelease-alpha release
-- fixed the problem of not being able to set the system proxy when there is a dial-up link on windows system [#833](https://github.com/zzzgydi/clash-verge/issues/833)
-- support new clash field
+- update craft meta core to mihomo 1.17.0
+- support both craft meta stable release and prerelease-alpha release
+- fixed the problem of not being able to set the system proxy when there is a dial-up link on windows system [#833](https://www.aioperis.com/)
+- support new craft field
 - support random mixed port
 - add windows x86 and linux armv7 support
 - support disable tray click event
@@ -2175,8 +2175,8 @@
 
 ### Features
 
-- update clash meta core to newest 虚空终端(2023.11.23)
-- delete clash core UI
+- update craft meta core to newest 虚空终端(2023.11.23)
+- delete craft core UI
 - improve UI
 - change Logo to original
 
@@ -2186,9 +2186,9 @@
 
 ### Features
 
-- update clash meta core to newest 虚空终端
-- delete clash core, no longer maintain
-- merge Clash nyanpasu changes
+- update craft meta core to newest 虚空终端
+- delete craft core, no longer maintain
+- merge Craft nyanpasu changes
 - remove delay display different color
 - use Meta Country.mmdb
 - update dependencies
@@ -2200,7 +2200,7 @@
 
 ### Features
 
-- update clash meta core
+- update craft meta core
 - add default valid keys
 - adjust the delay display interval and color
 
@@ -2214,7 +2214,7 @@
 
 ### Features
 
-- update clash and clash meta core
+- update craft and craft meta core
 - profiles page add paste button
 - subscriptions url textfield use multi lines
 - set min window size
@@ -2233,7 +2233,7 @@
 
 - add russian translation
 - support to show connection detail
-- support clash meta memory usage display
+- support craft meta memory usage display
 - support proxy provider update ui
 - update geo data file from meta repo
 - adjust setting page
@@ -2254,13 +2254,13 @@
 
 ### Features
 
-- update clash core
+- update craft core
 
 ### Bug Fixes
 
 - fix blurry system tray icon (Windows)
 - fix v1.3.4 wintun.dll not found (Windows)
-- fix v1.3.4 clash core not found (macOS, Linux)
+- fix v1.3.4 craft core not found (macOS, Linux)
 
 ---
 
@@ -2268,7 +2268,7 @@
 
 ### Features
 
-- update clash and clash meta core
+- update craft and craft meta core
 - optimize traffic graph high CPU usage when window hidden
 - use polkit to elevate permission (Linux)
 - support app log level setting
@@ -2287,7 +2287,7 @@
 
 ### Features
 
-- update clash and clash meta core
+- update craft and craft meta core
 - show tray icon variants in different system proxy status (Windows)
 - close all connections when mode changed
 
@@ -2302,7 +2302,7 @@
 
 ### Features
 
-- update clash and clash meta core
+- update craft and craft meta core
 
 ### Bug Fixes
 
@@ -2315,7 +2315,7 @@
 
 ### Features
 
-- update clash and clash meta core
+- update craft and craft meta core
 
 ### Bug Fixes
 
@@ -2330,11 +2330,11 @@
 
 ### Features
 
-- update clash and clash meta
+- update craft and craft meta
 - support opening dir on tray
 - support updating all profiles with one click
-- support granting root permission to clash core(Linux, macOS)
-- support enable/disable clash fields filter, feel free to experience the latest features of Clash Meta
+- support granting root permission to craft core(Linux, macOS)
+- support enable/disable craft fields filter, feel free to experience the latest features of Craft Meta
 
 ### Bug Fixes
 
@@ -2350,7 +2350,7 @@
 
 ### Features
 
-- update clash
+- update craft
 - adjust macOS window style
 - profile supports UTF8 with BOM
 
@@ -2365,8 +2365,8 @@
 
 ### Features
 
-- update clash meta
-- recover clash core after panic
+- update craft meta
+- recover craft core after panic
 - use system window decorations(Linux)
 
 ### Bug Fixes
@@ -2381,7 +2381,7 @@
 
 ### Features
 
-- update clash version
+- update craft version
 - proxy groups support multi columns
 - optimize ui
 
@@ -2397,7 +2397,7 @@
 
 ### Features
 
-- update clash meta version
+- update craft meta version
 - support to change external-controller
 - support to change default latency test URL
 - close all connections when proxy changed or profile changed
@@ -2420,13 +2420,13 @@
 
 - the system tray follows i18n
 - change the proxy group ui of global mode
-- support to update profile with the system proxy/clash proxy
+- support to update profile with the system proxy/craft proxy
 - check the remote profile more strictly
 
 ### Bug Fixes
 
 - use app version as default user agent
-- the clash not exit in service mode
+- the craft not exit in service mode
 - reset the system proxy when quit the app
 - fix some other glitches
 
@@ -2436,9 +2436,9 @@
 
 ### Features
 
-- optimize clash config feedback
+- optimize craft config feedback
 - hide macOS dock icon
-- use clash meta compatible version (Linux)
+- use craft meta compatible version (Linux)
 
 ### Bug Fixes
 
@@ -2458,7 +2458,7 @@
 
 ### Bug Fixes
 
-- supports yaml merge key in clash config
+- supports yaml merge key in craft config
 - detect the network interface and set the system proxy(macOS)
 - fix some other glitches
 
@@ -2468,7 +2468,7 @@
 
 ### Features
 
-- update clash and clash.meta
+- update craft and craft.meta
 
 ### Bug Fixes
 
@@ -2484,7 +2484,7 @@
 - reimplement profile enhanced mode with quick-js
 - optimize the runtime config generation process
 - support web ui management
-- support clash field management
+- support craft field management
 - support viewing the runtime config
 - adjust some pages style
 
@@ -2499,8 +2499,8 @@
 
 ### Features
 
-- update clash core and clash meta version
-- support switch clash mode on system tray
+- update craft core and craft meta version
+- support switch craft mode on system tray
 - theme mode support follows system
 
 ### Bug Fixes
@@ -2514,7 +2514,7 @@
 ### Features
 
 - save some states such as URL test, filter, etc
-- update clash core and clash-meta core
+- update craft core and craft-meta core
 - new icon for macOS
 
 ---
@@ -2523,7 +2523,7 @@
 
 ### Features
 
-- supports for switching clash core
+- supports for switching craft core
 - supports release UI processes
 - supports script mode setting
 
@@ -2553,7 +2553,7 @@
 
 ### Features
 
-- update clash core
+- update craft core
 - optimize traffic graph animation
 - supports interval update profiles
 - supports service mode (Windows)
@@ -2561,7 +2561,7 @@
 ### Bug Fixes
 
 - reset system proxy when exit from dock (macOS)
-- adjust clash dns config process strategy
+- adjust craft dns config process strategy
 
 ---
 
@@ -2583,7 +2583,7 @@
 
 ### Features
 
-- enable to use clash config fields (UI)
+- enable to use craft config fields (UI)
 
 ### Bug Fixes
 
@@ -2626,7 +2626,7 @@
 
 ### Features
 
-- update clash core version
+- update craft core version
 
 ### Bug Fixes
 
@@ -2652,7 +2652,7 @@ If you can't update the app properly, please consider downloading the latest ver
 
 - open dir error
 - auto launch path (Windows)
-- fix some clash config error
+- fix some craft config error
 - reduce the impact of the enhanced mode
 
 ---
@@ -2666,5 +2666,5 @@ If you can't update the app properly, please consider downloading the latest ver
 
 ### Bug Fixes
 
-- clash config file case ignore
-- clash `external-controller` only port
+- craft config file case ignore
+- craft `external-controller` only port

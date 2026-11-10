@@ -30,19 +30,19 @@ export const useServiceInstaller = () => {
           id: 'install-service',
           errorNotice: false,
         }),
-      'settings.statuses.clashService.installing',
+      'settings.statuses.craftService.installing',
     )
     if (!installResult.ok) return
     if (installResult.value.status === 'sidecar') {
       showNotice.warning(
-        'settings.feedback.notifications.clashService.permissionFallback',
+        'settings.feedback.notifications.craftService.permissionFallback',
         { reason: installResult.value.reason },
         0,
       )
       return
     }
     showNotice.success(
-      'settings.feedback.notifications.clashService.installSuccess',
+      'settings.feedback.notifications.craftService.installSuccess',
     )
 
     await executeWithErrorHandling(
@@ -51,8 +51,8 @@ export const useServiceInstaller = () => {
           id: 'restart-core',
           errorNotice: false,
         }),
-      'settings.statuses.clash.restarting',
-      'settings.feedback.notifications.clash.restartSuccess',
+      'settings.statuses.craft.restarting',
+      'settings.feedback.notifications.craft.restartSuccess',
     )
   }, [])
   return { installServiceAndRestartCore }

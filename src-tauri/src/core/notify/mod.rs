@@ -36,10 +36,10 @@ pub enum NoticeStatus {
     AppRestartCoreStopFailed,
     #[serde(rename = "app_quit::core_stop_failed")]
     AppQuitCoreStopFailed,
-    #[serde(rename = "update_with_clash_proxy")]
-    UpdateWithClashProxy,
-    #[serde(rename = "update_failed_even_with_clash")]
-    UpdateFailedEvenWithClash,
+    #[serde(rename = "update_with_craft_proxy")]
+    UpdateWithCraftProxy,
+    #[serde(rename = "update_failed_even_with_craft")]
+    UpdateFailedEvenWithCraft,
     #[serde(rename = "reactivate_profiles::error")]
     ReactivateProfilesError,
     #[serde(rename = "update_failed")]
@@ -98,8 +98,8 @@ impl NoticeStatus {
         Self::TunModeAutoDisableFailed,
         Self::AppRestartCoreStopFailed,
         Self::AppQuitCoreStopFailed,
-        Self::UpdateWithClashProxy,
-        Self::UpdateFailedEvenWithClash,
+        Self::UpdateWithCraftProxy,
+        Self::UpdateFailedEvenWithCraft,
         Self::ReactivateProfilesError,
         Self::UpdateFailed,
         Self::ConfigValidateBootError,
@@ -143,8 +143,8 @@ mod tests {
             "tun_mode::auto_disable_failed",
             "app_restart::core_stop_failed",
             "app_quit::core_stop_failed",
-            "update_with_clash_proxy",
-            "update_failed_even_with_clash",
+            "update_with_craft_proxy",
+            "update_failed_even_with_craft",
             "reactivate_profiles::error",
             "update_failed",
             "config_validate::boot_error",

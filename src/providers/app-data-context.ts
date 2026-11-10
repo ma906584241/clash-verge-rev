@@ -14,9 +14,9 @@ export interface RulesContextType {
   ruleProviders: Record<string, RuleProvider | undefined>
 }
 
-export interface ClashConfigContextType {
-  clashConfig: BaseConfig | undefined
-  isClashConfigPending: boolean
+export interface CraftConfigContextType {
+  craftConfig: BaseConfig | undefined
+  isCraftConfigPending: boolean
 }
 
 export interface SystemContextType {
@@ -32,7 +32,7 @@ export interface CoreDataStatusContextType {
 
 export interface RefreshersContextType {
   refreshProxy: () => Promise<unknown>
-  refreshClashConfig: () => Promise<unknown>
+  refreshCraftConfig: () => Promise<unknown>
   refreshRules: () => Promise<unknown>
   refreshSysproxy: () => Promise<unknown>
   refreshRuleProviders: () => Promise<unknown>
@@ -41,7 +41,7 @@ export interface RefreshersContextType {
 
 export const ProxiesContext = createContext<ProxiesContextType | null>(null)
 export const RulesContext = createContext<RulesContextType | null>(null)
-export const ClashConfigContext = createContext<ClashConfigContextType | null>(
+export const CraftConfigContext = createContext<CraftConfigContextType | null>(
   null,
 )
 export const SystemContext = createContext<SystemContextType | null>(null)
@@ -69,8 +69,8 @@ export const useRulesData = () => {
   }
 }
 
-export const useClashConfigData = (): ClashConfigContextType =>
-  useCtx(ClashConfigContext, 'useClashConfigData')
+export const useCraftConfigData = (): CraftConfigContextType =>
+  useCtx(CraftConfigContext, 'useCraftConfigData')
 
 export const useSystemData = (): SystemContextType =>
   useCtx(SystemContext, 'useSystemData')

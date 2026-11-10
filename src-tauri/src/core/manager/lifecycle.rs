@@ -1,16 +1,16 @@
 use super::{CoreManager, RunningMode};
 use crate::config::{Config, IVerge};
 use crate::core::handle::Handle;
-use crate::core::manager::CLASH_LOGGER;
+use crate::core::manager::CRAFT_LOGGER;
 use crate::core::proxy_control::{self, SysproxyFailure};
 use crate::core::service::{SERVICE_MANAGER, ServiceStatus};
 use anyhow::Result;
-use clash_verge_logging::{Type, logging};
+use craft_verge_logging::{Type, logging};
 use scopeguard::defer;
 use smartstring::alias::String;
 use std::path::Path;
 #[cfg(target_os = "windows")]
-use tauri_plugin_clash_verge_sysinfo::is_current_app_handle_admin;
+use tauri_plugin_craft_verge_sysinfo::is_current_app_handle_admin;
 
 #[cfg(any(target_os = "windows", test))]
 const fn should_wait_for_service(tun_enabled: bool, service_ready: bool, is_admin: bool) -> bool {
@@ -209,7 +209,7 @@ where
     };
     let refusal = error.downcast_ref::<crate::core::service::ServiceStartRefusal>();
     let location_refused = refusal.is_some_and(|refusal| {
-        refusal.code == clash_verge_service_ipc::ServiceErrorCode::InvalidInstallLocation as u16
+        refusal.code == craft_verge_service_ipc::ServiceErrorCode::InvalidInstallLocation as u16
     });
     if refusal.is_some() && !location_refused {
         return Err(error);
@@ -400,7 +400,7 @@ impl CoreManager {
             }
             #[cfg(target_os = "windows")]
             if matches!(*mode, RunningMode::NotRunning) {
-                clash_verge_service_ipc::execution::check_sidecar_available()
+                craft_verge_service_ipc::execution::check_sidecar_available()
                     .await
                     .map_err(super::state::explain_core_occupancy)?;
             }
@@ -662,7 +662,7 @@ impl CoreManager {
                     run_service_start_with_sidecar_fallback(
                         || self.start_core_by_service(),
                         || async {
-                            clash_verge_service_ipc::execution::check_sidecar_available()
+                            craft_verge_service_ipc::execution::check_sidecar_available()
                                 .await
                                 .map_err(super::state::explain_core_occupancy)
                         },
@@ -710,7 +710,7 @@ impl CoreManager {
             ServiceHealth::VersionMismatch => "registered service is unavailable or incompatible".to_owned(),
             _ => return Ok(()),
         };
-        if let Err(error) = clash_verge_service_ipc::execution::check_sidecar_available()
+        if let Err(error) = craft_verge_service_ipc::execution::check_sidecar_available()
             .await
             .map_err(super::state::explain_core_occupancy)
         {
@@ -776,7 +776,7 @@ impl CoreManager {
     }
 
     async fn stop_core_unprepared_inner(&self) -> Result<()> {
-        CLASH_LOGGER.clear_logs();
+        CRAFT_LOGGER.clear_logs();
         let result = match *self.get_running_mode() {
             RunningMode::Service => self.stop_core_by_service().await,
             RunningMode::Sidecar => self.stop_core_by_sidecar_unprepared().await,
@@ -820,14 +820,14 @@ impl CoreManager {
         .await
     }
 
-    #[tracing::instrument(skip_all, level = "info", fields(core = %clash_core))]
-    pub async fn change_core(&self, clash_core: &String) -> Result<()> {
-        if !IVerge::VALID_CLASH_CORES.contains(&clash_core.as_str()) {
-            anyhow::bail!("invalid clash core: {clash_core}");
+    #[tracing::instrument(skip_all, level = "info", fields(core = %craft_core))]
+    pub async fn change_core(&self, craft_core: &String) -> Result<()> {
+        if !IVerge::VALID_CRAFT_CORES.contains(&craft_core.as_str()) {
+            anyhow::bail!("invalid craft core: {craft_core}");
         }
 
         Config::verge().await.edit_draft(|d| {
-            d.clash_core = Some(clash_core.to_owned());
+            d.craft_core = Some(craft_core.to_owned());
         });
         Config::verge().await.apply();
 
@@ -1595,7 +1595,7 @@ mod tests {
             let result = super::run_service_start_with_sidecar_fallback(
                 || async {
                     Err(crate::core::service::ServiceStartRefusal {
-                        code: clash_verge_service_ipc::ServiceErrorCode::InvalidInstallLocation as u16,
+                        code: craft_verge_service_ipc::ServiceErrorCode::InvalidInstallLocation as u16,
                         core_path: "verge-mihomo.exe".into(),
                         message: "no administrator-approved copy is installed".into(),
                     }

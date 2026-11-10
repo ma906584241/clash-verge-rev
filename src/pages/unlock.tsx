@@ -33,7 +33,7 @@ import {
 } from '@/services/cmds'
 import { showNotice } from '@/services/notice-service'
 
-const UNLOCK_RESULTS_STORAGE_KEY = 'clash_verge_unlock_results'
+const UNLOCK_RESULTS_STORAGE_KEY = 'craft_verge_unlock_results'
 
 const STATUS_LABEL_KEYS: Record<string, string> = {
   Pending: 'tests.statuses.test.pending',

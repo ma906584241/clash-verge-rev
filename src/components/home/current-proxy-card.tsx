@@ -50,7 +50,7 @@ import { useProxySelection } from '@/hooks/use-proxy-selection'
 import { useVerge } from '@/hooks/use-verge'
 import {
   useAppRefreshers,
-  useClashConfigData,
+  useCraftConfigData,
   useCoreDataStatus,
   useProxiesData,
 } from '@/providers/app-data-context'
@@ -67,8 +67,8 @@ import {
 import { debugLog } from '@/utils/debug'
 import { compareByDelay, DEFAULT_DELAY_TIMEOUT } from '@/utils/delay'
 
-const STORAGE_KEY_GROUP = 'clash-verge-selected-proxy-group'
-const STORAGE_KEY_SORT_TYPE = 'clash-verge-proxy-sort-type'
+const STORAGE_KEY_GROUP = 'craft-verge-selected-proxy-group'
+const STORAGE_KEY_SORT_TYPE = 'craft-verge-proxy-sort-type'
 
 const AUTO_CHECK_DEFAULT_INTERVAL_MINUTES = 5
 const AUTO_CHECK_INITIAL_DELAY_MS = 100
@@ -545,7 +545,7 @@ export const CurrentProxyCard = () => {
   const navigate = useNavigate()
   const theme = useTheme()
   const { proxyView } = useProxiesData()
-  const { clashConfig } = useClashConfigData()
+  const { craftConfig } = useCraftConfigData()
   const { refreshProxy } = useAppRefreshers()
   const { isCoreDataPending } = useCoreDataStatus()
   const { verge } = useVerge()
@@ -612,7 +612,7 @@ export const CurrentProxyCard = () => {
     },
   })
 
-  const mode = clashConfig?.mode?.toLowerCase() || 'rule'
+  const mode = craftConfig?.mode?.toLowerCase() || 'rule'
   const isGlobalMode = mode === 'global'
   const isDirectMode = mode === 'direct'
 

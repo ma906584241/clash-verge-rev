@@ -72,7 +72,7 @@ function output(values) {
 function versionPatternFor(path) {
   if (path.endsWith('.json')) return /("version"\s*:\s*")[^"]+/
   return path === 'Cargo.lock'
-    ? /(\[\[package\]\]\r?\nname = "clash-verge"\r?\nversion = ")[^"]+/
+    ? /(\[\[package\]\]\r?\nname = "craft-verge"\r?\nversion = ")[^"]+/
     : /(^version\s*=\s*")[^"]+/m
 }
 
@@ -669,7 +669,7 @@ function prepareDraft() {
     api('releases', {
       tag_name: tag,
       target_commitish: env.SOURCE_SHA,
-      name: `Clash Verge Rev ${tag}`,
+      name: `Craft Verge Rev ${tag}`,
       body: 'Draft release, will be updated later.',
       draft: true,
       prerelease: isRc(tag),

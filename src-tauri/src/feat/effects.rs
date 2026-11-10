@@ -5,7 +5,7 @@ use std::collections::BTreeSet;
 #[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord)]
 pub(super) enum Effect {
     RestartCore,
-    ClashConfig,
+    CraftConfig,
     Autostart,
     Language,
     SystemProxy,
@@ -27,7 +27,7 @@ macro_rules! select_field {
         if $field.is_some() { $effects.extend([$(Effect::$effect),*]); }
     };
     ($effects:ident, $field:ident, Tun) => {
-        select_field!($effects, $field, [ClashConfig, TrayMenu, TrayTooltip, TrayIcon]);
+        select_field!($effects, $field, [CraftConfig, TrayMenu, TrayTooltip, TrayIcon]);
         #[cfg(target_os = "linux")]
         if *$field == Some(true) { $effects.insert(Effect::RestartCore); }
     };
@@ -85,7 +85,7 @@ verge_registry! {
     proxy_host => [SystemProxy];
     theme_setting => NoEffect;
     web_ui_list => NoEffect;
-    clash_core => NoEffect;
+    craft_core => NoEffect;
     hotkeys => [Hotkey, TrayMenu];
     enable_global_hotkey => NoEffect;
     home_cards => NoEffect;
@@ -129,21 +129,21 @@ verge_registry! {
     enable_external_controller => [RestartCore];
 }
 
-pub(super) fn clash_effects(patch: &serde_yaml_ng::Mapping) -> Effects {
-    use clash_verge_logging::{Type, logging};
+pub(super) fn craft_effects(patch: &serde_yaml_ng::Mapping) -> Effects {
+    use craft_verge_logging::{Type, logging};
     let mut effects = Effects::new();
     for key in patch.keys() {
         effects.extend(match key.as_str() {
             Some("secret" | "external-controller") => &[Effect::RestartCore][..],
-            Some("allow-lan") => &[Effect::ClashConfig][..],
-            Some("mode") => &[Effect::ClashConfig, Effect::TrayMenu, Effect::TrayIcon][..],
+            Some("allow-lan") => &[Effect::CraftConfig][..],
+            Some("mode") => &[Effect::CraftConfig, Effect::TrayMenu, Effect::TrayIcon][..],
             _ => {
                 logging!(
                     warn,
                     Type::Config,
-                    "Unregistered Clash configuration key {key:?}; reloading configuration"
+                    "Unregistered Craft configuration key {key:?}; reloading configuration"
                 );
-                &[Effect::ClashConfig][..]
+                &[Effect::CraftConfig][..]
             }
         });
     }
@@ -151,10 +151,10 @@ pub(super) fn clash_effects(patch: &serde_yaml_ng::Mapping) -> Effects {
     if effects.contains(&Effect::RestartCore) {
         effects.retain(|effect| *effect == Effect::RestartCore);
     } else if patch.contains_key("allow-lan") {
-        effects.retain(|effect| *effect == Effect::ClashConfig);
+        effects.retain(|effect| *effect == Effect::CraftConfig);
     }
     if patch.is_empty() {
-        effects.insert(Effect::ClashConfig);
+        effects.insert(Effect::CraftConfig);
     }
     effects
 }
@@ -227,7 +227,7 @@ mod tests {
             verge_effects(&tun),
             [
                 Effect::RestartCore,
-                Effect::ClashConfig,
+                Effect::CraftConfig,
                 Effect::TrayIcon,
                 Effect::TrayMenu,
                 Effect::TrayTooltip,
@@ -239,7 +239,7 @@ mod tests {
         assert_eq!(
             verge_effects(&tun),
             [
-                Effect::ClashConfig,
+                Effect::CraftConfig,
                 Effect::TrayIcon,
                 Effect::TrayMenu,
                 Effect::TrayTooltip,
@@ -249,7 +249,7 @@ mod tests {
         );
     }
 
-    fn clash_mapping(pairs: &[(&str, &str)]) -> serde_yaml_ng::Mapping {
+    fn craft_mapping(pairs: &[(&str, &str)]) -> serde_yaml_ng::Mapping {
         let mut mapping = serde_yaml_ng::Mapping::new();
         for (key, value) in pairs {
             mapping.insert((*key).into(), (*value).into());
@@ -258,31 +258,31 @@ mod tests {
     }
 
     #[test]
-    fn clash_keys_map_to_frozen_effects() {
+    fn craft_keys_map_to_frozen_effects() {
         let cases: [(serde_yaml_ng::Mapping, &[Effect]); 7] = [
-            (clash_mapping(&[]), &[Effect::ClashConfig]),
-            (clash_mapping(&[("secret", "s")]), &[Effect::RestartCore]),
+            (craft_mapping(&[]), &[Effect::CraftConfig]),
+            (craft_mapping(&[("secret", "s")]), &[Effect::RestartCore]),
             (
-                clash_mapping(&[("mode", "rule")]),
-                &[Effect::ClashConfig, Effect::TrayIcon, Effect::TrayMenu],
+                craft_mapping(&[("mode", "rule")]),
+                &[Effect::CraftConfig, Effect::TrayIcon, Effect::TrayMenu],
             ),
-            (clash_mapping(&[("allow-lan", "true")]), &[Effect::ClashConfig]),
-            (clash_mapping(&[("not-a-known-key", "1")]), &[Effect::ClashConfig]),
+            (craft_mapping(&[("allow-lan", "true")]), &[Effect::CraftConfig]),
+            (craft_mapping(&[("not-a-known-key", "1")]), &[Effect::CraftConfig]),
             // Restart supersedes reload; allow-lan precedes mode.
             (
-                clash_mapping(&[("secret", "s"), ("mode", "rule")]),
+                craft_mapping(&[("secret", "s"), ("mode", "rule")]),
                 &[Effect::RestartCore],
             ),
             (
-                clash_mapping(&[("allow-lan", "true"), ("mode", "rule")]),
-                &[Effect::ClashConfig],
+                craft_mapping(&[("allow-lan", "true"), ("mode", "rule")]),
+                &[Effect::CraftConfig],
             ),
         ];
         for (patch, expected) in cases {
             assert_eq!(
-                clash_effects(&patch),
+                craft_effects(&patch),
                 expected.iter().copied().collect::<Effects>(),
-                "clash mapping drifted for {expected:?}"
+                "craft mapping drifted for {expected:?}"
             );
         }
     }

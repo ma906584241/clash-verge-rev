@@ -1,6 +1,6 @@
 use anyhow::{Context as _, Result, bail};
-use clash_verge_logging::{Type, logging};
-use clash_verge_service_ipc::{RemoteProvider, RuntimeAsset, RuntimeBundle};
+use craft_verge_logging::{Type, logging};
+use craft_verge_service_ipc::{RemoteProvider, RuntimeAsset, RuntimeBundle};
 use serde_yaml_ng::{Mapping, Value};
 use sha2::{Digest as _, Sha256};
 use std::collections::{BTreeMap, HashSet};
@@ -418,7 +418,7 @@ mod tests {
 
     #[tokio::test]
     async fn conflicting_sources_get_separate_paths_in_config_bundle_and_readback() -> anyhow::Result<()> {
-        let root = std::env::temp_dir().join(format!("clash-verge-provider-paths-{}", std::process::id()));
+        let root = std::env::temp_dir().join(format!("craft-verge-provider-paths-{}", std::process::id()));
         std::fs::create_dir_all(&root)?;
         let mut config: serde_yaml_ng::Mapping = serde_yaml_ng::from_str(
             "rule-providers:\n  AppleDev:\n    type: http\n    url: https://one.example/AppleDev.yaml\n    path: ./providers/rule/AppleDev.yaml\n  mirror:\n    type: http\n    url: https://two.example/AppleDev.yaml\n    path: providers/rule/AppleDev.yaml\n",
@@ -502,7 +502,7 @@ mod tests {
 
     #[tokio::test]
     async fn collects_only_local_providers_and_existing_geo_assets() -> anyhow::Result<()> {
-        let root = std::env::temp_dir().join(format!("clash-verge-runtime-bundle-{}", std::process::id()));
+        let root = std::env::temp_dir().join(format!("craft-verge-runtime-bundle-{}", std::process::id()));
         std::fs::create_dir_all(root.join("providers"))?;
         std::fs::write(root.join("providers/local.yaml"), b"proxies: []\n")?;
         std::fs::write(root.join("Country.mmdb"), b"geo")?;
@@ -563,7 +563,7 @@ mod tests {
     #[tokio::test]
     async fn two_names_for_one_remote_file_are_folded_rather_than_refused() -> anyhow::Result<()> {
         // Identical repeats are one service-side file and are safe to fold.
-        let root = std::env::temp_dir().join(format!("clash-verge-bundle-dup-{}", std::process::id()));
+        let root = std::env::temp_dir().join(format!("craft-verge-bundle-dup-{}", std::process::id()));
         let _ = std::fs::remove_dir_all(&root);
         std::fs::create_dir_all(&root)?;
         let config = root.join("config.yaml");
@@ -584,7 +584,7 @@ mod tests {
 
     #[tokio::test]
     async fn two_sources_for_one_remote_file_are_refused() -> anyhow::Result<()> {
-        let root = std::env::temp_dir().join(format!("clash-verge-bundle-conflict-{}", std::process::id()));
+        let root = std::env::temp_dir().join(format!("craft-verge-bundle-conflict-{}", std::process::id()));
         let _ = std::fs::remove_dir_all(&root);
         std::fs::create_dir_all(&root)?;
         let config = root.join("config.yaml");
@@ -607,7 +607,7 @@ mod tests {
     #[tokio::test]
     async fn an_odd_provider_is_left_alone_instead_of_failing_the_whole_bundle() -> anyhow::Result<()> {
         // Odd providers accepted by mihomo must not block the rest of the bundle.
-        let root = std::env::temp_dir().join(format!("clash-verge-bundle-odd-{}", std::process::id()));
+        let root = std::env::temp_dir().join(format!("craft-verge-bundle-odd-{}", std::process::id()));
         let _ = std::fs::remove_dir_all(&root);
         std::fs::create_dir_all(&root)?;
         let config = root.join("config.yaml");
@@ -638,7 +638,7 @@ mod tests {
 
     #[tokio::test]
     async fn rejects_provider_paths_outside_the_config_root() -> anyhow::Result<()> {
-        let root = std::env::temp_dir().join(format!("clash-verge-runtime-bundle-outside-{}", std::process::id()));
+        let root = std::env::temp_dir().join(format!("craft-verge-runtime-bundle-outside-{}", std::process::id()));
         std::fs::create_dir_all(&root)?;
         let config = root.join("config.yaml");
         let outside = root

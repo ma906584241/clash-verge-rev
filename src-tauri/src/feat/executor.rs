@@ -12,15 +12,15 @@ use crate::{
     },
 };
 use anyhow::Result;
-use clash_verge_draft::DraftTransaction;
-use clash_verge_logging::{Type, logging_error};
+use craft_verge_draft::DraftTransaction;
+use craft_verge_logging::{Type, logging_error};
 use serde_yaml_ng::Mapping;
 use std::sync::Arc;
 use tokio::sync::MutexGuard;
 
 pub(super) enum Patch<'a> {
     Verge { patch: &'a IVerge, persist: bool },
-    Clash(&'a Mapping),
+    Craft(&'a Mapping),
 }
 
 async fn ensure_restart(manager: &CoreManager) -> Result<()> {
@@ -48,13 +48,13 @@ async fn ensure_effect(
         Effect::RestartCore => {
             ensure_restart(manager).await?;
         }
-        Effect::ClashConfig => {
+        Effect::CraftConfig => {
             manager.update_config_in_patch(update).await?;
         }
         Effect::Autostart => autostart::update_launch().await?,
         Effect::Language => {
             if let Some(language) = &patch.language {
-                clash_verge_i18n::set_locale(language.as_str());
+                craft_verge_i18n::set_locale(language.as_str());
             }
         }
         Effect::SystemProxy => {
@@ -111,29 +111,29 @@ async fn ensure_effect(
 pub(super) async fn apply(config_write: &MutexGuard<'_, ()>, patch: Patch<'_>, effects: Effects) -> Result<()> {
     let manager = CoreManager::global();
     let update = manager.claim_config_update(config_write)?;
-    let clash = Config::clash().await;
+    let craft = Config::craft().await;
     let verge = Config::verge().await;
     let runtime = Config::runtime().await;
     let transaction = match patch {
         Patch::Verge { .. } => DraftTransaction::begin(vec![&verge, &runtime])?,
-        Patch::Clash(_) => DraftTransaction::begin(vec![&clash, &runtime])?,
+        Patch::Craft(_) => DraftTransaction::begin(vec![&craft, &runtime])?,
     };
     let original_runtime = runtime.data_arc();
     let mut snapshots = capture_config_files().await?;
     let empty = IVerge::default();
     let verge_patch = match &patch {
         Patch::Verge { patch, .. } => patch,
-        Patch::Clash(_) => &empty,
+        Patch::Craft(_) => &empty,
     };
     match &patch {
         Patch::Verge { patch, .. } => verge.edit_draft(|draft| draft.patch_config(patch)),
-        Patch::Clash(patch) => clash.edit_draft(|draft| draft.patch_config(patch)),
+        Patch::Craft(patch) => craft.edit_draft(|draft| draft.patch_config(patch)),
     }
     let result: Result<()> = async {
         for effect in effects.iter().copied() {
             let result = Box::pin(ensure_effect(effect, verge_patch, manager, &update)).await;
-            if matches!(patch, Patch::Clash(_)) && matches!(effect, Effect::TrayMenu | Effect::TrayIcon) {
-                // Tray failures must not reject an applied Clash mode change.
+            if matches!(patch, Patch::Craft(_)) && matches!(effect, Effect::TrayMenu | Effect::TrayIcon) {
+                // Tray failures must not reject an applied Craft mode change.
                 logging_error!(Type::Tray, result);
             } else {
                 result?;
@@ -142,7 +142,7 @@ pub(super) async fn apply(config_write: &MutexGuard<'_, ()>, patch: Patch<'_>, e
         match patch {
             Patch::Verge { persist: true, .. } => verge.latest_arc().save_file().await?,
             Patch::Verge { persist: false, .. } => {}
-            Patch::Clash(_) => clash.latest_arc().save_config().await?,
+            Patch::Craft(_) => craft.latest_arc().save_config().await?,
         }
         Ok(())
     }
@@ -150,7 +150,7 @@ pub(super) async fn apply(config_write: &MutexGuard<'_, ()>, patch: Patch<'_>, e
     if let Err(error) = result {
         transaction.rollback();
         if !Arc::ptr_eq(&original_runtime, &runtime.data_arc()) {
-            announce(Refresh::Clash);
+            announce(Refresh::Craft);
             // The Core already loaded this runtime; restoring its file would only hide that state.
             let runtime_path = crate::utils::dirs::app_home_dir()?.join(crate::constants::files::RUNTIME_CONFIG);
             snapshots.retain(|snapshot| snapshot.path != runtime_path);
@@ -166,13 +166,13 @@ pub(super) async fn apply(config_write: &MutexGuard<'_, ()>, patch: Patch<'_>, e
             if patch.auto_check_update == Some(false) {
                 SilentUpdater::global().discard_pending();
             }
-            if effects.contains(&Effect::ClashConfig) {
-                announce(Refresh::Clash);
+            if effects.contains(&Effect::CraftConfig) {
+                announce(Refresh::Craft);
             }
             logging_error!(Type::Backup, AutoBackupManager::global().refresh_settings().await);
             announce(Refresh::Verge);
         }
-        Patch::Clash(_) => announce(Refresh::Clash),
+        Patch::Craft(_) => announce(Refresh::Craft),
     }
     Ok(())
 }

@@ -1,6 +1,6 @@
 use crate::{core::handle, utils::resolve::window::build_new_window};
-use clash_verge_limiter::Limiter;
-use clash_verge_logging::{Type, logging};
+use craft_verge_limiter::Limiter;
+use craft_verge_logging::{Type, logging};
 use std::pin::Pin;
 use std::sync::LazyLock;
 use std::time::Duration;
@@ -29,7 +29,7 @@ const WINDOW_OPERATION_DEBOUNCE_MS: u64 = 625;
 static WINDOW_OPERATION_LIMITER: LazyLock<Limiter> = LazyLock::new(|| {
     Limiter::new(
         Duration::from_millis(WINDOW_OPERATION_DEBOUNCE_MS),
-        clash_verge_limiter::SystemClock,
+        craft_verge_limiter::SystemClock,
     )
 });
 

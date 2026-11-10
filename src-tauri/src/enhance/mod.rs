@@ -23,7 +23,7 @@ use crate::{
     utils::tmpl,
 };
 use anyhow::{Context as _, Result};
-use clash_verge_logging::{Type, logging};
+use craft_verge_logging::{Type, logging};
 use parking_lot::Mutex;
 use serde_yaml_ng::{Mapping, Value};
 use smartstring::alias::String;
@@ -33,7 +33,7 @@ use tokio::fs;
 type ResultLog = Vec<(String, String)>;
 #[derive(Debug)]
 struct ConfigValues {
-    clash_config: Mapping,
+    craft_config: Mapping,
     enable_tun: bool,
     enable_builtin: bool,
     socks_enabled: bool,
@@ -106,11 +106,11 @@ async fn chain_item_or_default(item: Option<&PrfItem>, default_item: impl FnOnce
 }
 
 async fn get_config_values(profile_uid: &str) -> ConfigValues {
-    let clash = Config::clash().await;
-    let clash_arc = clash.latest_arc();
-    let clash_config = clash_arc.0.clone();
-    drop(clash_arc);
-    drop(clash);
+    let craft = Config::craft().await;
+    let craft_arc = craft.latest_arc();
+    let craft_config = craft_arc.0.clone();
+    drop(craft_arc);
+    drop(craft);
 
     let verge = Config::verge().await;
 
@@ -145,7 +145,7 @@ async fn get_config_values(profile_uid: &str) -> ConfigValues {
     drop(verge);
 
     ConfigValues {
-        clash_config,
+        craft_config,
         enable_tun,
         enable_builtin,
         socks_enabled,
@@ -453,9 +453,9 @@ fn enforce_control_plane(mut config: Mapping, snapshot: Mapping) -> Mapping {
 }
 
 /// Only saved GUI fields and the verge switch override profile settings.
-fn gui_tun_keys(clash_config: &Mapping) -> Vec<Value> {
+fn gui_tun_keys(craft_config: &Mapping) -> Vec<Value> {
     let mut keys = vec![Value::from("enable")];
-    if let Some(Value::Mapping(tun)) = clash_config.get("tun") {
+    if let Some(Value::Mapping(tun)) = craft_config.get("tun") {
         keys.extend(
             constants::tun::GUI_KEYS
                 .iter()
@@ -531,17 +531,17 @@ fn ensure_lan_bind_address(mut config: Mapping) -> Mapping {
     config
 }
 
-/// Merges the app's clash config over the profile; switches are parameters to keep it pure.
+/// Merges the app's craft config over the profile; switches are parameters to keep it pure.
 fn merge_default_config(
     mut config: Mapping,
-    clash_config: Mapping,
+    craft_config: Mapping,
     socks_enabled: bool,
     http_enabled: bool,
     enable_external_controller: bool,
     #[cfg(not(target_os = "windows"))] redir_enabled: bool,
     #[cfg(target_os = "linux")] tproxy_enabled: bool,
 ) -> Mapping {
-    for (key, value) in clash_config.into_iter() {
+    for (key, value) in craft_config.into_iter() {
         if key.as_str() == Some("tun") {
             let mut tun = config.get_mut("tun").map_or_else(Mapping::new, |val| {
                 val.as_mapping().cloned().unwrap_or_else(Mapping::new)
@@ -804,7 +804,7 @@ pub async fn enhance(
     let profile_uid = profiles.current.as_deref().unwrap_or_default();
     let cfg_vals = get_config_values(profile_uid).await;
     let ConfigValues {
-        clash_config,
+        craft_config,
         enable_tun,
         enable_builtin,
         socks_enabled,
@@ -840,11 +840,11 @@ pub async fn enhance(
 
     let config = process_seq_items(config, rules_item, proxies_item, groups_item);
     let exists_keys = use_keys(&config).collect::<Vec<_>>();
-    let gui_tun_keys = gui_tun_keys(&clash_config);
+    let gui_tun_keys = gui_tun_keys(&craft_config);
 
     let config = merge_default_config(
         config,
-        clash_config,
+        craft_config,
         socks_enabled,
         http_enabled,
         enable_external_controller,
@@ -1143,10 +1143,10 @@ mod merge_default_config_tests {
     }
 
     /// Call with every listener enabled, so a test only says what it is turning off.
-    fn merge(config: Mapping, clash_config: Mapping, external_controller: bool) -> Mapping {
+    fn merge(config: Mapping, craft_config: Mapping, external_controller: bool) -> Mapping {
         merge_default_config(
             config,
-            clash_config,
+            craft_config,
             true,
             true,
             external_controller,
@@ -1157,10 +1157,10 @@ mod merge_default_config_tests {
         )
     }
 
-    fn merge_without_optional_listeners(config: Mapping, clash_config: Mapping) -> Mapping {
+    fn merge_without_optional_listeners(config: Mapping, craft_config: Mapping) -> Mapping {
         merge_default_config(
             config,
-            clash_config,
+            craft_config,
             false,
             false,
             true,
@@ -1174,9 +1174,9 @@ mod merge_default_config_tests {
     #[test]
     fn the_merge_config_overwrites_the_profile() {
         let config = mapping(&[("mode", Value::from("rule"))]);
-        let clash_config = mapping(&[("mode", Value::from("global"))]);
+        let craft_config = mapping(&[("mode", Value::from("global"))]);
 
-        let merged = merge(config, clash_config, true);
+        let merged = merge(config, craft_config, true);
 
         assert_eq!(merged.get(Value::from("mode")), Some(&Value::from("global")));
     }
@@ -1194,9 +1194,9 @@ mod merge_default_config_tests {
     fn a_disabled_listener_is_removed_rather_than_merged() {
         // Removed, not skipped: the profile's own value must not reopen a disabled listener.
         let config = mapping(&[("socks-port", Value::from(7891)), ("port", Value::from(7890))]);
-        let clash_config = mapping(&[("socks-port", Value::from(1080)), ("port", Value::from(8080))]);
+        let craft_config = mapping(&[("socks-port", Value::from(1080)), ("port", Value::from(8080))]);
 
-        let merged = merge_without_optional_listeners(config, clash_config);
+        let merged = merge_without_optional_listeners(config, craft_config);
 
         assert!(!merged.contains_key(Value::from("socks-port")));
         assert!(!merged.contains_key(Value::from("port")));
@@ -1205,9 +1205,9 @@ mod merge_default_config_tests {
     #[test]
     fn an_enabled_listener_takes_the_merge_config_value() {
         let config = mapping(&[("socks-port", Value::from(7891))]);
-        let clash_config = mapping(&[("socks-port", Value::from(1080))]);
+        let craft_config = mapping(&[("socks-port", Value::from(1080))]);
 
-        let merged = merge(config, clash_config, true);
+        let merged = merge(config, craft_config, true);
 
         assert_eq!(merged.get(Value::from("socks-port")), Some(&Value::from(1080)));
     }
@@ -1215,9 +1215,9 @@ mod merge_default_config_tests {
     #[test]
     fn a_disabled_external_controller_is_blanked_rather_than_dropped() {
         // Blanked, not removed: an absent key makes mihomo listen on its default.
-        let clash_config = mapping(&[("external-controller", Value::from("127.0.0.1:9090"))]);
+        let craft_config = mapping(&[("external-controller", Value::from("127.0.0.1:9090"))]);
 
-        let merged = merge(Mapping::new(), clash_config, false);
+        let merged = merge(Mapping::new(), craft_config, false);
 
         assert_eq!(
             merged.get(Value::from("external-controller")),
@@ -1228,9 +1228,9 @@ mod merge_default_config_tests {
 
     #[test]
     fn an_enabled_external_controller_keeps_its_address() {
-        let clash_config = mapping(&[("external-controller", Value::from("127.0.0.1:9090"))]);
+        let craft_config = mapping(&[("external-controller", Value::from("127.0.0.1:9090"))]);
 
-        let merged = merge(Mapping::new(), clash_config, true);
+        let merged = merge(Mapping::new(), craft_config, true);
 
         assert_eq!(
             merged.get(Value::from("external-controller")),
@@ -1248,9 +1248,9 @@ mod merge_default_config_tests {
                 ("stack", Value::from("system")),
             ])),
         )]);
-        let clash_config = mapping(&[("tun", Value::Mapping(mapping(&[("stack", Value::from("gvisor"))])))]);
+        let craft_config = mapping(&[("tun", Value::Mapping(mapping(&[("stack", Value::from("gvisor"))])))]);
 
-        let merged = merge(config, clash_config, true);
+        let merged = merge(config, craft_config, true);
 
         let tun = merged
             .get(Value::from("tun"))

@@ -94,7 +94,7 @@
     "notifications": {
       "importSuccess": "Профиль успешно импортирован",
       "importSubscriptionSuccess": "Подписка успешно импортирована",
-      "importWithClashProxy": "Профиль импортирован через Clash proxy",
+      "importWithCraftProxy": "Профиль импортирован через Craft proxy",
       "updateAvailable": "Доступно обновление",
       "saved": "Успешно сохранено",
       "common": {

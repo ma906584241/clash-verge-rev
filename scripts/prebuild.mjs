@@ -587,7 +587,7 @@ async function resolveServiceBundle() {
   )
   const serviceDependency = cargoManifest
     .split(/\r?\n/)
-    .find((line) => line.trimStart().startsWith('clash_verge_service_ipc ='))
+    .find((line) => line.trimStart().startsWith('craft_verge_service_ipc ='))
   const sourcePath = serviceDependency?.match(/\bpath\s*=\s*"([^"]+)"/)?.[1]
   if (sourcePath) {
     const manifest = path.resolve(cwd, 'src-tauri', sourcePath, 'Cargo.toml')

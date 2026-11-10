@@ -11,8 +11,8 @@ use crate::{
     feat, logging,
     utils::{dirs::find_target_icons, help},
 };
-use clash_verge_limiter::{Limiter, SystemClock, SystemLimiter};
-use clash_verge_logging::logging_error;
+use craft_verge_limiter::{Limiter, SystemClock, SystemLimiter};
+use craft_verge_logging::logging_error;
 use tauri::tray::{MouseButton, MouseButtonState, TrayIcon, TrayIconBuilder, TrayIconEvent};
 use tauri_plugin_mihomo::models::Proxies;
 use tokio::fs;
@@ -38,7 +38,7 @@ use menu_def::{MenuIds, MenuTexts};
 type ProxyMenuItem = (Option<Submenu<Wry>>, Vec<Box<dyn IsMenuItem<Wry>>>);
 
 const TRAY_CLICK_DEBOUNCE_MS: u64 = 300;
-pub const TRAY_ID: &str = "clash-verge-rev-tray";
+pub const TRAY_ID: &str = "craft-verge-rev-tray";
 
 #[derive(Clone, Copy)]
 struct TrayMenuOptions {
@@ -205,7 +205,7 @@ impl Tray {
         let tun_mode = verge.enable_tun_mode.as_ref().unwrap_or(&false);
         let tun_mode_available = crate::core::runstate::RUN_STATE.state().tun_capable();
         let mode = {
-            Config::clash()
+            Config::craft()
                 .await
                 .latest_arc()
                 .0
@@ -304,9 +304,9 @@ impl Tray {
             }
         }
 
-        let sys_proxy_text = clash_verge_i18n::t!("tray.tooltip.systemProxy");
-        let tun_text = clash_verge_i18n::t!("tray.tooltip.tun");
-        let profile_text = clash_verge_i18n::t!("tray.tooltip.profile");
+        let sys_proxy_text = craft_verge_i18n::t!("tray.tooltip.systemProxy");
+        let tun_text = craft_verge_i18n::t!("tray.tooltip.tun");
+        let profile_text = craft_verge_i18n::t!("tray.tooltip.profile");
 
         let v = env!("CARGO_PKG_VERSION");
         let reassembled_version = v.split_once('+').map_or_else(
@@ -315,7 +315,7 @@ impl Tray {
         );
 
         let tooltip = format!(
-            "Clash Verge {}\n{}: {}\n{}: {}\n{}: {}",
+            "Craft Verge {}\n{}: {}\n{}: {}\n{}: {}",
             reassembled_version,
             sys_proxy_text,
             switch_str(system_proxy),
@@ -669,7 +669,7 @@ async fn create_tray_menu(
         &texts.rule_mode,
         true,
         current_proxy_mode == "rule",
-        hotkeys.get("clash_mode_rule").copied(),
+        hotkeys.get("craft_mode_rule").copied(),
     )?;
 
     let global_mode = &CheckMenuItem::with_id(
@@ -678,7 +678,7 @@ async fn create_tray_menu(
         &texts.global_mode,
         true,
         current_proxy_mode == "global",
-        hotkeys.get("clash_mode_global").copied(),
+        hotkeys.get("craft_mode_global").copied(),
     )?;
 
     let direct_mode = &CheckMenuItem::with_id(
@@ -687,16 +687,16 @@ async fn create_tray_menu(
         &texts.direct_mode,
         true,
         current_proxy_mode == "direct",
-        hotkeys.get("clash_mode_direct").copied(),
+        hotkeys.get("craft_mode_direct").copied(),
     )?;
 
     let outbound_modes = if show_outbound_modes_inline {
         None
     } else {
         let current_mode_text = match current_proxy_mode {
-            "global" => clash_verge_i18n::t!("tray.global"),
-            "direct" => clash_verge_i18n::t!("tray.direct"),
-            _ => clash_verge_i18n::t!("tray.rule"),
+            "global" => craft_verge_i18n::t!("tray.global"),
+            "direct" => craft_verge_i18n::t!("tray.direct"),
+            _ => craft_verge_i18n::t!("tray.rule"),
         };
         let outbound_modes_label = format!("{} ({})", texts.outbound_modes, current_mode_text);
         Some(Submenu::with_id_and_items(
@@ -788,10 +788,10 @@ async fn create_tray_menu(
         &[open_app_dir, open_core_dir, open_logs_dir, open_app_log, open_core_log],
     )?;
 
-    let restart_clash = &MenuItem::with_id(
+    let restart_craft = &MenuItem::with_id(
         app_handle,
-        MenuIds::RESTART_CLASH,
-        &texts.restart_clash,
+        MenuIds::RESTART_CRAFT,
+        &texts.restart_craft,
         true,
         None::<&str>,
     )?;
@@ -814,7 +814,7 @@ async fn create_tray_menu(
         &[
             copy_env as &dyn IsMenuItem<Wry>,
             close_all_connections,
-            restart_clash,
+            restart_craft,
             restart_app,
             app_version,
         ],
@@ -928,7 +928,7 @@ fn on_menu_event(_: &AppHandle, event: MenuEvent) {
             mode @ (MenuIds::RULE_MODE | MenuIds::GLOBAL_MODE | MenuIds::DIRECT_MODE) => {
                 if let Some(final_mode) = mode.strip_circumfix("tray_", "_mode") {
                     logging!(info, Type::ProxyMode, "Switch Proxy Mode To: {}", final_mode);
-                    let _ = feat::change_clash_mode(final_mode.into()).await;
+                    let _ = feat::change_craft_mode(final_mode.into()).await;
                 }
             }
             MenuIds::DASHBOARD => {
@@ -949,7 +949,7 @@ fn on_menu_event(_: &AppHandle, event: MenuEvent) {
                 }
             }
             MenuIds::COPY_ENV => {
-                if let Err(err) = feat::copy_clash_env().await {
+                if let Err(err) = feat::copy_craft_env().await {
                     logging!(
                         error,
                         Type::Tray,
@@ -972,7 +972,7 @@ fn on_menu_event(_: &AppHandle, event: MenuEvent) {
             MenuIds::CORE_LOG => {
                 let _ = help::open_core_latest_log().await;
             }
-            MenuIds::RESTART_CLASH => feat::restart_clash_core().await,
+            MenuIds::RESTART_CRAFT => feat::restart_craft_core().await,
             MenuIds::RESTART_APP => feat::restart_app().await,
             MenuIds::LIGHTWEIGHT_MODE => {
                 if !is_in_lightweight_mode() {

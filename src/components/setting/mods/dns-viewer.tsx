@@ -25,7 +25,7 @@ import {
   MonacoEditor,
   Switch,
 } from '@/components/base'
-import { useClash } from '@/hooks/use-clash'
+import { useCraft } from '@/hooks/use-craft'
 import { useProfiles } from '@/hooks/use-profiles'
 import { useVerge } from '@/hooks/use-verge'
 import {
@@ -291,7 +291,7 @@ function buildDnsYaml(values: DnsFormValues) {
 
 export function DnsViewer({ ref }: { ref?: Ref<DialogRef> }) {
   const { t } = useTranslation()
-  const { mutateClash } = useClash()
+  const { mutateCraft } = useCraft()
   const { verge } = useVerge()
   const { current: currentProfile } = useProfiles()
   const dnsEnabled = currentProfile
@@ -510,7 +510,7 @@ export function DnsViewer({ ref }: { ref?: Ref<DialogRef> }) {
           id: 'apply-dns-config',
           errorNotice: false,
         })
-        mutateClash()
+        mutateCraft()
       }
 
       setOpen(false)
@@ -1041,7 +1041,7 @@ export function DnsViewer({ ref }: { ref?: Ref<DialogRef> }) {
               spellCheck="false"
               value={values.hosts}
               onChange={handleChange('hosts')}
-              placeholder="*.clash.dev=127.0.0.1, alpha.clash.dev=::1, test.com=1.1.1.1;2.2.2.2, baidu.com=google.com"
+              placeholder="*.craft.dev=127.0.0.1, alpha.craft.dev=::1, test.com=1.1.1.1;2.2.2.2, baidu.com=google.com"
             />
           </Item>
         </List>

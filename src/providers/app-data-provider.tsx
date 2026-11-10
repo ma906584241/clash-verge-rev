@@ -5,7 +5,7 @@ import {
   getRules,
 } from 'tauri-plugin-mihomo-api'
 
-import { useClashInfo, useRuntimeConfig } from '@/hooks/use-clash'
+import { useCraftInfo, useRuntimeConfig } from '@/hooks/use-craft'
 import { useVerge } from '@/hooks/use-verge'
 import { getProxyView, getSystemProxy } from '@/services/cmds'
 import { useQuery } from '@/services/query-client'
@@ -13,7 +13,7 @@ import { useRunState } from '@/store/app-store-context'
 import { resolveDisplayedMixedPort } from '@/utils/mixed-port'
 
 import {
-  ClashConfigContext,
+  CraftConfigContext,
   CoreDataStatusContext,
   ProxiesContext,
   RefreshersContext,
@@ -52,7 +52,7 @@ export const AppDataProvider = ({
 }) => {
   const { verge } = useVerge()
   const { data: runtimeConfig } = useRuntimeConfig()
-  const { clashInfo } = useClashInfo()
+  const { craftInfo } = useCraftInfo()
 
   const {
     data: proxyView,
@@ -68,11 +68,11 @@ export const AppDataProvider = ({
   })
 
   const {
-    data: clashConfig,
-    isPending: isClashConfigPending,
-    refetch: _refetchClashConfig,
+    data: craftConfig,
+    isPending: isCraftConfigPending,
+    refetch: _refetchCraftConfig,
   } = useQuery({
-    queryKey: ['getClashConfig'],
+    queryKey: ['getCraftConfig'],
     queryFn: getBaseConfig,
     ...TQ_MIHOMO,
   })
@@ -102,7 +102,7 @@ export const AppDataProvider = ({
   const runningMode = runState?.mode
 
   const refreshProxy = useStableFn(_refetchProxyView)
-  const refreshClashConfig = useStableFn(_refetchClashConfig)
+  const refreshCraftConfig = useStableFn(_refetchCraftConfig)
   const refreshRules = useStableFn(_refetchRules)
   const refreshSysproxy = useStableFn(_refetchSysproxy)
   const refreshRuleProviders = useStableFn(_refetchRuleProviders)
@@ -110,14 +110,14 @@ export const AppDataProvider = ({
   const refreshAll = useCallback(async () => {
     await Promise.all([
       refreshProxy(),
-      refreshClashConfig(),
+      refreshCraftConfig(),
       refreshRules(),
       refreshSysproxy(),
       refreshRuleProviders(),
     ])
   }, [
     refreshProxy,
-    refreshClashConfig,
+    refreshCraftConfig,
     refreshRules,
     refreshSysproxy,
     refreshRuleProviders,
@@ -140,21 +140,21 @@ export const AppDataProvider = ({
     [rulesData, ruleProviders],
   )
 
-  const clashConfigValue = useMemo(
+  const craftConfigValue = useMemo(
     () => ({
-      clashConfig,
-      isClashConfigPending,
+      craftConfig,
+      isCraftConfigPending,
     }),
-    [clashConfig, isClashConfigPending],
+    [craftConfig, isCraftConfigPending],
   )
 
   // Resolved from local sources rather than via useDisplayedMixedPort: that hook reads the
-  // ClashConfig context, and this component is the one providing it.
+  // CraftConfig context, and this component is the one providing it.
   const displayedMixedPort = resolveDisplayedMixedPort({
-    live: clashConfig?.mixedPort,
+    live: craftConfig?.mixedPort,
     runtime: runtimeConfig?.['mixed-port'],
     selected: verge?.verge_mixed_port,
-    merge: clashInfo?.mixed_port,
+    merge: craftInfo?.mixed_port,
   })
 
   const systemValue = useMemo(() => {
@@ -194,15 +194,15 @@ export const AppDataProvider = ({
 
   const coreDataStatusValue = useMemo(
     () => ({
-      isCoreDataPending: isProxyViewPending || isClashConfigPending,
+      isCoreDataPending: isProxyViewPending || isCraftConfigPending,
     }),
-    [isProxyViewPending, isClashConfigPending],
+    [isProxyViewPending, isCraftConfigPending],
   )
 
   const refreshersValue = useMemo(
     () => ({
       refreshProxy,
-      refreshClashConfig,
+      refreshCraftConfig,
       refreshRules,
       refreshSysproxy,
       refreshRuleProviders,
@@ -210,7 +210,7 @@ export const AppDataProvider = ({
     }),
     [
       refreshProxy,
-      refreshClashConfig,
+      refreshCraftConfig,
       refreshRules,
       refreshSysproxy,
       refreshRuleProviders,
@@ -221,7 +221,7 @@ export const AppDataProvider = ({
   return (
     <ProxiesContext value={proxiesValue}>
       <RulesContext value={rulesValue}>
-        <ClashConfigContext value={clashConfigValue}>
+        <CraftConfigContext value={craftConfigValue}>
           <SystemContext value={systemValue}>
             <CoreDataStatusContext value={coreDataStatusValue}>
               <RefreshersContext value={refreshersValue}>
@@ -229,7 +229,7 @@ export const AppDataProvider = ({
               </RefreshersContext>
             </CoreDataStatusContext>
           </SystemContext>
-        </ClashConfigContext>
+        </CraftConfigContext>
       </RulesContext>
     </ProxiesContext>
   )

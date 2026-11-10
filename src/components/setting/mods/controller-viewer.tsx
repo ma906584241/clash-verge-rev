@@ -16,7 +16,7 @@ import { useState, type Ref } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { BaseDialog, DialogRef, Switch } from '@/components/base'
-import { useClashInfo } from '@/hooks/use-clash'
+import { useCraftInfo } from '@/hooks/use-craft'
 import { useVerge } from '@/hooks/use-verge'
 import { showNotice } from '@/services/notice-service'
 
@@ -28,10 +28,10 @@ export function ControllerViewer({ ref }: { ref?: Ref<DialogRef> }) {
   const [copySuccess, setCopySuccess] = useState<null | string>(null)
   const [isSaving, setIsSaving] = useState(false)
 
-  const { clashInfo, patchInfo } = useClashInfo()
+  const { craftInfo, patchInfo } = useCraftInfo()
   const { verge, patchVerge } = useVerge()
-  const [controller, setController] = useState(clashInfo?.server || '')
-  const [secret, setSecret] = useState(clashInfo?.secret || '')
+  const [controller, setController] = useState(craftInfo?.server || '')
+  const [secret, setSecret] = useState(craftInfo?.secret || '')
   const [enableController, setEnableController] = useState(
     verge?.enable_external_controller ?? false,
   )
@@ -40,8 +40,8 @@ export function ControllerViewer({ ref }: { ref?: Ref<DialogRef> }) {
   useSettingDialog(ref, 'controller-viewer', open, () => ({
     open: async () => {
       setOpen(true)
-      setController(clashInfo?.server || '')
-      setSecret(clashInfo?.secret || '')
+      setController(craftInfo?.server || '')
+      setSecret(craftInfo?.secret || '')
       setEnableController(verge?.enable_external_controller ?? false)
     },
     close: () => setOpen(false),

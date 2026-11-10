@@ -18,7 +18,7 @@ use crate::{
     utils::{resolve, server},
 };
 use anyhow::Result;
-use clash_verge_logging::{Type, logging};
+use craft_verge_logging::{Type, logging};
 use std::sync::OnceLock;
 use tauri::{AppHandle, Manager as _};
 #[cfg(target_os = "macos")]
@@ -43,7 +43,7 @@ mod app_init {
     pub fn setup_plugins(builder: tauri::Builder<tauri::Wry>) -> tauri::Builder<tauri::Wry> {
         #[allow(unused_mut)]
         let mut builder = builder
-            .plugin(tauri_plugin_clash_verge_sysinfo::init())
+            .plugin(tauri_plugin_craft_verge_sysinfo::init())
             .plugin(tauri_plugin_notification::init())
             .plugin(
                 tauri_plugin_updater::Builder::new()
@@ -64,7 +64,7 @@ mod app_init {
             .plugin(
                 tauri_plugin_mihomo::Builder::new()
                     .protocol(tauri_plugin_mihomo::models::Protocol::LocalSocket)
-                    .socket_path(crate::config::IClashTemp::guard_external_controller_ipc())
+                    .socket_path(crate::config::ICraftTemp::guard_external_controller_ipc())
                     .build(),
             );
 
@@ -165,7 +165,7 @@ pub fn run() -> std::process::ExitCode {
         utils::dirs::preinit_app_data_dir().and_then(|root| core::owner_identity::repair_app_data_root_owner(&root))
     {
         // The logger is installed later in setup(), so this would otherwise be lost.
-        eprintln!("[clash-verge] 应用数据目录所有权修复失败: {error:#}");
+        eprintln!("[craft-verge] 应用数据目录所有权修复失败: {error:#}");
         logging!(error, Type::Setup, "应用数据目录所有权修复失败: {error:#}");
     }
 
@@ -189,7 +189,7 @@ pub fn run() -> std::process::ExitCode {
                     .map(|s| (*s).to_string())
                     .or_else(|| panic.downcast_ref::<String>().cloned())
                     .unwrap_or_else(|| "unknown panic payload".to_string());
-                eprintln!("[clash-verge] panic during app setup ({stage}), continuing in degraded mode: {msg}");
+                eprintln!("[craft-verge] panic during app setup ({stage}), continuing in degraded mode: {msg}");
                 logging!(
                     error,
                     Type::Setup,
@@ -254,7 +254,7 @@ pub fn run() -> std::process::ExitCode {
             core::{self, handle, hotkey},
             process::AsyncHandler,
         };
-        use clash_verge_logging::{Type, logging};
+        use craft_verge_logging::{Type, logging};
         use tauri::AppHandle;
         #[cfg(target_os = "macos")]
         use tauri::Manager as _;
@@ -270,7 +270,7 @@ pub fn run() -> std::process::ExitCode {
 
             #[cfg(target_os = "macos")]
             if let Some(window) = _app_handle.get_webview_window("main") {
-                let _ = window.set_title("Clash Verge");
+                let _ = window.set_title("Craft Verge");
             }
         }
 

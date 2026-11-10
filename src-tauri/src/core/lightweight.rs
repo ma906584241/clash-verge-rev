@@ -4,7 +4,7 @@ use crate::{
     process::AsyncHandler,
 };
 
-use clash_verge_logging::{Type, logging};
+use craft_verge_logging::{Type, logging};
 
 use crate::utils::window_manager::WindowManager;
 use anyhow::Result;

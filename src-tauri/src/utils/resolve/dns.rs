@@ -1,5 +1,5 @@
 use anyhow::{Context as _, bail, ensure};
-use clash_verge_logging::{Type, logging};
+use craft_verge_logging::{Type, logging};
 use serde_yaml_ng::{Mapping, Value};
 use std::{
     io::Read as _,

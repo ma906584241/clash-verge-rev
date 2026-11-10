@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next'
 import { DialogRef, TooltipIcon } from '@/components/base'
 import { useVerge } from '@/hooks/use-verge'
 import { navigationItems } from '@/pages/_navigation-meta'
-import { copyClashEnv } from '@/services/cmds'
+import { copyCraftEnv } from '@/services/cmds'
 import { supportedLanguages } from '@/services/i18n'
 import { mutate } from '@/services/mutate'
 import { showNotice } from '@/services/notice-service'
@@ -75,10 +75,10 @@ const SettingVergeBasic = ({ onError }: Props) => {
     mutateVerge({ ...verge, ...patch })
   }
 
-  const onCopyClashEnv = useCallback(async () => {
+  const onCopyCraftEnv = useCallback(async () => {
     try {
-      await mutate(copyClashEnv, {
-        id: 'copy-clash-env',
+      await mutate(copyCraftEnv, {
+        id: 'copy-craft-env',
         onFulfilled: () =>
           showNotice.success(
             'shared.feedback.notifications.common.copySuccess',
@@ -174,7 +174,7 @@ const SettingVergeBasic = ({ onError }: Props) => {
         data-setting-target="settings.components.verge.basic.fields.copyEnvType"
         label={t('settings.components.verge.basic.fields.copyEnvType')}
         extra={
-          <TooltipIcon icon={ContentCopyRounded} onClick={onCopyClashEnv} />
+          <TooltipIcon icon={ContentCopyRounded} onClick={onCopyCraftEnv} />
         }
       >
         <GuardState

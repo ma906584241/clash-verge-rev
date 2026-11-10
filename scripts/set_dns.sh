@@ -83,7 +83,7 @@ if [ ! -f "$backup" ] && [ -n "$2" ] && [ -f "$2/$backup" ]; then
     cp "$2/$backup" ".original_dns/.$service_id" || exit 1
     mv ".original_dns/.$service_id" "$backup" || exit 1
 fi
-backup_header='# clash-verge-dns-managed'
+backup_header='# craft-verge-dns-managed'
 function save_backup() {
     printf '%s\n%s\n' "$backup_header" "$1" >".original_dns/.$service_id" &&
         mv ".original_dns/.$service_id" "$backup"

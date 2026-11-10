@@ -247,7 +247,7 @@ const ProfilePage = () => {
           },
         )
         await handleImportSuccess(
-          'shared.feedback.notifications.importWithClashProxy',
+          'shared.feedback.notifications.importWithCraftProxy',
         )
       } catch (retryErr) {
         showNotice.error(

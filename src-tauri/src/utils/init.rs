@@ -1,5 +1,5 @@
 use crate::{
-    config::{Config, IClashTemp, IProfiles, IVerge},
+    config::{Config, ICraftTemp, IProfiles, IVerge},
     constants,
     core::handle,
     logging,
@@ -11,7 +11,7 @@ use crate::{
 };
 use anyhow::{Context as _, Result};
 use chrono::{Local, TimeZone as _};
-use clash_verge_logging::Type;
+use craft_verge_logging::Type;
 #[cfg(any(target_os = "macos", target_os = "windows"))]
 use std::path::Path;
 use std::{path::PathBuf, str::FromStr as _};
@@ -153,7 +153,7 @@ async fn is_logs_dir_writable(log_dir: &Path) -> bool {
     }
 
     let probe_path = log_dir.join(format!(
-        ".clash-verge-write-test-{}-{}",
+        ".craft-verge-write-test-{}-{}",
         std::process::id(),
         Local::now().timestamp_nanos_opt().unwrap_or_default()
     ));
@@ -420,7 +420,7 @@ pub(super) async fn init_dns_config() -> Result<()> {
 
     if !dns_path.exists() {
         logging!(info, Type::Setup, "Creating default DNS config file");
-        help::save_yaml(&dns_path, &default_dns_config, Some("# Clash Verge DNS Config")).await?;
+        help::save_yaml(&dns_path, &default_dns_config, Some("# Craft Verge DNS Config")).await?;
     }
 
     Ok(())
@@ -447,21 +447,21 @@ async fn ensure_directories() -> Result<()> {
 }
 
 async fn initialize_config_files() -> Result<()> {
-    if let Ok(path) = dirs::clash_path()
+    if let Ok(path) = dirs::craft_path()
         && !path.exists()
     {
-        let template = IClashTemp::template().0;
-        help::save_yaml(&path, &template, Some("# Clash Verge"))
+        let template = ICraftTemp::template().0;
+        help::save_yaml(&path, &template, Some("# Craft Verge"))
             .await
-            .map_err(|e| anyhow::anyhow!("Failed to create clash config: {}", e))?;
-        logging!(info, Type::Setup, "Created clash config at {:?}", path);
+            .map_err(|e| anyhow::anyhow!("Failed to create craft config: {}", e))?;
+        logging!(info, Type::Setup, "Created craft config at {:?}", path);
     }
 
     if let Ok(path) = dirs::verge_path()
         && !path.exists()
     {
         let template = IVerge::template();
-        help::save_yaml(&path, &template, Some("# Clash Verge"))
+        help::save_yaml(&path, &template, Some("# Craft Verge"))
             .await
             .map_err(|e| anyhow::anyhow!("Failed to create verge config: {}", e))?;
         logging!(info, Type::Setup, "Created verge config at {:?}", path);
@@ -471,7 +471,7 @@ async fn initialize_config_files() -> Result<()> {
         && !path.exists()
     {
         let template = IProfiles::default();
-        help::save_yaml(&path, &template, Some("# Clash Verge"))
+        help::save_yaml(&path, &template, Some("# Craft Verge"))
             .await
             .map_err(|e| anyhow::anyhow!("Failed to create profiles config: {}", e))?;
         logging!(info, Type::Setup, "Created profiles config at {:?}", path);
@@ -553,19 +553,22 @@ pub fn init_scheme() -> Result<()> {
     let app_exe = app_exe.to_string_lossy().into_owned();
 
     let hkcu = RegKey::predef(HKEY_CURRENT_USER);
-    let (clash, _) = hkcu.create_subkey("Software\\Classes\\Clash")?;
-    clash.set_value("", &"Clash Verge")?;
-    clash.set_value("URL Protocol", &"Clash Verge URL Scheme Protocol")?;
-    let (default_icon, _) = hkcu.create_subkey("Software\\Classes\\Clash\\DefaultIcon")?;
-    default_icon.set_value("", &app_exe)?;
-    let (command, _) = hkcu.create_subkey("Software\\Classes\\Clash\\Shell\\Open\\Command")?;
-    command.set_value("", &format!("{app_exe} \"%1\""))?;
+    for scheme in ["craft", "craft-verge", "clash", "clash-verge"] {
+        let key = format!("Software\\Classes\\{scheme}");
+        let (protocol, _) = hkcu.create_subkey(&key)?;
+        protocol.set_value("", &"Craft Verge")?;
+        protocol.set_value("URL Protocol", &"Craft Verge URL Scheme Protocol")?;
+        let (default_icon, _) = hkcu.create_subkey(format!("{key}\\DefaultIcon"))?;
+        default_icon.set_value("", &app_exe)?;
+        let (command, _) = hkcu.create_subkey(format!("{key}\\Shell\\Open\\Command"))?;
+        command.set_value("", &format!("{app_exe} \"%1\""))?;
+    }
 
     Ok(())
 }
 #[cfg(target_os = "linux")]
 pub fn init_scheme() -> Result<()> {
-    const DESKTOP_FILE: &str = "clash-verge.desktop";
+    const DESKTOP_FILE: &str = "craft-verge.desktop";
 
     for scheme in DEEP_LINK_SCHEMES {
         let handler = format!("x-scheme-handler/{scheme}");
@@ -591,7 +594,7 @@ pub const fn init_scheme() -> Result<()> {
 }
 
 #[cfg(target_os = "linux")]
-const DEEP_LINK_SCHEMES: &[&str] = &["clash", "clash-verge"];
+const DEEP_LINK_SCHEMES: &[&str] = &["craft", "craft-verge", "clash", "clash-verge"];
 
 pub async fn startup_script() -> Result<()> {
     let app_handle = handle::Handle::app_handle();

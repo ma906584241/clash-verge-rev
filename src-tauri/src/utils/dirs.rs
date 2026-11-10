@@ -1,7 +1,7 @@
 use crate::core::{CoreManager, handle, manager::RunningMode};
 use anyhow::Result;
 use async_trait::async_trait;
-use clash_verge_logging::{Type, logging};
+use craft_verge_logging::{Type, logging};
 use std::{
     fs,
     path::{Path, PathBuf},
@@ -9,16 +9,16 @@ use std::{
 use tauri::Manager as _;
 
 #[cfg(not(feature = "verge-dev"))]
-pub static APP_ID: &str = "io.github.clash-verge-rev.clash-verge-rev";
+pub static APP_ID: &str = "io.github.craft-verge-rev.craft-verge-rev";
 #[cfg(not(feature = "verge-dev"))]
-pub static BACKUP_DIR: &str = "clash-verge-rev-backup";
+pub static BACKUP_DIR: &str = "craft-verge-rev-backup";
 
 #[cfg(feature = "verge-dev")]
-pub static APP_ID: &str = "io.github.clash-verge-rev.clash-verge-rev.dev";
+pub static APP_ID: &str = "io.github.craft-verge-rev.craft-verge-rev.dev";
 #[cfg(feature = "verge-dev")]
-pub static BACKUP_DIR: &str = "clash-verge-rev-backup-dev";
+pub static BACKUP_DIR: &str = "craft-verge-rev-backup-dev";
 
-pub static CLASH_CONFIG: &str = "config.yaml";
+pub static CRAFT_CONFIG: &str = "config.yaml";
 pub static VERGE_CONFIG: &str = "verge.yaml";
 pub static PROFILE_YAML: &str = "profiles.yaml";
 /// Marks that the one-shot raise of too-short auto-update intervals has already run.
@@ -98,8 +98,8 @@ pub fn local_backup_dir() -> Result<PathBuf> {
     Ok(dir)
 }
 
-pub fn clash_path() -> Result<PathBuf> {
-    Ok(app_home_dir()?.join(CLASH_CONFIG))
+pub fn craft_path() -> Result<PathBuf> {
+    Ok(app_home_dir()?.join(CRAFT_CONFIG))
 }
 
 pub fn verge_path() -> Result<PathBuf> {
@@ -140,7 +140,7 @@ pub fn service_log_dir() -> Result<PathBuf> {
     Ok(log_dir)
 }
 
-pub fn clash_latest_log() -> Result<PathBuf> {
+pub fn craft_latest_log() -> Result<PathBuf> {
     match *CoreManager::global().get_running_mode() {
         RunningMode::Service => Ok(service_log_dir()?.join("service_latest.log")),
         RunningMode::Sidecar | RunningMode::NotRunning => Ok(sidecar_log_dir()?.join("sidecar_latest.log")),
@@ -171,7 +171,7 @@ pub fn get_encryption_key() -> Result<Vec<u8>> {
 }
 
 pub fn ipc_path() -> Result<PathBuf> {
-    Ok(PathBuf::from(clash_verge_service_ipc::mihomo_ipc_path(
+    Ok(PathBuf::from(craft_verge_service_ipc::mihomo_ipc_path(
         &crate::core::owner_identity::current_owner_identity()?,
     )))
 }
@@ -193,14 +193,14 @@ pub fn sidecar_ipc_path() -> Result<PathBuf> {
 }
 
 #[cfg(target_os = "linux")]
-fn sidecar_ipc_path_for(app_root: &std::path::Path, _identity: &clash_verge_service_ipc::OwnerIdentity) -> PathBuf {
+fn sidecar_ipc_path_for(app_root: &std::path::Path, _identity: &craft_verge_service_ipc::OwnerIdentity) -> PathBuf {
     app_root.join("verge-mihomo.sock")
 }
 
 #[cfg(target_os = "macos")]
 fn sidecar_ipc_path_for(
     _app_root: &std::path::Path,
-    _identity: &clash_verge_service_ipc::OwnerIdentity,
+    _identity: &craft_verge_service_ipc::OwnerIdentity,
 ) -> Result<PathBuf> {
     use std::{ffi::OsStr, os::unix::ffi::OsStrExt as _};
 
@@ -237,35 +237,35 @@ fn sidecar_ipc_path_for(
 }
 
 #[cfg(windows)]
-fn sidecar_ipc_path_for(_app_root: &std::path::Path, identity: &clash_verge_service_ipc::OwnerIdentity) -> PathBuf {
+fn sidecar_ipc_path_for(_app_root: &std::path::Path, identity: &craft_verge_service_ipc::OwnerIdentity) -> PathBuf {
     PathBuf::from(sidecar_pipe_name(identity, cfg!(feature = "verge-dev")))
 }
 
 #[cfg(any(windows, test))]
-fn sidecar_pipe_name(identity: &clash_verge_service_ipc::OwnerIdentity, is_dev: bool) -> String {
+fn sidecar_pipe_name(identity: &craft_verge_service_ipc::OwnerIdentity, is_dev: bool) -> String {
     let flavor = if is_dev { "dev" } else { "release" };
     format!(
         r"\\.\pipe\verge-mihomo-sidecar-{flavor}-{}",
-        clash_verge_service_ipc::owner_key(identity)
+        craft_verge_service_ipc::owner_key(identity)
     )
 }
 
 #[cfg(all(test, target_os = "linux"))]
 mod ipc_tests {
     use super::sidecar_ipc_path_for;
-    use clash_verge_service_ipc::OwnerIdentity;
+    use craft_verge_service_ipc::OwnerIdentity;
     use std::path::Path;
 
     #[test]
     fn sidecar_ipc_stays_in_the_app_root() {
         let identity = OwnerIdentity::Unix { uid: 501, gid: 20 };
-        let app_root = Path::new("/home/test/.local/share/io.github.clash-verge-rev.clash-verge-rev");
+        let app_root = Path::new("/home/test/.local/share/io.github.craft-verge-rev.craft-verge-rev");
         let path = sidecar_ipc_path_for(app_root, &identity);
 
         assert_eq!(path, app_root.join("verge-mihomo.sock"));
         assert_ne!(
             path.to_string_lossy(),
-            clash_verge_service_ipc::mihomo_ipc_path(&identity)
+            craft_verge_service_ipc::mihomo_ipc_path(&identity)
         );
     }
 }
@@ -273,14 +273,14 @@ mod ipc_tests {
 #[cfg(all(test, target_os = "macos"))]
 mod ipc_tests {
     use super::sidecar_ipc_path_for;
-    use clash_verge_service_ipc::OwnerIdentity;
+    use craft_verge_service_ipc::OwnerIdentity;
     use std::{ffi::OsStr, os::unix::ffi::OsStrExt as _, path::Path};
 
     #[test]
     fn sidecar_ipc_ignores_long_app_root_and_fits_sockaddr_un() -> anyhow::Result<()> {
         let identity = OwnerIdentity::Unix { uid: 501, gid: 20 };
         let app_root =
-            Path::new("/Users/support/Library/Application Support/io.github.clash-verge-rev.clash-verge-rev.dev");
+            Path::new("/Users/support/Library/Application Support/io.github.craft-verge-rev.craft-verge-rev.dev");
         let path = sidecar_ipc_path_for(app_root, &identity)?;
 
         assert!(!path.starts_with(app_root));
@@ -298,7 +298,7 @@ mod ipc_tests {
 #[cfg(all(test, windows))]
 mod ipc_tests {
     use super::sidecar_ipc_path_for;
-    use clash_verge_service_ipc::OwnerIdentity;
+    use craft_verge_service_ipc::OwnerIdentity;
     use std::path::Path;
 
     #[test]
@@ -313,7 +313,7 @@ mod ipc_tests {
             Path::new(&format!(
                 r"\\.\pipe\verge-mihomo-sidecar-{}-{}",
                 if cfg!(feature = "verge-dev") { "dev" } else { "release" },
-                clash_verge_service_ipc::owner_key(&identity)
+                craft_verge_service_ipc::owner_key(&identity)
             ))
         );
     }
@@ -338,14 +338,14 @@ impl PathBufExec for PathBuf {
 #[cfg(test)]
 mod windows_pipe_name_tests {
     use super::sidecar_pipe_name;
-    use clash_verge_service_ipc::OwnerIdentity;
+    use craft_verge_service_ipc::OwnerIdentity;
 
     #[test]
     fn windows_sidecar_pipe_separates_dev_and_release_for_the_same_owner() {
         let identity = OwnerIdentity::Windows {
             sid: "S-1-5-21-1000".to_owned(),
         };
-        let owner_key = clash_verge_service_ipc::owner_key(&identity);
+        let owner_key = craft_verge_service_ipc::owner_key(&identity);
 
         assert_eq!(
             sidecar_pipe_name(&identity, false),

@@ -55,20 +55,20 @@ const sysproxy = {
   aliases: '代理 PAC bypass 绕过',
 } satisfies GroupDefaults
 
-const clash = {
-  section: 'settings.sections.clash.title',
-  path: 'settings.sections.clash.title',
+const craft = {
+  section: 'settings.sections.craft.title',
+  path: 'settings.sections.craft.title',
 } satisfies GroupDefaults
 
 const networkInterface = {
-  section: 'settings.sections.clash.title',
-  path: 'settings.sections.clash.title',
+  section: 'settings.sections.craft.title',
+  path: 'settings.sections.craft.title',
   dialog: 'network-interface-viewer',
   aliases: 'network interface viewer',
 } satisfies GroupDefaults
 
 const dns = {
-  section: 'settings.sections.clash.title',
+  section: 'settings.sections.craft.title',
   path: 'settings.modals.dns.dialog.title',
   dialog: 'dns-viewer',
   fallback: 'dns-mode',
@@ -76,61 +76,61 @@ const dns = {
 } satisfies GroupDefaults
 
 const dnsReset = {
-  section: 'settings.sections.clash.title',
+  section: 'settings.sections.craft.title',
   path: 'settings.modals.dns.dialog.title',
   dialog: 'dns-viewer',
   aliases: 'dns viewer reset DNS 域名解析',
 } satisfies GroupDefaults
 
-const clashPort = {
-  section: 'settings.sections.clash.title',
-  path: 'settings.modals.clashPort.title',
-  dialog: 'clash-port-viewer',
+const craftPort = {
+  section: 'settings.sections.craft.title',
+  path: 'settings.modals.craftPort.title',
+  dialog: 'craft-port-viewer',
 } satisfies GroupDefaults
 
 const controller = {
-  section: 'settings.sections.clash.title',
+  section: 'settings.sections.craft.title',
   path: 'settings.sections.externalController.title',
   dialog: 'controller-viewer',
 } satisfies GroupDefaults
 
 const externalControllerCors = {
-  section: 'settings.sections.clash.title',
+  section: 'settings.sections.craft.title',
   path: 'settings.sections.externalCors.title',
   dialog: 'external-controller-cors',
 } satisfies GroupDefaults
 
 const webUi = {
-  section: 'settings.sections.clash.title',
-  path: 'settings.sections.clash.title',
+  section: 'settings.sections.craft.title',
+  path: 'settings.sections.craft.title',
   dialog: 'web-ui-viewer',
   aliases: 'web ui viewer',
 } satisfies GroupDefaults
 
 const webUiActions = {
-  section: 'settings.sections.clash.title',
+  section: 'settings.sections.craft.title',
   path: 'settings.modals.webUI.title',
   dialog: 'web-ui-viewer',
   fallback: 'web-ui-viewer',
 } satisfies GroupDefaults
 
-const clashCore = {
-  section: 'settings.sections.clash.title',
-  path: 'settings.sections.clash.form.fields.clashCore',
-  dialog: 'clash-core-viewer',
+const craftCore = {
+  section: 'settings.sections.craft.title',
+  path: 'settings.sections.craft.form.fields.craftCore',
+  dialog: 'craft-core-viewer',
   fallback: 'core-variants',
 } satisfies GroupDefaults
 
 const coreVariants = {
-  section: 'settings.sections.clash.title',
-  path: 'settings.sections.clash.title',
-  dialog: 'clash-core-viewer',
+  section: 'settings.sections.craft.title',
+  path: 'settings.sections.craft.title',
+  dialog: 'craft-core-viewer',
   aliases: 'core variants',
 } satisfies GroupDefaults
 
 const tunnels = {
-  section: 'settings.sections.clash.title',
-  path: 'settings.sections.clash.form.fields.tunnels.title',
+  section: 'settings.sections.craft.title',
+  path: 'settings.sections.craft.form.fields.tunnels.title',
   dialog: 'tunnels-viewer',
   fallback: 'tunnels-expand',
 } satisfies GroupDefaults
@@ -257,16 +257,16 @@ const settingsCatalog: readonly SettingEntry[] = [
     'settings.sections.system.fields.autoLaunch': 'auto launch ',
     'settings.sections.system.fields.silentStart': 'silent start ',
   }),
-  ...group(clash, {
-    'settings.sections.clash.form.fields.allowLan': 'allow lan ',
+  ...group(craft, {
+    'settings.sections.craft.form.fields.allowLan': 'allow lan ',
   }),
   ...group(networkInterface, {
     'settings.modals.networkInterface.title': {
       id: 'network-interface-viewer',
     },
   }),
-  ...group(clash, {
-    'settings.sections.clash.form.fields.dnsOverwrite': 'dns overwrite ',
+  ...group(craft, {
+    'settings.sections.craft.form.fields.dnsOverwrite': 'dns overwrite ',
   }),
   ...group(dns, {
     'settings.modals.dns.fields.enable': 'enable',
@@ -299,31 +299,31 @@ const settingsCatalog: readonly SettingEntry[] = [
       id: 'dns-viewer-reset',
     },
   }),
-  ...group(clash, {
-    'settings.sections.clash.form.fields.ipv6': 'ipv6 ',
-    'settings.sections.clash.form.fields.unifiedDelay': 'unified delay ',
-    'settings.sections.clash.form.fields.logLevel': 'log level ',
-    'settings.sections.clash.form.fields.portConfig': 'port config ',
+  ...group(craft, {
+    'settings.sections.craft.form.fields.ipv6': 'ipv6 ',
+    'settings.sections.craft.form.fields.unifiedDelay': 'unified delay ',
+    'settings.sections.craft.form.fields.logLevel': 'log level ',
+    'settings.sections.craft.form.fields.portConfig': 'port config ',
   }),
-  ...group(clashPort, {
-    'settings.modals.clashPort.fields.socks': 'clash port viewer',
-    'settings.modals.clashPort.fields.http': 'clash port viewer',
-    'settings.modals.clashPort.fields.redir': {
-      aliases: 'clash port viewer',
+  ...group(craftPort, {
+    'settings.modals.craftPort.fields.socks': 'craft port viewer',
+    'settings.modals.craftPort.fields.http': 'craft port viewer',
+    'settings.modals.craftPort.fields.redir': {
+      aliases: 'craft port viewer',
       platforms: ['macos', 'linux'],
     },
-    'settings.modals.clashPort.fields.tproxy': {
-      aliases: 'clash port viewer',
+    'settings.modals.craftPort.fields.tproxy': {
+      aliases: 'craft port viewer',
       platforms: ['linux'],
     },
-    'settings.modals.clashPort.fields.mixed': 'clash port viewer',
-    'settings.modals.clashPort.actions.random': {
+    'settings.modals.craftPort.fields.mixed': 'craft port viewer',
+    'settings.modals.craftPort.actions.random': {
       id: 'port-random',
       aliases: 'port random',
     },
   }),
-  ...group(clash, {
-    'settings.sections.clash.form.fields.external': 'external ',
+  ...group(craft, {
+    'settings.sections.craft.form.fields.external': 'external ',
   }),
   ...group(controller, {
     'settings.sections.externalController.fields.enable': 'enable ',
@@ -342,8 +342,8 @@ const settingsCatalog: readonly SettingEntry[] = [
     'settings.sections.externalCors.fields.allowedOrigins': 'allowed origins ',
     'settings.sections.externalCors.actions.add': 'add ',
   }),
-  ...group(clash, {
-    'settings.sections.clash.form.fields.webUI': 'web ui ',
+  ...group(craft, {
+    'settings.sections.craft.form.fields.webUI': 'web ui ',
   }),
   ...group(webUi, {
     'settings.modals.webUI.title': {
@@ -368,10 +368,10 @@ const settingsCatalog: readonly SettingEntry[] = [
       aliases: 'web ui open',
     },
   }),
-  ...group(clash, {
-    'settings.sections.clash.form.fields.clashCore': 'clash core ',
+  ...group(craft, {
+    'settings.sections.craft.form.fields.craftCore': 'craft core ',
   }),
-  ...group(clashCore, {
+  ...group(craftCore, {
     'shared.actions.upgrade': {
       id: 'core-upgrade',
       aliases: 'core upgrade',
@@ -382,29 +382,29 @@ const settingsCatalog: readonly SettingEntry[] = [
     },
   }),
   ...group(coreVariants, {
-    'settings.sections.clash.form.fields.clashCore': {
+    'settings.sections.craft.form.fields.craftCore': {
       id: 'core-variants',
     },
   }),
-  ...group(clash, {
-    'settings.sections.clash.form.fields.openUwpTool': {
+  ...group(craft, {
+    'settings.sections.craft.form.fields.openUwpTool': {
       aliases: 'open uwp tool ',
       platforms: ['windows'],
     },
-    'settings.sections.clash.form.fields.updateGeoData': 'update geo data ',
-    'settings.sections.clash.form.fields.tunnels.title': 'title ',
+    'settings.sections.craft.form.fields.updateGeoData': 'update geo data ',
+    'settings.sections.craft.form.fields.tunnels.title': 'title ',
   }),
   ...group(tunnels, {
-    'settings.sections.clash.form.fields.tunnels.existing': 'existing ',
-    'settings.sections.clash.form.fields.tunnels.default': 'default ',
-    'settings.sections.clash.form.fields.tunnels.protocols': 'protocols ',
-    'settings.sections.clash.form.fields.tunnels.localAddr': 'local addr ',
-    'settings.sections.clash.form.fields.tunnels.localPort': 'local port ',
-    'settings.sections.clash.form.fields.tunnels.targetAddr': 'target addr ',
-    'settings.sections.clash.form.fields.tunnels.targetPort': 'target port ',
-    'settings.sections.clash.form.fields.tunnels.proxyGroup': 'proxy group ',
-    'settings.sections.clash.form.fields.tunnels.proxyNode': 'proxy node ',
-    'settings.sections.clash.form.fields.tunnels.actions.add': 'add ',
+    'settings.sections.craft.form.fields.tunnels.existing': 'existing ',
+    'settings.sections.craft.form.fields.tunnels.default': 'default ',
+    'settings.sections.craft.form.fields.tunnels.protocols': 'protocols ',
+    'settings.sections.craft.form.fields.tunnels.localAddr': 'local addr ',
+    'settings.sections.craft.form.fields.tunnels.localPort': 'local port ',
+    'settings.sections.craft.form.fields.tunnels.targetAddr': 'target addr ',
+    'settings.sections.craft.form.fields.tunnels.targetPort': 'target port ',
+    'settings.sections.craft.form.fields.tunnels.proxyGroup': 'proxy group ',
+    'settings.sections.craft.form.fields.tunnels.proxyNode': 'proxy node ',
+    'settings.sections.craft.form.fields.tunnels.actions.add': 'add ',
   }),
   ...group(basic, {
     'settings.components.verge.basic.fields.language': 'language ',

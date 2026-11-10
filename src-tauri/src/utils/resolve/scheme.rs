@@ -9,7 +9,7 @@ use crate::{
     core::{CoreManager, handle, timer::Timer},
     utils::help,
 };
-use clash_verge_logging::{Type, logging, logging_error};
+use craft_verge_logging::{Type, logging, logging_error};
 
 pub(super) async fn resolve_scheme(param: &str) -> Result<()> {
     let param_str = if param.starts_with("[") && param.len() > 4 {
@@ -40,7 +40,10 @@ pub(super) async fn resolve_scheme(param: &str) -> Result<()> {
 }
 
 fn extract_subscription_info(link_parsed: &Url) -> Option<(std::string::String, Option<String>)> {
-    if !matches!(link_parsed.scheme(), "clash" | "clash-verge") {
+    if !matches!(
+        link_parsed.scheme(),
+        "craft" | "craft-verge" | "clash" | "clash-verge"
+    ) {
         return None;
     }
 
@@ -146,7 +149,7 @@ async fn refresh_core_config() {
         "Deep link import set current profile; refreshing core config"
     );
     match CoreManager::global().update_config_forced().await {
-        Ok(outcome) if outcome.is_valid() => handle::Handle::refresh_clash(),
+        Ok(outcome) if outcome.is_valid() => handle::Handle::refresh_craft(),
         Ok(outcome) => {
             let message = outcome.to_string();
             logging!(warn, Type::Config, "Apply config failed: {}", message);

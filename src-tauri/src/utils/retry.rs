@@ -146,13 +146,13 @@ mod tests {
     #[tokio::test]
     async fn strategies_preserve_order_and_the_last_failure() {
         let mut visited = Vec::new();
-        let result = try_strategies("direct", ["clash", "system"], |strategy| {
+        let result = try_strategies("direct", ["craft", "system"], |strategy| {
             visited.push(strategy);
             async move { Err::<(), _>(strategy) }
         })
         .await;
         assert_eq!(result, Err("system"));
-        assert_eq!(visited, ["direct", "clash", "system"]);
+        assert_eq!(visited, ["direct", "craft", "system"]);
     }
 
     #[tokio::test]

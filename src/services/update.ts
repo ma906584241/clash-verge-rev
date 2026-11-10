@@ -6,6 +6,9 @@ import {
 import { compareVersions as compareSemver } from 'compare-versions'
 
 import { version as appVersion } from '@root/package.json'
+import appConfig from '@root/src-tauri/tauri.conf.json'
+
+export const APP_UPDATES_ENABLED = appConfig.plugins.updater.endpoints.length > 0
 
 const normalizeVersion = (input: string | null | undefined): string | null => {
   if (typeof input !== 'string') return null
@@ -28,6 +31,8 @@ const localVersionNormalized = normalizeVersion(appVersion)
 export const checkUpdateSafe = async (
   options?: CheckOptions,
 ): Promise<Update | null> => {
+  if (!APP_UPDATES_ENABLED) return null
+
   const result = await check(options ?? {})
   if (!result) return null
 

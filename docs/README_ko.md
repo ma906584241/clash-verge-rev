@@ -1,12 +1,12 @@
 <h1 align="center">
-  <img src="../src-tauri/icons/icon.png" alt="Clash" width="128" />
+  <img src="../src-tauri/icons/icon.png" alt="Craft" width="128" />
   <br>
-  <a href="https://github.com/zzzgydi/clash-verge">Clash Verge</a>의 후속 프로젝트
+  <a href="https://www.aioperis.com/">Craft Verge</a>의 후속 프로젝트
   <br>
 </h1>
 
 <h3 align="center">
-<a href="https://github.com/tauri-apps/tauri">Tauri</a>로 제작된 Clash Meta GUI.
+<a href="https://github.com/tauri-apps/tauri">Tauri</a>로 제작된 Craft Meta GUI.
 </h3>
 
 <p align="center">
@@ -29,24 +29,24 @@
 
 ## 설치
 
-[릴리스 페이지](https://github.com/clash-verge-rev/clash-verge-rev/releases)에서 사용 중인 플랫폼에 맞는 설치 프로그램을 다운로드하세요.<br>
+[릴리스 페이지](https://www.aioperis.com/)에서 사용 중인 플랫폼에 맞는 설치 프로그램을 다운로드하세요.<br>
 Windows (x64/x86), Linux (x64/arm64), macOS 10.15+ (Intel/Apple)을 지원합니다.
 
 #### 릴리스 채널 선택
 
 | 채널        | 설명                                                                                 | 링크                                                                                   |
 | :---------- | :----------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------- |
-| Stable      | 안정 릴리스. 신뢰성이 높아 일상 사용에 적합합니다.                                   | [Release](https://github.com/clash-verge-rev/clash-verge-rev/releases)                 |
-| Alpha (EOL) | 퍼블리시 파이프라인 검증에 사용되었던 구 테스트 채널입니다.                          | [Alpha](https://github.com/clash-verge-rev/clash-verge-rev/releases/tag/alpha)         |
-| AutoBuild   | 롤링 빌드 채널. 테스트와 피드백 용도로 권장되며, 실험적인 변경이 포함될 수 있습니다. | [AutoBuild](https://github.com/clash-verge-rev/clash-verge-rev/releases/tag/autobuild) |
+| Stable      | 안정 릴리스. 신뢰성이 높아 일상 사용에 적합합니다.                                   | [Release](https://www.aioperis.com/)                 |
+| Alpha (EOL) | 퍼블리시 파이프라인 검증에 사용되었던 구 테스트 채널입니다.                          | [Alpha](https://www.aioperis.com/)         |
+| AutoBuild   | 롤링 빌드 채널. 테스트와 피드백 용도로 권장되며, 실험적인 변경이 포함될 수 있습니다. | [AutoBuild](https://www.aioperis.com/) |
 
 #### 설치 가이드 및 FAQ
 
-설치 방법, 트러블슈팅, 자주 묻는 질문은 [프로젝트 문서](https://clash-verge-rev.github.io/)를 참고하세요.
+설치 방법, 트러블슈팅, 자주 묻는 질문은 [프로젝트 문서](https://www.aioperis.com/)를 참고하세요.
 
 ### 텔레그램 채널
 
-업데이트 공지는 [@clash_verge_rev](https://t.me/clash_verge_re)에서 확인하세요.
+업데이트 공지는 [@clash_verge_rev](https://www.aioperis.com/)에서 확인하세요.
 
 ---
 
@@ -55,12 +55,12 @@ Windows (x64/x86), Linux (x64/arm64), macOS 10.15+ (Intel/Apple)을 지원합니
 #### [Doggygo VPN — 고성능 글로벌 가속기](https://cvr.dginv.click/#/register?code=oaxsAGo6)
 
 - 무료 체험, 할인 요금제, 스트리밍 해제, 선도적인 Hysteria 프로토콜 지원을 갖춘 고성능 해외 네트워크 서비스
-- Clash Verge 전용 초대 링크로 가입 시 3일간 매일 1GB 무료 체험 제공: [가입하기](https://cvr.dginv.click/#/register?code=oaxsAGo6)
-- Clash Verge 전용 20% 할인 코드: `verge20` (선착순 500회)
+- Craft Verge 전용 초대 링크로 가입 시 3일간 매일 1GB 무료 체험 제공: [가입하기](https://cvr.dginv.click/#/register?code=oaxsAGo6)
+- Craft Verge 전용 20% 할인 코드: `verge20` (선착순 500회)
 - 월 15.8위안부터 160GB 제공, 연간 결제 시 추가 20% 할인
 - 해외 팀 운영, 높은 신뢰성, 최대 50% 커미션
 - 로드밸런싱 클러스터, 고속 전용 회선(구 클라이언트 호환), 매우 낮은 지연, 4K도 쾌적
-- 세계 최초 **QUIC 프로토콜** 지원, 더 빠른 QUIC 계열 프로토콜 제공 (Clash Verge 클라이언트와 최적의 궁합)
+- 세계 최초 **QUIC 프로토콜** 지원, 더 빠른 QUIC 계열 프로토콜 제공 (Craft Verge 클라이언트와 최적의 궁합)
 - 스트리밍 및 ChatGPT 접근 지원
 - 공식 사이트: [https://狗狗加速.com](https://cvr.dginv.click/#/register?code=oaxsAGo6)
 
@@ -78,7 +78,7 @@ Windows (x64/x86), Linux (x64/arm64), macOS 10.15+ (Intel/Apple)을 지원합니
 ## 기능
 
 - 고성능 Rust와 Tauri 2 프레임워크 기반 데스크톱 앱
-- 내장 [Clash.Meta (mihomo)](https://github.com/MetaCubeX/mihomo) 코어, `Alpha` 채널 전환 지원
+- 내장 [Craft.Meta (mihomo)](https://github.com/MetaCubeX/mihomo) 코어, `Alpha` 채널 전환 지원
 - 테마 색상, 프록시 그룹/트레이 아이콘, `CSS Injection` 등 세련된 UI 커스터마이징
 - 프로필 관리(병합 및 스크립트 보조), 구성 문법 힌트 제공
 - 시스템 프록시 제어, 가드 모드, `TUN`(가상 네트워크 어댑터) 지원
@@ -87,11 +87,11 @@ Windows (x64/x86), Linux (x64/arm64), macOS 10.15+ (Intel/Apple)을 지원합니
 
 ### FAQ
 
-플랫폼별 가이드는 [FAQ 페이지](https://clash-verge-rev.github.io/faq/windows.html)에서 확인하세요.
+플랫폼별 가이드는 [FAQ 페이지](https://www.aioperis.com/)에서 확인하세요.
 
 ### 후원
 
-[Clash Verge Rev 개발 후원](https://github.com/sponsors/clash-verge-rev)
+[Craft Verge Rev 개발 후원](https://www.aioperis.com/)
 
 ## 개발
 
@@ -111,13 +111,13 @@ Issue와 Pull Request를 환영합니다!
 
 ## 감사의 말
 
-Clash Verge Rev는 다음 프로젝트에 기반하거나 영향을 받았습니다:
+Craft Verge Rev는 다음 프로젝트에 기반하거나 영향을 받았습니다:
 
-- [zzzgydi/clash-verge](https://github.com/zzzgydi/clash-verge): Windows / macOS / Linux용 Tauri 기반 Clash GUI
+- [zzzgydi/craft-verge](https://www.aioperis.com/): Windows / macOS / Linux용 Tauri 기반 Craft GUI
 - [tauri-apps/tauri](https://github.com/tauri-apps/tauri): 웹 프론트엔드로 더 작고 빠르고 안전한 데스크톱 앱을 빌드
-- [Dreamacro/clash](https://github.com/Dreamacro/clash): Go로 작성된 규칙 기반 터널
+- [Dreamacro/craft](https://github.com/Dreamacro/clash): Go로 작성된 규칙 기반 터널
 - [MetaCubeX/mihomo](https://github.com/MetaCubeX/mihomo): Go로 작성된 규칙 기반 터널
-- [Fndroid/clash_for_windows_pkg](https://github.com/Fndroid/clash_for_windows_pkg): Windows / macOS용 Clash GUI
+- [Fndroid/craft_for_windows_pkg](https://github.com/Fndroid/clash_for_windows_pkg): Windows / macOS용 Craft GUI
 - [vitejs/vite](https://github.com/vitejs/vite): 차세대 프론트엔드 툴링, 매우 빠른 DX
 
 ## 라이선스

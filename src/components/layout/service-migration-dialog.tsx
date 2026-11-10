@@ -116,7 +116,7 @@ export const ServiceMigrationDialog = () => {
       setWorkflowIncomplete(false)
       setLoading(false)
       showNotice.warning(
-        'settings.feedback.notifications.clashService.permissionFallback',
+        'settings.feedback.notifications.craftService.permissionFallback',
         { reason: outcome.reason },
         0,
       )

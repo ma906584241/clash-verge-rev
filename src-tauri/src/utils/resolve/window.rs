@@ -5,8 +5,8 @@ use tauri::{Theme, WebviewWindow};
 
 use crate::{config::Config, core::handle, utils::resolve::window_script::build_window_initial_script};
 #[cfg(target_os = "macos")]
-use clash_verge_logging::logging;
-use clash_verge_logging::{Type, logging_error};
+use craft_verge_logging::logging;
+use craft_verge_logging::{Type, logging_error};
 
 const DARK_BACKGROUND_COLOR: Color = Color(46, 48, 61, 255); // #2E303D
 const LIGHT_BACKGROUND_COLOR: Color = Color(245, 245, 245, 255); // #F5F5F5
@@ -81,7 +81,7 @@ pub async fn build_new_window() -> Result<WebviewWindow, String> {
         "main", /* the unique window label */
         tauri::WebviewUrl::App(start_page.into()),
     )
-    .title("Clash Verge")
+    .title("Craft Verge")
     .center()
     .decorations(DEFAULT_DECORATIONS)
     .fullscreen(false)

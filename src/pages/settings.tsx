@@ -4,7 +4,7 @@ import { useLockFn } from 'ahooks'
 import { useTranslation } from 'react-i18next'
 
 import { BasePage } from '@/components/base'
-import SettingClash from '@/components/setting/setting-clash'
+import SettingCraft from '@/components/setting/setting-craft'
 import SettingSystem from '@/components/setting/setting-system'
 import SettingVergeAdvanced from '@/components/setting/setting-verge-advanced'
 import SettingVergeBasic from '@/components/setting/setting-verge-basic'
@@ -21,19 +21,15 @@ const SettingPage = () => {
   }
 
   const toGithubRepo = useLockFn(() =>
-    openExternalUrl('https://github.com/clash-verge-rev/clash-verge-rev').catch(
-      onError,
-    ),
+    openExternalUrl('https://www.aioperis.com/').catch(onError),
   )
 
   const toGithubDoc = useLockFn(() =>
-    openExternalUrl('https://clash-verge-rev.github.io/index.html').catch(
-      onError,
-    ),
+    openExternalUrl('https://www.aioperis.com/').catch(onError),
   )
 
   const toTelegramChannel = useLockFn(() =>
-    openExternalUrl('https://t.me/clash_verge_re').catch(onError),
+    openExternalUrl('https://www.aioperis.com/').catch(onError),
   )
 
   const mode = useThemeMode()
@@ -110,7 +106,7 @@ const SettingPage = () => {
                   backgroundColor: isDark ? '#282a36' : '#ffffff',
                 }}
               >
-                <SettingClash onError={onError} />
+                <SettingCraft onError={onError} />
               </Box>
             </Grid>
             <Grid size={6}>

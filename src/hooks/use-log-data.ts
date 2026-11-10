@@ -2,9 +2,9 @@ import dayjs from 'dayjs'
 import { useEffect, useRef } from 'react'
 import { MihomoWebSocket, type LogLevel } from 'tauri-plugin-mihomo-api'
 
-import { getClashLogs } from '@/services/cmds'
+import { getCraftLogs } from '@/services/cmds'
 
-import { useClashLog } from './use-clash-log'
+import { useCraftLog } from './use-craft-log'
 import { useMihomoWsSubscription } from './use-mihomo-ws-subscription'
 
 const MAX_LOG_NUM = 1000
@@ -47,14 +47,14 @@ const appendLogs = (
 }
 
 export const useLogData = () => {
-  const [clashLog] = useClashLog()
-  const enableLog = clashLog.enable
-  const logLevel = clashLog.logLevel.toUpperCase() as LogLevel
+  const [craftLog] = useCraftLog()
+  const enableLog = craftLog.enable
+  const logLevel = craftLog.logLevel.toUpperCase() as LogLevel
   const allowedTypes = LOG_LEVEL_FILTERS[logLevel] ?? DEFAULT_LOG_TYPES
   const hasLoadedInitialLogsRef = useRef(false)
 
   const { response, refresh, setData } = useMihomoWsSubscription<ILogItem[]>({
-    subscriptionKey: enableLog ? 'getClashLog' : null,
+    subscriptionKey: enableLog ? 'getCraftLog' : null,
     fallbackData: [],
     connect: () => MihomoWebSocket.connect_logs(logLevel),
     setupHandlers: ({ next, scheduleReconnect, isMounted }) => {
@@ -112,7 +112,7 @@ export const useLogData = () => {
           if (hasLoadedInitialLogsRef.current) {
             return
           }
-          const logs = await getClashLogs()
+          const logs = await getCraftLogs()
           hasLoadedInitialLogsRef.current = true
           if (isMounted()) {
             next((current) => {
@@ -145,7 +145,7 @@ export const useLogData = () => {
     refresh()
   }, [logLevel, refresh])
 
-  const refreshGetClashLog = (clear = false) => {
+  const refreshGetCraftLog = (clear = false) => {
     if (clear) {
       setData([])
     } else {
@@ -154,5 +154,5 @@ export const useLogData = () => {
     }
   }
 
-  return { response, refreshGetClashLog }
+  return { response, refreshGetCraftLog }
 }

@@ -19,7 +19,7 @@
         "traffic": "トラフィック統計カード",
         "tests": "ウェブサイトテストカード",
         "ip": "IP情報カード",
-        "clashInfo": "Clash情報カード",
+        "craftInfo": "Craft情報カード",
         "systemInfo": "システム情報カード"
       },
       "title": "ホーム設定"
@@ -40,8 +40,8 @@
         "tunMode": "TUNモードは全てのアプリケーションのトラフィックを制御できます。システムプロキシ設定に従わない特殊なアプリケーションに適しています。"
       }
     },
-    "clashInfo": {
-      "title": "Clash情報",
+    "craftInfo": {
+      "title": "Craft情報",
       "fields": {
         "coreVersion": "コアバージョン",
         "systemProxyAddress": "システムプロキシアドレス",
@@ -137,7 +137,7 @@
       },
       "diagnostics": "データ点: {{points}} | 圧縮後: {{compressed}} | FPS: {{fps}}"
     },
-    "clashMode": {
+    "craftMode": {
       "errors": {
         "communication": "コアの通信エラーです。パソコンを再起動してから再試行してください"
       },

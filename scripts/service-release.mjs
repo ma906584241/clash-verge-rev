@@ -4,11 +4,11 @@ const SERVICE_URL_PREFIX =
 export function resolveServiceRelease(cargoManifest, host, platform) {
   const dependency = cargoManifest
     .split(/\r?\n/)
-    .find((line) => line.trimStart().startsWith('clash_verge_service_ipc ='))
+    .find((line) => line.trimStart().startsWith('craft_verge_service_ipc ='))
   const packageVersion = dependency?.match(/\bversion\s*=\s*"([^"]+)"/)?.[1]
   if (!packageVersion) {
     throw new Error(
-      'clash_verge_service_ipc dependency must declare an inline version',
+      'craft_verge_service_ipc dependency must declare an inline version',
     )
   }
 

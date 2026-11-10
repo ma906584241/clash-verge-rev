@@ -19,7 +19,7 @@
         "traffic": "Traffic Stats Card",
         "tests": "Website Tests Card",
         "ip": "IP Information Card",
-        "clashInfo": "Clash Info Cards",
+        "craftInfo": "Craft Info Cards",
         "systemInfo": "System Info Cards"
       },
       "title": "Home Settings"
@@ -40,8 +40,8 @@
         "tunMode": "TUN mode can take over all application traffic, suitable for special applications that do not follow the system proxy settings"
       }
     },
-    "clashInfo": {
-      "title": "Clash Info",
+    "craftInfo": {
+      "title": "Craft Info",
       "fields": {
         "coreVersion": "Core Version",
         "systemProxyAddress": "System Proxy Address",
@@ -137,7 +137,7 @@
       },
       "diagnostics": "Нокталар: {{points}} | Кысылган: {{compressed}} | FPS: {{fps}}"
     },
-    "clashMode": {
+    "craftMode": {
       "errors": {
         "communication": "Үзәк белән элемтә хатасы, компьютерны яңадан кабызып карагыз"
       },

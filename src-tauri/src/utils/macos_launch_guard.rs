@@ -183,12 +183,12 @@ pub const fn move_decision(
 }
 
 pub fn enforce_before_initialization() -> LaunchDisposition {
-    clash_verge_i18n::sync_locale(None);
+    craft_verge_i18n::sync_locale(None);
 
     let executable = match std::env::current_exe() {
         Ok(executable) => executable,
         Err(error) => {
-            let message = clash_verge_i18n::t!("launchGuard.currentExeError").replace("{error}", &error.to_string());
+            let message = craft_verge_i18n::t!("launchGuard.currentExeError").replace("{error}", &error.to_string());
             show_message(&message);
             return LaunchDisposition::Exit;
         }
@@ -196,7 +196,7 @@ pub fn enforce_before_initialization() -> LaunchDisposition {
     let home = match current_user_home() {
         Ok(home) => home,
         Err(error) => {
-            let message = clash_verge_i18n::t!("launchGuard.homeDirError").replace("{error}", &error.to_string());
+            let message = craft_verge_i18n::t!("launchGuard.homeDirError").replace("{error}", &error.to_string());
             show_message(&message);
             return LaunchDisposition::Exit;
         }
@@ -205,19 +205,19 @@ pub fn enforce_before_initialization() -> LaunchDisposition {
     match evaluate_install_location(&executable, &home) {
         LaunchLocation::Allowed { .. } => LaunchDisposition::Continue,
         LaunchLocation::Translocated => {
-            show_message(&clash_verge_i18n::t!("launchGuard.translocated"));
+            show_message(&craft_verge_i18n::t!("launchGuard.translocated"));
             LaunchDisposition::Exit
         }
         LaunchLocation::Rejected { reason } => {
             let reason = match reason {
                 LaunchRejectionReason::NotInApplicationBundle => {
-                    clash_verge_i18n::t!("launchGuard.notInBundle").into_owned()
+                    craft_verge_i18n::t!("launchGuard.notInBundle").into_owned()
                 }
                 LaunchRejectionReason::CanonicalizeBundleFailed { error } => {
-                    clash_verge_i18n::t!("launchGuard.canonicalizeBundleError").replace("{error}", &error)
+                    craft_verge_i18n::t!("launchGuard.canonicalizeBundleError").replace("{error}", &error)
                 }
             };
-            let message = clash_verge_i18n::t!("launchGuard.rejected").replace("{reason}", &reason);
+            let message = craft_verge_i18n::t!("launchGuard.rejected").replace("{reason}", &reason);
             show_message(&message);
             LaunchDisposition::Exit
         }
@@ -234,23 +234,23 @@ fn move_and_relaunch(bundle: &Path, home: &Path) -> LaunchDisposition {
         home.join("Applications")
     };
     let Some(bundle_name) = bundle.file_name() else {
-        show_message(&clash_verge_i18n::t!("launchGuard.bundleNameError"));
+        show_message(&craft_verge_i18n::t!("launchGuard.bundleNameError"));
         return LaunchDisposition::Exit;
     };
     let destination = destination_root.join(bundle_name);
     let exists = destination.exists();
     let destination_display = destination.display().to_string();
     let prompt = if exists {
-        clash_verge_i18n::t!("launchGuard.replacePrompt").replace("{destination}", &destination_display)
+        craft_verge_i18n::t!("launchGuard.replacePrompt").replace("{destination}", &destination_display)
     } else {
-        clash_verge_i18n::t!("launchGuard.movePrompt").replace("{destination}", &destination_display)
+        craft_verge_i18n::t!("launchGuard.movePrompt").replace("{destination}", &destination_display)
     };
     if !confirm(&prompt) {
         return LaunchDisposition::Exit;
     }
     if let Err(error) = std::fs::create_dir_all(&destination_root) {
         let message =
-            clash_verge_i18n::t!("launchGuard.createApplicationsDirError").replace("{error}", &error.to_string());
+            craft_verge_i18n::t!("launchGuard.createApplicationsDirError").replace("{error}", &error.to_string());
         show_message(&message);
         return LaunchDisposition::Exit;
     }
@@ -264,14 +264,14 @@ fn move_and_relaunch(bundle: &Path, home: &Path) -> LaunchDisposition {
         .status();
     if !copy.is_ok_and(|status| status.success()) {
         let _ = remove_existing_target(&staging);
-        show_message(&clash_verge_i18n::t!("launchGuard.moveFailed"));
+        show_message(&craft_verge_i18n::t!("launchGuard.moveFailed"));
         return LaunchDisposition::Exit;
     }
     let backup = match activate_staged_bundle(&staging, &destination, &backup) {
         Ok(backup) => backup,
         Err(error) => {
             let _ = remove_existing_target(&staging);
-            let message = clash_verge_i18n::t!("launchGuard.replaceFailed").replace("{error}", &error.to_string());
+            let message = craft_verge_i18n::t!("launchGuard.replaceFailed").replace("{error}", &error.to_string());
             show_message(&message);
             return LaunchDisposition::Exit;
         }
@@ -289,7 +289,7 @@ fn move_and_relaunch(bundle: &Path, home: &Path) -> LaunchDisposition {
                 let _ = remove_existing_target(&staging);
             }
         }
-        show_message(&clash_verge_i18n::t!("launchGuard.relaunchFailed"));
+        show_message(&craft_verge_i18n::t!("launchGuard.relaunchFailed"));
         return LaunchDisposition::Exit;
     }
     if let Some(backup) = backup {
@@ -305,7 +305,7 @@ fn sibling_swap_path(destination: &Path, label: &str) -> PathBuf {
     let name = destination
         .file_name()
         .and_then(|name| name.to_str())
-        .unwrap_or("Clash Verge.app");
+        .unwrap_or("Craft Verge.app");
     destination.with_file_name(format!(".{name}.{label}-{}", std::process::id()))
 }
 
@@ -350,8 +350,8 @@ fn path_is_writable(path: &Path) -> bool {
 }
 
 fn confirm(message: &str) -> bool {
-    let cancel_button = clash_verge_i18n::t!("launchGuard.cancel");
-    let move_button = clash_verge_i18n::t!("launchGuard.move");
+    let cancel_button = craft_verge_i18n::t!("launchGuard.cancel");
+    let move_button = craft_verge_i18n::t!("launchGuard.move");
     let script = format!(
         "display dialog \"{}\" buttons {{\"{}\", \"{}\"}} default button \"{}\" with icon caution",
         escape_osascript(message),
@@ -369,7 +369,7 @@ fn confirm(message: &str) -> bool {
 }
 
 fn show_message(message: &str) {
-    let ok_button = clash_verge_i18n::t!("launchGuard.ok");
+    let ok_button = craft_verge_i18n::t!("launchGuard.ok");
     let script = format!(
         "display dialog \"{}\" buttons {{\"{}\"}} default button \"{}\" with icon caution",
         escape_osascript(message),
@@ -394,7 +394,7 @@ mod tests {
     use std::{ffi::CStr, os::unix::ffi::OsStrExt as _};
 
     fn executable(bundle: &std::path::Path) -> anyhow::Result<std::path::PathBuf> {
-        let executable = bundle.join("Contents/MacOS/clash-verge");
+        let executable = bundle.join("Contents/MacOS/craft-verge");
         let parent = executable
             .parent()
             .ok_or_else(|| anyhow::anyhow!("test executable has no parent"))?;
@@ -409,8 +409,8 @@ mod tests {
         let home = root.join("home");
         let system = root.join("Applications");
         let user = home.join("Applications");
-        let system_exe = executable(&system.join("Tools/Clash Verge.app"))?;
-        let user_exe = executable(&user.join("Network/Clash Verge.app"))?;
+        let system_exe = executable(&system.join("Tools/Craft Verge.app"))?;
+        let user_exe = executable(&user.join("Network/Craft Verge.app"))?;
 
         std::assert_matches!(
             evaluate_install_location_with_roots(&system_exe, &home, &system),
@@ -427,9 +427,9 @@ mod tests {
     #[test]
     fn failed_staged_activation_preserves_existing_application() -> anyhow::Result<()> {
         let root = std::env::temp_dir().join(format!("launch-guard-swap-{}", std::process::id()));
-        let destination = root.join("Clash Verge.app");
-        let staging = root.join(".Clash Verge.app.installing");
-        let backup = root.join(".Clash Verge.app.backup");
+        let destination = root.join("Craft Verge.app");
+        let staging = root.join(".Craft Verge.app.installing");
+        let backup = root.join(".Craft Verge.app.backup");
         std::fs::create_dir_all(&destination)?;
         std::fs::write(destination.join("old"), b"old")?;
         std::fs::create_dir_all(&staging)?;
@@ -456,9 +456,9 @@ mod tests {
         let system = root.join("Applications");
         let downloads = home.join("Downloads");
         std::fs::create_dir_all(&downloads)?;
-        let allowed_bundle = system.join("Clash Verge.app");
+        let allowed_bundle = system.join("Craft Verge.app");
         let allowed_exe = executable(&allowed_bundle)?;
-        let link_in = downloads.join("Clash Verge.app");
+        let link_in = downloads.join("Craft Verge.app");
         symlink(&allowed_bundle, &link_in)?;
         let escaped_bundle = downloads.join("Escaped.app");
         executable(&escaped_bundle)?;
@@ -467,11 +467,11 @@ mod tests {
         symlink(&escaped_bundle, &link_out)?;
 
         assert!(matches!(
-            evaluate_install_location_with_roots(&link_in.join("Contents/MacOS/clash-verge"), &home, &system),
+            evaluate_install_location_with_roots(&link_in.join("Contents/MacOS/craft-verge"), &home, &system),
             LaunchLocation::Allowed { .. }
         ));
         assert!(matches!(
-            evaluate_install_location_with_roots(&link_out.join("Contents/MacOS/clash-verge"), &home, &system),
+            evaluate_install_location_with_roots(&link_out.join("Contents/MacOS/craft-verge"), &home, &system),
             LaunchLocation::Movable { .. }
         ));
         assert!(allowed_exe.is_file());
@@ -491,7 +491,7 @@ mod tests {
         std::fs::create_dir_all(&downloads)?;
         std::fs::create_dir_all(&system)?;
         symlink(&downloads, home.join("Applications"))?;
-        let escaped_exe = executable(&home.join("Applications/Clash Verge.app"))?;
+        let escaped_exe = executable(&home.join("Applications/Craft Verge.app"))?;
 
         assert!(matches!(
             evaluate_install_location_with_roots(&escaped_exe, &home, &system),
@@ -516,7 +516,7 @@ mod tests {
     #[test]
     fn translocation_and_missing_bundle_are_rejected_before_side_effects() {
         let translocated =
-            std::path::Path::new("/private/var/folders/AppTranslocation/Clash Verge.app/Contents/MacOS/clash-verge");
+            std::path::Path::new("/private/var/folders/AppTranslocation/Craft Verge.app/Contents/MacOS/craft-verge");
         assert_eq!(
             evaluate_install_location_with_roots(
                 translocated,
@@ -527,7 +527,7 @@ mod tests {
         );
         assert!(matches!(
             evaluate_install_location_with_roots(
-                std::path::Path::new("/Users/test/Downloads/clash-verge"),
+                std::path::Path::new("/Users/test/Downloads/craft-verge"),
                 std::path::Path::new("/Users/test"),
                 std::path::Path::new("/Applications")
             ),

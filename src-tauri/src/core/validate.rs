@@ -15,14 +15,14 @@ use crate::config::Config;
 use crate::core::handle;
 use crate::singleton;
 use crate::utils::{dirs, help};
-use clash_verge_logging::{Type, logging};
+use craft_verge_logging::{Type, logging};
 
 const SYNTAX_CHECK_TIMEOUT: std::time::Duration = std::time::Duration::from_secs(5);
 
 static LAST_VALIDATED: LazyLock<parking_lot::Mutex<Option<u64>>> = LazyLock::new(|| parking_lot::Mutex::new(None));
 
 async fn validation_fingerprint(yaml: &str) -> u64 {
-    let core = Config::verge().await.latest_arc().get_valid_clash_core();
+    let core = Config::verge().await.latest_arc().get_valid_craft_core();
     let mut hasher = DefaultHasher::new();
     yaml.hash(&mut hasher);
     core.as_str().hash(&mut hasher);
@@ -343,7 +343,7 @@ impl CoreConfigValidator {
             return Self::validate_script_file_outcome(config_path).await;
         }
 
-        logging!(info, Type::Validate, "使用Clash内核验证配置文件: {}", config_path);
+        logging!(info, Type::Validate, "使用Craft内核验证配置文件: {}", config_path);
         Self::validate_config_internal_outcome(config_path).await
     }
 
@@ -357,21 +357,21 @@ impl CoreConfigValidator {
 
         logging!(info, Type::Validate, "开始验证配置文件: {}", config_path);
 
-        let clash_core = Config::verge().await.latest_arc().get_valid_clash_core();
-        logging!(info, Type::Validate, "使用内核: {}", clash_core);
+        let craft_core = Config::verge().await.latest_arc().get_valid_craft_core();
+        logging!(info, Type::Validate, "使用内核: {}", craft_core);
 
         let app_handle = handle::Handle::app_handle();
         let app_dir = dirs::app_home_dir()?;
         let app_dir_str = dirs::path_to_str(&app_dir)?;
         logging!(info, Type::Validate, "验证目录: {}", app_dir_str);
 
-        let command = app_handle.shell().sidecar(clash_core.as_str()).map_err(|error| {
-            anyhow::anyhow!("failed to build validation command for core {clash_core:?}: {error:#}")
+        let command = app_handle.shell().sidecar(craft_core.as_str()).map_err(|error| {
+            anyhow::anyhow!("failed to build validation command for core {craft_core:?}: {error:#}")
         })?;
         let command = command.args(["-t", "-d", app_dir_str, "-f", config_path]);
         let output = command.output().await.map_err(|error| {
             anyhow::anyhow!(
-                "failed to run validation core {clash_core:?} for config {config_path:?} in data directory {}: {error:#}",
+                "failed to run validation core {craft_core:?} for config {config_path:?} in data directory {}: {error:#}",
                 app_dir.display()
             )
         })?;

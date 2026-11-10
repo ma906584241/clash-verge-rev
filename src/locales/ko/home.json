@@ -19,7 +19,7 @@
         "traffic": "트래픽 통계 카드",
         "tests": "웹사이트 테스트 카드",
         "ip": "IP 정보 카드",
-        "clashInfo": "Clash 정보 카드",
+        "craftInfo": "Craft 정보 카드",
         "systemInfo": "시스템 정보 카드"
       },
       "title": "홈 설정"
@@ -40,8 +40,8 @@
         "tunMode": "TUN 모드는 모든 애플리케이션 트래픽을 인수할 수 있으며 시스템 프록시를 따르지 않는 특수 앱에 적합합니다"
       }
     },
-    "clashInfo": {
-      "title": "Clash 정보",
+    "craftInfo": {
+      "title": "Craft 정보",
       "fields": {
         "coreVersion": "코어 버전",
         "systemProxyAddress": "시스템 프록시 주소",
@@ -137,7 +137,7 @@
       },
       "diagnostics": "데이터 점: {{points}} | 압축됨: {{compressed}} | FPS: {{fps}}"
     },
-    "clashMode": {
+    "craftMode": {
       "errors": {
         "communication": "코어 통신 오류입니다. 컴퓨터를 다시 시작한 후 다시 시도하세요"
       },

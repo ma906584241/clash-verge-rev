@@ -5,7 +5,7 @@ use crate::{
     utils::{dirs, help},
 };
 use anyhow::Result;
-use clash_verge_logging::{Type, logging};
+use craft_verge_logging::{Type, logging};
 use log::LevelFilter;
 use serde::{Deserialize, Serialize};
 use smartstring::alias::String;
@@ -114,7 +114,7 @@ pub struct IVerge {
 
     #[serde(skip_serializing_if = "Option::is_none")]
     #[specta(type = Option<std::string::String>)]
-    pub clash_core: Option<String>,
+    pub craft_core: Option<String>,
 
     /// format: {func},{key}
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -155,7 +155,7 @@ pub struct IVerge {
 
     pub auto_backup_on_change: Option<bool>,
 
-    /// verge 的各种 port 用于覆盖 clash 的各种 port
+    /// verge 的各种 port 用于覆盖 craft 的各种 port
     #[cfg(not(target_os = "windows"))]
     pub verge_redir_port: Option<u16>,
 
@@ -265,7 +265,7 @@ pub struct IVergeTheme {
 }
 
 impl IVerge {
-    pub const VALID_CLASH_CORES: &'static [&'static str] = &["verge-mihomo", "verge-mihomo-alpha"];
+    pub const VALID_CRAFT_CORES: &'static [&'static str] = &["verge-mihomo", "verge-mihomo-alpha"];
 
     pub async fn validate_and_fix_config() -> Result<()> {
         let config_path = dirs::verge_path()?;
@@ -276,36 +276,36 @@ impl IVerge {
 
         let mut needs_fix = false;
 
-        if let Some(ref core) = config.clash_core {
+        if let Some(ref core) = config.craft_core {
             let core_str = core.trim();
-            if core_str.is_empty() || !Self::VALID_CLASH_CORES.contains(&core_str) {
+            if core_str.is_empty() || !Self::VALID_CRAFT_CORES.contains(&core_str) {
                 logging!(
                     warn,
                     Type::Config,
-                    "启动时发现无效的clash_core配置: '{}', 将自动修正为 'verge-mihomo'",
+                    "启动时发现无效的craft_core配置: '{}', 将自动修正为 'verge-mihomo'",
                     core
                 );
-                config.clash_core = Some("verge-mihomo".into());
+                config.craft_core = Some("verge-mihomo".into());
                 needs_fix = true;
             }
         } else {
             logging!(
                 info,
                 Type::Config,
-                "启动时发现未配置clash_core, 将设置为默认值 'verge-mihomo'"
+                "启动时发现未配置craft_core, 将设置为默认值 'verge-mihomo'"
             );
-            config.clash_core = Some("verge-mihomo".into());
+            config.craft_core = Some("verge-mihomo".into());
             needs_fix = true;
         }
 
         if needs_fix {
             logging!(debug, Type::Config, "正在保存修正后的配置文件...");
-            help::save_yaml(&config_path, &config, Some("# Clash Verge Config")).await?;
+            help::save_yaml(&config_path, &config, Some("# Craft Verge Config")).await?;
             logging!(info, Type::Config, "配置文件修正完成，需要重新加载配置");
 
             Self::reload_config_after_fix(config).await;
         } else {
-            logging!(debug, Type::Config, "clash_core配置验证通过: {:?}", config.clash_core);
+            logging!(debug, Type::Config, "craft_core配置验证通过: {:?}", config.craft_core);
         }
 
         Ok(())
@@ -315,8 +315,8 @@ impl IVerge {
         logging!(
             info,
             Type::Config,
-            "内存配置已强制更新，新的clash_core: {:?}",
-            &updated_config.clash_core
+            "内存配置已强制更新，新的craft_core: {:?}",
+            &updated_config.craft_core
         );
 
         let config_draft = Config::verge().await;
@@ -326,8 +326,8 @@ impl IVerge {
         config_draft.apply();
     }
 
-    pub fn get_valid_clash_core(&self) -> String {
-        self.clash_core.clone().unwrap_or_else(|| "verge-mihomo".into())
+    pub fn get_valid_craft_core(&self) -> String {
+        self.craft_core.clone().unwrap_or_else(|| "verge-mihomo".into())
     }
 
     pub async fn new() -> Self {
@@ -357,8 +357,8 @@ impl IVerge {
         Self {
             app_log_max_size: Some(128),
             app_log_max_count: Some(8),
-            clash_core: Some("verge-mihomo".into()),
-            language: Some(clash_verge_i18n::system_language().into()),
+            craft_core: Some("verge-mihomo".into()),
+            language: Some(craft_verge_i18n::system_language().into()),
             theme_mode: Some("system".into()),
             #[cfg(not(target_os = "windows"))]
             env_type: Some("bash".into()),
@@ -403,7 +403,7 @@ impl IVerge {
             use_default_bypass: Some(true),
             proxy_guard_duration: Some(30),
             auto_close_connection: Some(true),
-            auto_check_update: Some(true),
+            auto_check_update: Some(false),
             enable_builtin_enhanced: Some(true),
             auto_log_clean: Some(2), // 1: 1天, 2: 7天, 3: 30天, 4: 90天
             enable_auto_backup_schedule: Some(false),
@@ -427,7 +427,7 @@ impl IVerge {
     }
 
     pub async fn save_file(&self) -> Result<()> {
-        help::save_yaml(&dirs::verge_path()?, &self, Some("# Clash Verge Config")).await
+        help::save_yaml(&dirs::verge_path()?, &self, Some("# Craft Verge Config")).await
     }
 
     #[allow(clippy::cognitive_complexity)]
@@ -486,7 +486,7 @@ impl IVerge {
         patch_opt_field!(self, patch, proxy_host);
         patch_opt_field!(self, patch, theme_setting);
         patch_opt_field!(self, patch, web_ui_list);
-        patch_opt_field!(self, patch, clash_core);
+        patch_opt_field!(self, patch, craft_core);
         patch_opt_field!(self, patch, hotkeys);
         patch_opt_field!(self, patch, enable_global_hotkey);
 

@@ -16,22 +16,22 @@ import {
   type VirtualListHandle,
 } from '@/components/base'
 import LogItem from '@/components/log/log-item'
-import { useClashLog } from '@/hooks/use-clash-log'
+import { useCraftLog } from '@/hooks/use-craft-log'
 import { useLogData } from '@/hooks/use-log-data'
 import { usePageSearch } from '@/hooks/use-page-search'
 
 const LogPage = () => {
   const { t } = useTranslation()
-  const [clashLog, setClashLog] = useClashLog()
-  const enableLog = clashLog.enable
-  const logState = clashLog.logFilter
-  const logOrder = clashLog.logOrder ?? 'asc'
+  const [craftLog, setCraftLog] = useCraftLog()
+  const enableLog = craftLog.enable
+  const logState = craftLog.logFilter
+  const logOrder = craftLog.logOrder ?? 'asc'
   const isDescending = logOrder === 'desc'
 
   const { searchState, match, onSearch } = usePageSearch('logs')
   const {
     response: { data: logData },
-    refreshGetClashLog,
+    refreshGetCraftLog,
   } = useLogData()
 
   const filterLogs = useMemo(() => {
@@ -72,15 +72,15 @@ const LogPage = () => {
   }, [isDescending, filteredLogs.length])
 
   const handleLogLevelChange = (newLevel: LogFilter) => {
-    setClashLog((pre) => ({ ...pre!, logFilter: newLevel }))
+    setCraftLog((pre) => ({ ...pre!, logFilter: newLevel }))
   }
 
   const handleToggleLog = async () => {
-    setClashLog((pre) => ({ ...pre!, enable: !enableLog }))
+    setCraftLog((pre) => ({ ...pre!, enable: !enableLog }))
   }
 
   const handleToggleOrder = () => {
-    setClashLog((pre) => ({
+    setCraftLog((pre) => ({
       ...pre!,
       logOrder: pre!.logOrder === 'desc' ? 'asc' : 'desc',
     }))
@@ -142,7 +142,7 @@ const LogPage = () => {
             size="small"
             variant="contained"
             onClick={() => {
-              refreshGetClashLog(true)
+              refreshGetCraftLog(true)
             }}
           >
             {t('shared.actions.clear')}

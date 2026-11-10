@@ -1,5 +1,5 @@
 use crate::{
-    config::{Config, IClashTemp, IProfiles, IVerge},
+    config::{Config, ICraftTemp, IProfiles, IVerge},
     core::{CoreManager, backup, proxy_control, proxy_control::SystemProxyStateUnknown},
     process::AsyncHandler,
     utils::{
@@ -9,7 +9,7 @@ use crate::{
 };
 use anyhow::{Result, anyhow};
 use chrono::Utc;
-use clash_verge_logging::{Type, logging};
+use craft_verge_logging::{Type, logging};
 use reqwest_dav::list_cmd::ListFile;
 use serde::Serialize;
 use smartstring::alias::String;
@@ -42,12 +42,12 @@ async fn finalize_restored_verge_config(
     restored.webdav_password = webdav_password;
     restored.save_file().await?;
 
-    let restored_clash = IClashTemp::new().await;
-    let clash_draft = Config::clash().await;
-    clash_draft.edit_draft(|d| {
-        *d = restored_clash;
+    let restored_craft = ICraftTemp::new().await;
+    let craft_draft = Config::craft().await;
+    craft_draft.edit_draft(|d| {
+        *d = restored_craft;
     });
-    clash_draft.apply();
+    craft_draft.apply();
 
     let restored_profiles = IProfiles::new().await;
     let profiles_draft = Config::profiles().await;

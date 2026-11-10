@@ -14,6 +14,7 @@ import { useTranslation } from 'react-i18next'
 import { BaseDialog, DialogRef, Switch, TooltipIcon } from '@/components/base'
 import { useVerge } from '@/hooks/use-verge'
 import { showNotice } from '@/services/notice-service'
+import { APP_UPDATES_ENABLED } from '@/services/update'
 
 import { useSettingDialog } from '../settings-search-context'
 
@@ -22,7 +23,8 @@ const buildInitialValues = (verge?: IVergeConfig | null) => ({
   appLogMaxSize: verge?.app_log_max_size ?? 128,
   appLogMaxCount: verge?.app_log_max_count ?? 8,
   autoCloseConnection: verge?.auto_close_connection ?? true,
-  autoCheckUpdate: verge?.auto_check_update ?? true,
+  autoCheckUpdate:
+    APP_UPDATES_ENABLED && (verge?.auto_check_update ?? false),
   enableBuiltinEnhanced: verge?.enable_builtin_enhanced ?? true,
   proxyLayoutColumn: verge?.proxy_layout_column || 6,
   enableAutoDelayDetection: verge?.enable_auto_delay_detection ?? false,
@@ -211,6 +213,7 @@ export const MiscViewer = forwardRef<DialogRef>((props, ref) => {
           />
           <Switch
             edge="end"
+            disabled={!APP_UPDATES_ENABLED}
             checked={values.autoCheckUpdate}
             onChange={(_, c) =>
               setValues((v) => ({ ...v, autoCheckUpdate: c }))

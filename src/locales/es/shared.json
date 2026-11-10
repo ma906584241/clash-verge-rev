@@ -94,7 +94,7 @@
     "notifications": {
       "importSuccess": "Suscripción importada con éxito",
       "importSubscriptionSuccess": "Suscripción importada con éxito",
-      "importWithClashProxy": "Suscripción importada con el proxy de Clash",
+      "importWithCraftProxy": "Suscripción importada con el proxy de Craft",
       "updateAvailable": "Update Available",
       "saved": "Saved successfully",
       "common": {

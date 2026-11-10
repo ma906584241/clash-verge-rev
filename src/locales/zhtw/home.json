@@ -19,7 +19,7 @@
         "traffic": "流量統計卡",
         "tests": "網站測試卡",
         "ip": "IP資訊卡",
-        "clashInfo": "Clash 資訊卡",
+        "craftInfo": "Craft 資訊卡",
         "systemInfo": "系統資訊卡"
       },
       "title": "首頁設定"
@@ -40,8 +40,8 @@
         "tunMode": "虛擬網路介面卡模式可以接管所有應用程式流量，適用於不遵循系統代理設定的特殊應用程式"
       }
     },
-    "clashInfo": {
-      "title": "Clash 資訊",
+    "craftInfo": {
+      "title": "Craft 資訊",
       "fields": {
         "coreVersion": "內核版本",
         "systemProxyAddress": "系統代理位址",
@@ -137,7 +137,7 @@
       },
       "diagnostics": "資料點：{{points}} | 壓縮後：{{compressed}} | 影格率：{{fps}}"
     },
-    "clashMode": {
+    "craftMode": {
       "errors": {
         "communication": "內核通信錯誤，請重新啟動電腦再試"
       },

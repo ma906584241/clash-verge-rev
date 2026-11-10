@@ -96,8 +96,8 @@
       "dark": "Koyu",
       "system": "Sistem"
     },
-    "clash": {
-      "title": "Clash Ayarı",
+    "craft": {
+      "title": "Craft Ayarı",
       "form": {
         "fields": {
           "allowLan": "LAN'a İzin Ver",
@@ -108,7 +108,7 @@
           "portConfig": "Port Yapılandırması",
           "external": "Harici",
           "webUI": "Web Arayüzü",
-          "clashCore": "Clash Çekirdeği",
+          "craftCore": "Craft Çekirdeği",
           "openUwpTool": "UWP Aracını Aç",
           "updateGeoData": "GeoData'yı Güncelle",
           "tunnels": {
@@ -276,7 +276,7 @@
     }
   },
   "modals": {
-    "clashPort": {
+    "craftPort": {
       "title": "Port Yapılandırması",
       "fields": {
         "mixed": "Karışık Port",
@@ -301,7 +301,7 @@
         "portTooHigh": "Bağlantı noktası 65535 veya daha düşük olmalıdır"
       }
     },
-    "clashCore": {
+    "craftCore": {
       "variants": {
         "release": "Kararlı Sürüm",
         "alpha": "Alfa Sürümü"
@@ -624,7 +624,7 @@
         "placeholderInstruction": "Ana bilgisayar, port, sırrı %host, %port, %secret ile değiştirin"
       },
       "errors": {
-        "clashInfoUnavailable": "Çekirdek bağlantı bilgisi kullanılamıyor",
+        "craftInfoUnavailable": "Çekirdek bağlantı bilgisi kullanılamıyor",
         "invalidServer": "Çekirdek sunucu adresi \"{{server}}\" geçersiz",
         "openFailed": "Web UI açılamadı"
       }
@@ -655,7 +655,7 @@
   },
   "feedback": {
     "errors": {
-      "clash": {
+      "craft": {
         "configUpdateFailed": "Çekirdek yapılandırması güncellenemedi",
         "modeUpdateFailed": "Proxy modu değiştirilemedi",
         "restartFailed": "Çekirdek yeniden başlatılamadı",
@@ -663,7 +663,7 @@
         "serviceCoreStopped": "Hizmetin çalıştırdığı çekirdek beklenmedik şekilde durdu",
         "stopFailed": "Çekirdek durdurulamadı"
       },
-      "clashService": {
+      "craftService": {
         "installFailed": "Hizmet kurulamadı",
         "uninstallFailed": "Hizmet kaldırılamadı",
         "reinstallFailed": "Hizmet yeniden kurulamadı",
@@ -672,24 +672,24 @@
         "coreAlreadyRunning": "Çekirdek başlatılamıyor: bir çekirdek işlemi zaten çalışıyor. İlgili uygulamayı kapatın veya kalan işlemi sonlandırıp yeniden deneyin. Sorun devam ederse bilgisayarı yeniden başlatın."
       },
       "sysproxy": {
-        "privilegeRequired": "Sistem vekil sunucusu ayarlanamıyor: macOS yetki yetersizliği nedeniyle değişikliği reddetti. Clash Verge hizmetini kurun; yöneticiyseniz Sistem Ayarları → Gizlilik ve Güvenlik bölümündeki gelişmiş seçeneklerden, sistem genelindeki ayarlar için yönetici parolası zorunluluğunu da kapatabilirsiniz.",
+        "privilegeRequired": "Sistem vekil sunucusu ayarlanamıyor: macOS yetki yetersizliği nedeniyle değişikliği reddetti. Craft Verge hizmetini kurun; yöneticiyseniz Sistem Ayarları → Gizlilik ve Güvenlik bölümündeki gelişmiş seçeneklerden, sistem genelindeki ayarlar için yönetici parolası zorunluluğunu da kapatabilirsiniz.",
         "directFallback": "Sistem vekil sunucusu ayarlanamadı; trafik doğrudan bağlantıya geri döndürüldü.",
         "guardStopped": "Sistem vekil sunucusu koruması art arda birkaç başarısızlıktan sonra durdu. Sistem vekil sunucusu artık otomatik olarak korunmuyor.",
-        "sidecarWhileServiceReady": "Sistem vekil sunucusu ayarlanamadı: Clash Verge hizmeti hazır ancak çekirdek hâlâ Sidecar olarak çalışıyor. Hizmet moduna geçmek için çekirdeği yeniden başlatın.",
-        "coreNotReady": "Çekirdek çalışmadığı için sistem vekil sunucusu etkinleştirilemedi. Çekirdeği başlatın (veya Clash Verge hizmetini kurun/onarın) ve yeniden deneyin.",
+        "sidecarWhileServiceReady": "Sistem vekil sunucusu ayarlanamadı: Craft Verge hizmeti hazır ancak çekirdek hâlâ Sidecar olarak çalışıyor. Hizmet moduna geçmek için çekirdeği yeniden başlatın.",
+        "coreNotReady": "Çekirdek çalışmadığı için sistem vekil sunucusu etkinleştirilemedi. Çekirdeği başlatın (veya Craft Verge hizmetini kurun/onarın) ve yeniden deneyin.",
         "systemCallFailed": "Bir Windows sistem çağrısı başarısız olduğu için sistem vekil sunucusu yazılamadı. Bu genellikle geçicidir, yeniden deneyin."
       }
     },
     "notifications": {
-      "clash": {
-        "restartSuccess": "Clash Çekirdeği Yeniden Başlatıldı",
+      "craft": {
+        "restartSuccess": "Craft Çekirdeği Yeniden Başlatıldı",
         "versionUpdated": "Çekirdek Sürümü Güncellendi",
         "alreadyLatestVersion": "Zaten en yeni çekirdek sürümünü kullanıyorsunuz",
         "changeSuccess": "Çekirdek başarıyla değiştirildi",
         "changeFailed": "Çekirdek değiştirilemedi",
         "geoDataUpdated": "GeoData Güncellendi"
       },
-      "clashService": {
+      "craftService": {
         "appDataNotOwned": "Hizmet çekirdeği başlatmayı reddetti; çünkü diskte uygulama veri klasörünün sahibi hesabınız değil (ana klasör harici bir sürücüdeyse sık görülür). Hizmeti onarmak bunu düzeltmez. Bu komutu bir terminalde çalıştırın, ardından uygulamayı yeniden başlatın:",
         "installSuccess": "Hizmet Başarıyla Kuruldu",
         "permissionFallback": "{{reason}} Sidecar moduna geçildi; TUN yönetici yetkisi gerektirir. Kılavuza göre sorunu düzeltip hizmeti yeniden yükleyin veya hizmeti yüklemeden uygulamayı yönetici olarak çalıştırın.",
@@ -700,17 +700,17 @@
         "uninstallSuccess": "Hizmet Başarıyla Kaldırıldı"
       },
       "updater": {
-        "withClashProxySuccess": "Clash vekil ile güncelleme başarılı",
-        "withClashProxyFailed": "Clash vekil ile bile güncelleme başarısız oldu"
+        "withCraftProxySuccess": "Craft vekil ile güncelleme başarılı",
+        "withCraftProxyFailed": "Craft vekil ile bile güncelleme başarısız oldu"
       }
     }
   },
   "statuses": {
-    "clash": {
+    "craft": {
       "stopping": "Çekirdek Durduruluyor...",
       "restarting": "Çekirdek Yeniden Başlatılıyor..."
     },
-    "clashService": {
+    "craftService": {
       "installing": "Hizmet Kuruluyor...",
       "uninstalling": "Hizmet Kaldırılıyor..."
     }

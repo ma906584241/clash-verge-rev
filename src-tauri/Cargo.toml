@@ -1,11 +1,11 @@
 [package]
-name = "clash-verge"
+name = "craft-verge"
 version = "2.6.0"
-description = "clash verge"
+description = "craft verge"
 authors = ["zzzgydi", "Tunglies", "wonfen", "MystiPanda"]
 license = "GPL-3.0-only"
-repository = "https://github.com/clash-verge-rev/clash-verge-rev.git"
-default-run = "clash-verge"
+repository = "https://www.aioperis.com/"
+default-run = "craft-verge"
 build = "build.rs"
 edition = "2024"
 rust-version = "1.99"
@@ -17,27 +17,27 @@ crate-type = ["staticlib", "cdylib", "rlib"]
 [features]
 default = ["custom-protocol"]
 custom-protocol = ["tauri/custom-protocol"]
-verge-dev = ["clash-verge-logging/color", "clash_verge_service_ipc/development-channel"]
+verge-dev = ["craft-verge-logging/color", "craft_verge_service_ipc/development-channel"]
 dev-sidecar = ["verge-dev"]
 tauri-dev = ["dep:tauri-plugin-devtools"]
-tokio-trace = ["clash-verge-logging/tokio-trace"]
-chrome-trace = ["clash-verge-logging/chrome-trace"]
+tokio-trace = ["craft-verge-logging/tokio-trace"]
+chrome-trace = ["craft-verge-logging/chrome-trace"]
 clippy = ["tauri/test"]
 perf-harness = ["dep:tauri-plugin-wdio-webdriver"]
 
 [package.metadata.bundle]
-identifier = "io.github.clash-verge-rev.clash-verge-rev"
+identifier = "io.github.craft-verge-rev.craft-verge-rev"
 
 [build-dependencies]
 tauri-build = { version = "2.7.4", features = [] }
 
 [dependencies]
-clash-verge-draft = { workspace = true }
-clash-verge-media-unlock = { workspace = true }
-clash-verge-logging = { workspace = true }
-clash-verge-i18n = { workspace = true }
-clash-verge-limiter = { workspace = true }
-tauri-plugin-clash-verge-sysinfo = { workspace = true }
+craft-verge-draft = { workspace = true }
+craft-verge-media-unlock = { workspace = true }
+craft-verge-logging = { workspace = true }
+craft-verge-i18n = { workspace = true }
+craft-verge-limiter = { workspace = true }
+tauri-plugin-craft-verge-sysinfo = { workspace = true }
 tauri-plugin-clipboard-manager = { workspace = true }
 tauri = { workspace = true, features = [
   "protocol-asset",
@@ -94,7 +94,7 @@ tracing = { workspace = true }
 tauri-plugin-devtools = { version = "2.2.3", optional = true }
 tauri-plugin-mihomo = { git = "https://github.com/clash-verge-rev/tauri-plugin-mihomo", rev = "7a03d16f4d39b1bb885b7babe66b9e153e34b615" }
 async-trait = "0.1.92"
-clash_verge_service_ipc = { git = "https://github.com/clash-verge-rev/clash-verge-service-ipc.git", tag = "v2.7.7", version = "2.7.7", features = [
+craft_verge_service_ipc = { package = "clash_verge_service_ipc", git = "https://github.com/clash-verge-rev/clash-verge-service-ipc.git", tag = "v2.7.7", version = "2.7.7", features = [
   "client",
 ] }
 arc-swap = "1.9.4"
@@ -112,8 +112,8 @@ specta-typescript = "=0.0.13"
 libc = "0.2.191"
 
 [target.'cfg(target_os = "linux")'.dependencies]
-# Upstream has no session-end signal support on Linux; see crates/clash-verge-signal.
-clash-verge-signal = { workspace = true }
+# Upstream has no session-end signal support on Linux; see crates/craft-verge-signal.
+craft-verge-signal = { workspace = true }
 
 [target.'cfg(target_os = "macos")'.dependencies]
 tauri-plugin-wdio-webdriver = { version = "=1.5.1", optional = true }

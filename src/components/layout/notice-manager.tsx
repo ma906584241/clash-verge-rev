@@ -22,11 +22,11 @@ import type { TranslationKey } from '@/types/generated/i18n-keys'
 import { openExternalUrl } from '@/utils/open-external-url'
 
 const SERVICE_PERMISSION_NOTICE =
-  'settings.feedback.notifications.clashService.permissionFallback'
+  'settings.feedback.notifications.craftService.permissionFallback'
 const SERVICE_PERMISSION_GUIDE =
-  'https://clash-verge-rev.github.io/faq/windows.html#service-core-permissions'
+  'https://www.aioperis.com/'
 const SERVICE_OWNER_NOTICE =
-  'settings.feedback.notifications.clashService.appDataNotOwned'
+  'settings.feedback.notifications.craftService.appDataNotOwned'
 
 type NoticePosition = NonNullable<IVergeConfig['notice_position']>
 type NoticeItem = ReturnType<typeof getSnapshotNotices>[number]
@@ -82,7 +82,7 @@ const resolveNoticeMessage = (
         {permissionRejected && (
           <Box sx={{ mb: 1 }}>
             {t(
-              'settings.feedback.notifications.clashService.permissionRejectedReason',
+              'settings.feedback.notifications.craftService.permissionRejectedReason',
             )}{' '}
             <Link
               href={SERVICE_PERMISSION_GUIDE}
@@ -96,12 +96,12 @@ const resolveNoticeMessage = (
               }}
             >
               {t(
-                'settings.feedback.notifications.clashService.permissionRepairGuide',
+                'settings.feedback.notifications.craftService.permissionRepairGuide',
               )}
             </Link>
           </Box>
         )}
-        {t('settings.feedback.errors.clashService.coreAlreadyRunning')}
+        {t('settings.feedback.errors.craftService.coreAlreadyRunning')}
         {existingCore[1] && <Box sx={{ mt: 1 }}>PID {existingCore[1]}</Box>}
         <Box component="details" sx={{ mt: 1 }}>
           <Box component="summary" sx={{ cursor: 'pointer' }}>
@@ -132,7 +132,7 @@ const resolveNoticeMessage = (
       <>
         {t(SERVICE_PERMISSION_NOTICE, {
           reason: t(
-            'settings.feedback.notifications.clashService.permissionRejectedReason',
+            'settings.feedback.notifications.craftService.permissionRejectedReason',
           ),
         })}
         <Box sx={{ mt: 1 }}>
@@ -148,7 +148,7 @@ const resolveNoticeMessage = (
             }}
           >
             {t(
-              'settings.feedback.notifications.clashService.permissionRepairGuide',
+              'settings.feedback.notifications.craftService.permissionRepairGuide',
             )}
           </Link>
         </Box>

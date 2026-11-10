@@ -6,7 +6,7 @@ use crate::utils::window_manager::WindowManager;
 use crate::{config::Config, core::handle, core::lightweight::entry_lightweight_mode, feat};
 use anyhow::{Result, bail};
 use arc_swap::ArcSwap;
-use clash_verge_logging::{Type, logging};
+use craft_verge_logging::{Type, logging};
 use smartstring::alias::String;
 use std::{
     collections::HashMap,
@@ -23,9 +23,9 @@ use tauri_plugin_global_shortcut::{Code, GlobalShortcutExt as _, ShortcutState};
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum HotkeyFunction {
     OpenOrCloseDashboard,
-    ClashModeRule,
-    ClashModeGlobal,
-    ClashModeDirect,
+    CraftModeRule,
+    CraftModeGlobal,
+    CraftModeDirect,
     ToggleSystemProxy,
     ToggleTunMode,
     EntryLightweightMode,
@@ -39,9 +39,9 @@ impl fmt::Display for HotkeyFunction {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         let s = match self {
             Self::OpenOrCloseDashboard => "open_or_close_dashboard",
-            Self::ClashModeRule => "clash_mode_rule",
-            Self::ClashModeGlobal => "clash_mode_global",
-            Self::ClashModeDirect => "clash_mode_direct",
+            Self::CraftModeRule => "craft_mode_rule",
+            Self::CraftModeGlobal => "craft_mode_global",
+            Self::CraftModeDirect => "craft_mode_direct",
             Self::ToggleSystemProxy => "toggle_system_proxy",
             Self::ToggleTunMode => "toggle_tun_mode",
             Self::EntryLightweightMode => "entry_lightweight_mode",
@@ -60,9 +60,9 @@ impl FromStr for HotkeyFunction {
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         match s.trim() {
             "open_or_close_dashboard" => Ok(Self::OpenOrCloseDashboard),
-            "clash_mode_rule" => Ok(Self::ClashModeRule),
-            "clash_mode_global" => Ok(Self::ClashModeGlobal),
-            "clash_mode_direct" => Ok(Self::ClashModeDirect),
+            "craft_mode_rule" => Ok(Self::CraftModeRule),
+            "craft_mode_global" => Ok(Self::CraftModeGlobal),
+            "craft_mode_direct" => Ok(Self::CraftModeDirect),
             "toggle_system_proxy" => Ok(Self::ToggleSystemProxy),
             "toggle_tun_mode" => Ok(Self::ToggleTunMode),
             "entry_lightweight_mode" => Ok(Self::EntryLightweightMode),
@@ -124,25 +124,25 @@ impl Hotkey {
                     notify_event(NotificationEvent::DashboardToggled).await;
                 });
             }
-            HotkeyFunction::ClashModeRule => {
+            HotkeyFunction::CraftModeRule => {
                 AsyncHandler::spawn(async move || {
-                    // 错误已在 change_clash_mode 内部记录，此处显式忽略返回值
-                    let _ = feat::change_clash_mode("rule".into()).await;
-                    notify_event(NotificationEvent::ClashModeChanged { mode: "Rule" }).await;
+                    // 错误已在 change_craft_mode 内部记录，此处显式忽略返回值
+                    let _ = feat::change_craft_mode("rule".into()).await;
+                    notify_event(NotificationEvent::CraftModeChanged { mode: "Rule" }).await;
                 });
             }
-            HotkeyFunction::ClashModeGlobal => {
+            HotkeyFunction::CraftModeGlobal => {
                 AsyncHandler::spawn(async move || {
-                    // 错误已在 change_clash_mode 内部记录，此处显式忽略返回值
-                    let _ = feat::change_clash_mode("global".into()).await;
-                    notify_event(NotificationEvent::ClashModeChanged { mode: "Global" }).await;
+                    // 错误已在 change_craft_mode 内部记录，此处显式忽略返回值
+                    let _ = feat::change_craft_mode("global".into()).await;
+                    notify_event(NotificationEvent::CraftModeChanged { mode: "Global" }).await;
                 });
             }
-            HotkeyFunction::ClashModeDirect => {
+            HotkeyFunction::CraftModeDirect => {
                 AsyncHandler::spawn(async move || {
-                    // 错误已在 change_clash_mode 内部记录，此处显式忽略返回值
-                    let _ = feat::change_clash_mode("direct".into()).await;
-                    notify_event(NotificationEvent::ClashModeChanged { mode: "Direct" }).await;
+                    // 错误已在 change_craft_mode 内部记录，此处显式忽略返回值
+                    let _ = feat::change_craft_mode("direct".into()).await;
+                    notify_event(NotificationEvent::CraftModeChanged { mode: "Direct" }).await;
                 });
             }
             HotkeyFunction::ToggleSystemProxy => {
@@ -167,7 +167,7 @@ impl Hotkey {
             HotkeyFunction::ReactivateProfiles => {
                 AsyncHandler::spawn(async move || match feat::enhance_profiles().await {
                     Ok(outcome) if outcome.is_valid() => {
-                        handle::Handle::refresh_clash();
+                        handle::Handle::refresh_craft();
                         notify_event(NotificationEvent::ProfilesReactivated).await;
                     }
                     Ok(outcome) => {

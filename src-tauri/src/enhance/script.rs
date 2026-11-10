@@ -3,7 +3,7 @@ use crate::{process::AsyncHandler, utils::tmpl};
 use super::field::use_lowercase;
 use anyhow::{Error, Result};
 use boa_engine::{Context, JsString, JsValue, Source, js_string, native_function::NativeFunction, property::Attribute};
-use clash_verge_logging::{Type, logging};
+use craft_verge_logging::{Type, logging};
 use parking_lot::Mutex;
 use serde_yaml_ng::Mapping;
 use smartstring::alias::String;

@@ -40,8 +40,8 @@
         "updateFailed": "プロファイルの更新に失敗しました"
       },
       "notifications": {
-        "importRetry": "インポートに失敗しました。Clashプロキシを使用して再試行します...",
-        "importFail": "Clashプロキシを使用してもインポートに失敗しました。",
+        "importRetry": "インポートに失敗しました。Craftプロキシを使用して再試行します...",
+        "importFail": "Craftプロキシを使用してもインポートに失敗しました。",
         "importNeedsRefresh": "Profile imported but may need manual refresh",
         "importSuccess": "Profile imported successfully, please restart if not visible",
         "profileSwitched": "プロファイルが切り替えられました。",
@@ -122,7 +122,7 @@
         "httpTimeout": "HTTP Request Timeout",
         "updateInterval": "更新間隔",
         "useSystemProxy": "システムプロキシを使用して更新",
-        "useClashProxy": "クラッシュプロキシを使用して更新",
+        "useCraftProxy": "クラッシュプロキシを使用して更新",
         "acceptInvalidCerts": "Allows Invalid Certificates (Danger)",
         "allowAutoUpdate": "Allow Auto Update"
       },
@@ -141,8 +141,8 @@
       },
       "feedback": {
         "notifications": {
-          "creationRetry": "プロファイルの作成に失敗しました。Clashプロキシを使用して再試行します...",
-          "creationSuccess": "Clashプロキシを使用してプロファイルの作成に成功しました。"
+          "creationRetry": "プロファイルの作成に失敗しました。Craftプロキシを使用して再試行します...",
+          "creationSuccess": "Craftプロキシを使用してプロファイルの作成に成功しました。"
         }
       }
     },

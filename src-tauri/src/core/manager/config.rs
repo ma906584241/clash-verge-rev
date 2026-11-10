@@ -11,9 +11,9 @@ use crate::{
     utils::{dirs, help},
 };
 use anyhow::{Result, anyhow};
-use clash_verge_draft::DraftTransaction;
-use clash_verge_logging::{Type, logging};
-use clash_verge_service_ipc::StageRuntimeOutcome;
+use craft_verge_draft::DraftTransaction;
+use craft_verge_logging::{Type, logging};
+use craft_verge_service_ipc::StageRuntimeOutcome;
 use scopeguard::defer;
 use smartstring::alias::String;
 use std::{
@@ -159,18 +159,18 @@ impl CoreManager {
         use crate::constants::files::RUNTIME_CONFIG;
 
         let runtime_path = dirs::app_home_dir()?.join(RUNTIME_CONFIG);
-        let clash_config = &Config::clash().await.latest_arc().0;
+        let craft_config = &Config::craft().await.latest_arc().0;
 
         Config::runtime().await.edit_draft(|d| {
             *d = IRuntime {
-                config: Some(clash_config.to_owned()),
+                config: Some(craft_config.to_owned()),
                 dns_override: None,
                 exists_keys: HashSet::new(),
                 chain_logs: Default::default(),
             }
         });
 
-        help::save_yaml(&runtime_path, &clash_config, Some("# Clash Verge Runtime")).await?;
+        help::save_yaml(&runtime_path, &craft_config, Some("# Craft Verge Runtime")).await?;
         handle::Handle::notice(status, message);
         Ok(())
     }
@@ -260,7 +260,7 @@ impl CoreManager {
         let outcome = self.perform_config_update(Some(profiles)).await?;
         if outcome.is_valid() {
             crate::config::profiles::restore_selected_nodes().await;
-            handle::Handle::refresh_clash();
+            handle::Handle::refresh_craft();
             Ok(())
         } else {
             Err(anyhow!("failed to restore previous Core configuration: {outcome}"))
@@ -333,7 +333,7 @@ impl CoreManager {
             Err(error) => {
                 transaction.rollback();
                 if !Arc::ptr_eq(&original_runtime, &runtime.data_arc()) {
-                    handle::Handle::refresh_clash();
+                    handle::Handle::refresh_craft();
                 }
                 return Err(error);
             }
@@ -370,7 +370,7 @@ impl CoreManager {
 
     fn retain_applied_runtime(
         &self,
-        runtime: &clash_verge_draft::Draft<IRuntime>,
+        runtime: &craft_verge_draft::Draft<IRuntime>,
         previous: Option<u64>,
         result: &Result<()>,
     ) {
@@ -471,13 +471,13 @@ impl CoreManager {
 #[cfg(test)]
 mod tests {
     use super::{ConfigApplication, StageAttempt, StageRequest, plan_config_application, stage_with_confirmation};
-    use clash_verge_service_ipc::{StageRejection, StageRuntimeOutcome};
+    use craft_verge_service_ipc::{StageRejection, StageRuntimeOutcome};
     use std::{cell::Cell, time::Duration};
 
     #[test]
     fn a_ready_replacement_keeps_the_applied_runtime_when_proxy_restore_fails() -> anyhow::Result<()> {
         use crate::{config::runtime::IRuntime, core::CoreManager};
-        use clash_verge_draft::{Draft, DraftTransaction};
+        use craft_verge_draft::{Draft, DraftTransaction};
 
         for replaced in [false, true] {
             let manager = CoreManager::default();
@@ -566,7 +566,7 @@ mod tests {
 
     #[test]
     fn only_bundle_codes_count_as_a_refusal_of_the_bundle() {
-        use clash_verge_service_ipc::ServiceErrorCode;
+        use craft_verge_service_ipc::ServiceErrorCode;
 
         assert!(StageRequest::is_about_the_bundle(
             ServiceErrorCode::InvalidRuntimeAsset as u16

@@ -39,7 +39,7 @@ export interface TranslationResources {
     }
     home: {
       components: {
-        clashInfo: {
+        craftInfo: {
           fields: {
             coreVersion: string
             mixedPort: string
@@ -49,7 +49,7 @@ export interface TranslationResources {
           }
           title: string
         }
-        clashMode: {
+        craftMode: {
           descriptions: {
             direct: string
             global: string
@@ -173,7 +173,7 @@ export interface TranslationResources {
         }
         settings: {
           cards: {
-            clashInfo: string
+            craftInfo: string
             currentProxy: string
             ip: string
             network: string
@@ -392,7 +392,7 @@ export interface TranslationResources {
             subscriptionUrl: string
             type: string
             updateInterval: string
-            useClashProxy: string
+            useCraftProxy: string
             userAgent: string
             useSystemProxy: string
           }
@@ -814,7 +814,7 @@ export interface TranslationResources {
       }
       feedback: {
         errors: {
-          clash: {
+          craft: {
             configUpdateFailed: string
             modeUpdateFailed: string
             restartFailed: string
@@ -822,7 +822,7 @@ export interface TranslationResources {
             startFailed: string
             stopFailed: string
           }
-          clashService: {
+          craftService: {
             coreAlreadyRunning: string
             installFailed: string
             reinstallFailed: string
@@ -840,7 +840,7 @@ export interface TranslationResources {
           }
         }
         notifications: {
-          clash: {
+          craft: {
             alreadyLatestVersion: string
             changeFailed: string
             changeSuccess: string
@@ -848,7 +848,7 @@ export interface TranslationResources {
             restartSuccess: string
             versionUpdated: string
           }
-          clashService: {
+          craftService: {
             appDataNotOwned: string
             installSuccess: string
             permissionFallback: string
@@ -859,8 +859,8 @@ export interface TranslationResources {
             uninstallSuccess: string
           }
           updater: {
-            withClashProxyFailed: string
-            withClashProxySuccess: string
+            withCraftProxyFailed: string
+            withCraftProxySuccess: string
           }
         }
       }
@@ -944,13 +944,13 @@ export interface TranslationResources {
             title: string
           }
         }
-        clashCore: {
+        craftCore: {
           variants: {
             alpha: string
             release: string
           }
         }
-        clashPort: {
+        craftPort: {
           actions: {
             random: string
           }
@@ -1231,7 +1231,7 @@ export interface TranslationResources {
             openUrl: string
           }
           errors: {
-            clashInfoUnavailable: string
+            craftInfoUnavailable: string
             invalidServer: string
             openFailed: string
           }
@@ -1264,11 +1264,11 @@ export interface TranslationResources {
           light: string
           system: string
         }
-        clash: {
+        craft: {
           form: {
             fields: {
               allowLan: string
-              clashCore: string
+              craftCore: string
               dnsOverwrite: string
               external: string
               ipv6: string
@@ -1405,11 +1405,11 @@ export interface TranslationResources {
         }
       }
       statuses: {
-        clash: {
+        craft: {
           restarting: string
           stopping: string
         }
-        clashService: {
+        craftService: {
           installing: string
           uninstalling: string
         }
@@ -1473,7 +1473,7 @@ export interface TranslationResources {
           }
           importSubscriptionSuccess: string
           importSuccess: string
-          importWithClashProxy: string
+          importWithCraftProxy: string
           saved: string
           updateAvailable: string
         }

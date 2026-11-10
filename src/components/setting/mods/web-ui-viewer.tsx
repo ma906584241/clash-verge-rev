@@ -5,7 +5,7 @@ import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { BaseDialog, BaseEmpty, DialogRef } from '@/components/base'
-import { useClashInfo } from '@/hooks/use-clash'
+import { useCraftInfo } from '@/hooks/use-craft'
 import { useVerge } from '@/hooks/use-verge'
 import { showNotice } from '@/services/notice-service'
 import { openExternalUrl } from '@/utils/open-external-url'
@@ -23,7 +23,7 @@ const DEFAULT_WEB_UI_LIST = [
 export function WebUIViewer({ ref }: { ref?: Ref<DialogRef> }) {
   const { t } = useTranslation()
 
-  const { clashInfo } = useClashInfo()
+  const { craftInfo } = useCraftInfo()
   const { verge, patchVerge, mutateVerge } = useVerge()
 
   const [open, setOpen] = useState(false)
@@ -76,27 +76,27 @@ export function WebUIViewer({ ref }: { ref?: Ref<DialogRef> }) {
       let url = value.trim().replaceAll('%host', '127.0.0.1')
 
       if (url.includes('%port') || url.includes('%secret')) {
-        if (!clashInfo) {
+        if (!craftInfo) {
           throw new Error(
-            t('settings.modals.webUI.errors.clashInfoUnavailable'),
+            t('settings.modals.webUI.errors.craftInfoUnavailable'),
           )
         }
-        if (!clashInfo.server?.includes(':')) {
+        if (!craftInfo.server?.includes(':')) {
           throw new Error(
             t('settings.modals.webUI.errors.invalidServer', {
-              server: clashInfo.server,
+              server: craftInfo.server,
             }),
           )
         }
 
-        const port = clashInfo.server
-          .slice(clashInfo.server.indexOf(':') + 1)
+        const port = craftInfo.server
+          .slice(craftInfo.server.indexOf(':') + 1)
           .trim()
 
         url = url.replaceAll('%port', port || '9097')
         url = url.replaceAll(
           '%secret',
-          encodeURIComponent(clashInfo.secret || ''),
+          encodeURIComponent(craftInfo.secret || ''),
         )
       }
 
