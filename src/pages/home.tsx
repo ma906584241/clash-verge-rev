@@ -244,7 +244,7 @@ const HomePage = () => {
 
   // 文档链接函数
   const toGithubDoc = useLockFn(() =>
-    openExternalUrl('https://clash-verge-rev.github.io/index.html').catch(
+    openExternalUrl('https://github.com/ma906584241/clash-verge-rev#readme').catch(
       showNotice.error,
     ),
   )

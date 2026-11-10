@@ -190,7 +190,7 @@
           "copyVersion": "Version kopieren"
         },
         "notifications": {
-          "latestVersion": "Sie verwenden bereits die neueste Version",
+          "latestVersion": "In-App-Updates sind aus. CraftVPN lädt keine Clash-Verge-Builds.",
           "versionCopied": "Version in die Zwischenablage kopiert"
         },
         "fields": {
@@ -204,7 +204,7 @@
           "liteModeSettings": "Einstellungen für den Leichtgewichtigen Modus",
           "exit": "Beenden",
           "exportDiagnostics": "Diagnoseinformationen exportieren",
-          "vergeVersion": "Verge-Version"
+          "vergeVersion": "CraftVPN (geänderte Fassung von clash-verge-rev, 2026-11-10)"
         }
       },
       "theme": {

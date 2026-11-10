@@ -4,8 +4,8 @@ import axios from 'axios'
 
 import { log_error, log_info, log_success } from './utils.mjs'
 
-const CHAT_ID_RELEASE = '@clash_verge_re' // 正式发布频道
-const CHAT_ID_TEST = '@vergetest' // 测试频道
+const CHAT_ID_RELEASE = process.env.TELEGRAM_CHAT_ID || ''
+const CHAT_ID_TEST = process.env.TELEGRAM_CHAT_ID_TEST || ''
 
 async function sendTelegramNotification() {
   if (!process.env.TELEGRAM_BOT_TOKEN) {
@@ -21,11 +21,16 @@ async function sendTelegramNotification() {
 
   const downloadUrl =
     process.env.DOWNLOAD_URL ||
-    `https://github.com/clash-verge-rev/clash-verge-rev/releases/download/v${version}`
+    `https://github.com/ma906584241/clash-verge-rev/releases/download/v${version}`
 
   const isAutobuild =
     process.env.BUILD_TYPE === 'autobuild' || version.includes('autobuild')
   const chatId = isAutobuild ? CHAT_ID_TEST : CHAT_ID_RELEASE
+  if (!chatId) {
+    throw new Error(
+      'TELEGRAM_CHAT_ID is required. CraftVPN does not post to the Clash Verge channel.',
+    )
+  }
   const buildType = isAutobuild ? '滚动更新版' : '正式版'
 
   log_info(`Preparing Telegram notification for ${buildType} ${version}`)
@@ -107,7 +112,7 @@ async function sendTelegramNotification() {
   const releaseTitle = isAutobuild ? '滚动更新版发布' : '正式发布'
   const encodedVersion = encodeURIComponent(version)
   const releaseTag = isAutobuild ? 'autobuild' : `v${version}`
-  const content = `<b>🎉 <a href="https://github.com/clash-verge-rev/clash-verge-rev/releases/tag/${releaseTag}">Clash Verge Rev v${version}</a> ${releaseTitle}</b>\n\n${formattedContent}`
+  const content = `<b>🎉 <a href="https://github.com/ma906584241/clash-verge-rev/releases/tag/${releaseTag}">CraftVPN v${version}</a> ${releaseTitle}</b>\n\n${formattedContent}`
 
   try {
     await axios.post(
@@ -117,7 +122,7 @@ async function sendTelegramNotification() {
         text: content,
         link_preview_options: {
           is_disabled: false,
-          url: `https://github.com/clash-verge-rev/clash-verge-rev/releases/tag/v${encodedVersion}`,
+          url: `https://github.com/ma906584241/clash-verge-rev/releases/tag/v${encodedVersion}`,
           prefer_large_media: true,
         },
         parse_mode: 'HTML',

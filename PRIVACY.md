@@ -1,15 +1,18 @@
 # Privacy Policy
 
-**Applies to:** the Clash Verge Rev desktop application for Windows, macOS and
-Linux, distributed from
-<https://github.com/clash-verge-rev/clash-verge-rev/releases>.
+**Applies to:** CraftVPN, a GPL-3.0 modified fork of
+[clash-verge-rev](https://github.com/clash-verge-rev/clash-verge-rev)
+(modification date 2026-11-10), for Windows, macOS and Linux. Source and
+notes are at
+<https://github.com/ma906584241/clash-verge-rev>.
+This application is not an official Clash Verge or clash-verge-rev release.
 
-**Last updated:** 2026-09-09
+**Last updated:** 2026-11-10
 
-Clash Verge Rev is a free and open-source graphical client for the
-[mihomo](https://github.com/MetaCubeX/mihomo) proxy core, maintained by
-volunteers. The project has no company behind it, no user accounts, and no
-server of its own that the application talks to.
+CraftVPN is a free and open-source graphical client for the
+[mihomo](https://github.com/MetaCubeX/mihomo) proxy core. The program name
+does not include “mihomo”. This fork has no user accounts and no server of
+its own that the application talks to.
 
 ## 1. Summary
 
@@ -23,17 +26,19 @@ server of its own that the application talks to.
 - The application connects only to endpoints that you configure (proxy servers,
   subscription URLs, backup server) or to the third-party services listed in
   Section 4. None of them are operated by this project.
-- Two connections are enabled by default and are not part of your own proxy
-  configuration: the **application update check** (Section 4.3) and the **IP
-  information card** on the Home page (Section 4.5). Both are described below,
-  and Section 6 explains how to turn them off.
+- The **application update check** (Section 4.3) is disabled. CraftVPN does
+  not contact Clash Verge update servers.
+- One connection is enabled by default and is not part of your own proxy
+  configuration: the **IP information card** on the Home page (Section 4.5).
+  Section 6 explains how to avoid it.
 
 ## 2. Who is responsible
 
-The Clash Verge Rev maintainers, reachable through the project's issue tracker
-at <https://github.com/clash-verge-rev/clash-verge-rev/issues>. Because the
-application performs no data collection, there is no data controller
-relationship, no processing agreement, and no data to request or erase from us.
+The maintainer of this fork, reachable through
+<https://github.com/ma906584241/clash-verge-rev/issues>. Upstream
+clash-verge-rev remains a separate project. Because the application performs
+no data collection, there is no data controller relationship, no processing
+agreement, and no data to request or erase from us.
 
 ## 3. Data stored on your device
 
@@ -41,9 +46,9 @@ All application data lives in a single directory:
 
 | Platform | Location |
 | --- | --- |
-| Windows | `%APPDATA%\io.github.clash-verge-rev.clash-verge-rev` |
-| macOS | `~/Library/Application Support/io.github.clash-verge-rev.clash-verge-rev` |
-| Linux | `$XDG_DATA_HOME/io.github.clash-verge-rev.clash-verge-rev` (usually `~/.local/share/…`) |
+| Windows | `%APPDATA%\io.github.ma906584241.craftvpn` |
+| macOS | `~/Library/Application Support/io.github.ma906584241.craftvpn` |
+| Linux | `$XDG_DATA_HOME/io.github.ma906584241.craftvpn` (usually `~/.local/share/…`) |
 
 It contains:
 
@@ -83,27 +88,22 @@ to the extent any proxy operator can; their privacy policy applies.
 ### 4.2 Subscription (profile) updates
 
 When you add a remote profile, the application downloads it from the URL you
-supplied, sending a `User-Agent` of `clash-verge/v<version>` unless you set a
+supplied, sending a `User-Agent` of `CraftVPN/v<version>` unless you set a
 different one for that profile. If you enable automatic updates for a profile,
 this request repeats on the interval you choose. The subscription provider sees
 your IP address and this request; it is the same request your browser would
 make. Requests can be sent directly, through the system proxy, or through the
 application's own proxy port, as configured per profile.
 
-### 4.3 Application update check — *enabled by default*
+### 4.3 Application update check — *disabled*
 
-On startup the application asks whether a newer release exists, in order, from:
+CraftVPN does not check for application updates and does not contact Clash
+Verge update servers, `update.hwdns.net`, `gh-proxy.org`, or the upstream
+signing key. The updater compiled into this fork is turned off. This
+repository does not publish GitHub Releases or installers from this change.
 
-- `https://update.hwdns.net/…` and `https://gh-proxy.org/…` (third-party GitHub
-  mirrors, used for reachability in restricted networks)
-- `https://github.com/clash-verge-rev/clash-verge-rev/releases/…`
-
-The request carries only what any HTTP request carries: your IP address, the
-`User-Agent` and the requested file. No identifier is generated or sent, and no
-result is reported back to the project. Downloaded updates are verified against
-a Minisign public key compiled into the application.
-
-Disable it in *Settings → Miscellaneous → Auto Check Update*.
+*Settings → Miscellaneous → Auto Check Update* defaults to off. Turning it on
+does not download a build.
 
 ### 4.4 Proxy core update — *user-initiated*
 
@@ -174,14 +174,15 @@ policies:
 - **External dashboards** — opening a web dashboard (metacubexd, Yacd, Zash
   Board) loads a third-party site in your browser; it then talks to your local
   core.
-- **GitHub** — hosts the source, releases and update metadata; it sees download
-  requests, and anything you post in issues is public.
+- **GitHub** — hosts this fork's source. The application does not download
+  Clash Verge update metadata. Anything you post in issues is public.
 - **Your proxy and subscription providers**, and any WebDAV or DNS provider you
   configure, are independent of this project and govern their own data handling.
 
 ## 6. Your controls
 
-- *Settings → Miscellaneous → Auto Check Update* — turn off the update check.
+- *Settings → Miscellaneous → Auto Check Update* — the in-app check is already
+  disabled in this fork (Section 4.3).
 - *Settings → Miscellaneous → Auto Log Clean* — set log retention, or `Never Clean`.
 - Per-profile update interval — turn off automatic subscription refresh.
 - WebDAV backup is inactive until you enter server details, and can be cleared
@@ -204,5 +205,5 @@ history. The date at the top reflects the most recent change.
 ## 9. Contact
 
 Open an issue at
-<https://github.com/clash-verge-rev/clash-verge-rev/issues>. Please do not
+<https://github.com/ma906584241/clash-verge-rev/issues>. Please do not
 include logs or configuration files containing credentials in public issues.

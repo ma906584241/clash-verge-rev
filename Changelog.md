@@ -46,6 +46,8 @@
 <details>
 <summary><strong> 🚀 优化改进 </strong></summary>
 
+- 将应用名称改为「CraftVPN」，并注明这是 clash-verge-rev 的修改版
+- 关闭应用内更新，不再连接 Clash Verge 的更新服务器
 - 优化连接、规则和日志筛选：切换页面后保留过滤条件
 - 优化全局模式代理列表：仅显示 `GLOBAL` 节点，选中其中的策略组时才显示该组
 

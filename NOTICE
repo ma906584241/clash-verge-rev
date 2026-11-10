@@ -1,0 +1,29 @@
+CraftVPN
+Modification date: 2026-11-10
+
+CraftVPN is a modified version of clash-verge-rev:
+https://github.com/clash-verge-rev/clash-verge-rev
+
+This repository:
+https://github.com/ma906584241/clash-verge-rev
+
+CraftVPN is not an official Clash Verge, Clash Verge Rev, or clash-verge-rev
+release, and it is not affiliated with those projects. It is also not the
+Android application named Craft VPN published by TrafCraft LLC.
+
+The program is released under the GNU General Public License v3.0 only. The
+original LICENSE file and the original copyright notices in the source are
+retained. See LICENSE.
+
+In-app updates are disabled. This build does not use Clash Verge update
+servers, third-party mirrors of those servers, or the upstream minisign
+public key. A placeholder public key that matches no published artifact is
+compiled in instead. Do not turn updates on until this repository hosts its
+own update metadata and a key generated for CraftVPN.
+
+The icons and wordmark under src-tauri/icons and src/assets/image are
+original placeholders. Replace them with your own artwork. They are not
+Clash Verge artwork.
+
+The Windows application id is io.github.ma906584241.craftvpn. The installed
+product name is CraftVPN. The deep-link scheme is craftvpn://.

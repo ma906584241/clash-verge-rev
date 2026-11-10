@@ -1,5 +1,5 @@
 {
-  "identifier": "io.github.clash-verge-rev.perf-harness",
+  "identifier": "io.github.ma906584241.craftvpn.perf-harness",
   "build": {
     "frontendDist": "../target/perf/dist",
     "beforeBuildCommand": "",

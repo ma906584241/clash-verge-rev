@@ -921,33 +921,33 @@ Section Install
 
   ; Remove stale window-state files
   DetailPrint "Removing window-state.json / .window-state.json"
-  Delete "$APPDATA\io.github.clash-verge-rev.clash-verge-rev\window-state.json"
-  Delete "$APPDATA\io.github.clash-verge-rev.clash-verge-rev\.window-state.json"
+  Delete "$APPDATA\io.github.ma906584241.craftvpn\window-state.json"
+  Delete "$APPDATA\io.github.ma906584241.craftvpn\.window-state.json"
 
   ; Clean legacy auto-launch registry entries
   StrCpy $R1 "Software\Microsoft\Windows\CurrentVersion\Run"
 
   SetRegView 64
-  ReadRegStr $R2 HKCU "$R1" "Clash Verge"
+  ReadRegStr $R2 HKCU "$R1" "CraftVPN"
   ${If} $R2 != ""
-    DeleteRegValue HKCU "$R1" "Clash Verge"
+    DeleteRegValue HKCU "$R1" "CraftVPN"
   ${EndIf}
-  ReadRegStr $R2 HKLM "$R1" "Clash Verge"
+  ReadRegStr $R2 HKLM "$R1" "CraftVPN"
   ${If} $R2 != ""
-    DeleteRegValue HKLM "$R1" "Clash Verge"
+    DeleteRegValue HKLM "$R1" "CraftVPN"
   ${EndIf}
-  ReadRegStr $R2 HKCU "$R1" "clash-verge"
+  ReadRegStr $R2 HKCU "$R1" "CraftVPN"
   ${If} $R2 != ""
-    DeleteRegValue HKCU "$R1" "clash-verge"
+    DeleteRegValue HKCU "$R1" "CraftVPN"
   ${EndIf}
-  ReadRegStr $R2 HKLM "$R1" "clash-verge"
+  ReadRegStr $R2 HKLM "$R1" "CraftVPN"
   ${If} $R2 != ""
-    DeleteRegValue HKLM "$R1" "clash-verge"
+    DeleteRegValue HKLM "$R1" "CraftVPN"
   ${EndIf}
 
   ; Remove legacy executables
-  IfFileExists "$INSTDIR\Clash Verge.exe" 0 +2
-    Delete "$INSTDIR\Clash Verge.exe"
+  IfFileExists "$INSTDIR\CraftVPN.exe" 0 +2
+    Delete "$INSTDIR\CraftVPN.exe"
 
   !insertmacro SetContext
 
@@ -1113,33 +1113,33 @@ Section Uninstall
   ; Remove cached window state files
   DetailPrint "Removing window-state.json / .window-state.json"
   SetShellVarContext current
-  Delete "$APPDATA\io.github.clash-verge-rev.clash-verge-rev\window-state.json"
-  Delete "$APPDATA\io.github.clash-verge-rev.clash-verge-rev\.window-state.json"
+  Delete "$APPDATA\io.github.ma906584241.craftvpn\window-state.json"
+  Delete "$APPDATA\io.github.ma906584241.craftvpn\.window-state.json"
 
   ; Clean legacy auto-launch registry entries
   StrCpy $R1 "Software\Microsoft\Windows\CurrentVersion\Run"
 
   SetRegView 64
-  ReadRegStr $R2 HKCU "$R1" "Clash Verge"
+  ReadRegStr $R2 HKCU "$R1" "CraftVPN"
   ${If} $R2 != ""
-    DeleteRegValue HKCU "$R1" "Clash Verge"
+    DeleteRegValue HKCU "$R1" "CraftVPN"
   ${EndIf}
-  ReadRegStr $R2 HKLM "$R1" "Clash Verge"
+  ReadRegStr $R2 HKLM "$R1" "CraftVPN"
   ${If} $R2 != ""
-    DeleteRegValue HKLM "$R1" "Clash Verge"
+    DeleteRegValue HKLM "$R1" "CraftVPN"
   ${EndIf}
-  ReadRegStr $R2 HKCU "$R1" "clash-verge"
+  ReadRegStr $R2 HKCU "$R1" "CraftVPN"
   ${If} $R2 != ""
-    DeleteRegValue HKCU "$R1" "clash-verge"
+    DeleteRegValue HKCU "$R1" "CraftVPN"
   ${EndIf}
-  ReadRegStr $R2 HKLM "$R1" "clash-verge"
+  ReadRegStr $R2 HKLM "$R1" "CraftVPN"
   ${If} $R2 != ""
-    DeleteRegValue HKLM "$R1" "clash-verge"
+    DeleteRegValue HKLM "$R1" "CraftVPN"
   ${EndIf}
 
   ; Remove legacy executables
-  IfFileExists "$INSTDIR\Clash Verge.exe" 0 +2
-    Delete "$INSTDIR\Clash Verge.exe"
+  IfFileExists "$INSTDIR\CraftVPN.exe" 0 +2
+    Delete "$INSTDIR\CraftVPN.exe"
 
   !insertmacro SetContext
 
@@ -1214,8 +1214,8 @@ Section Uninstall
     ${EndIf}
 
     ; Remove legacy public desktop shortcuts
-    Delete "C:\Users\Public\Desktop\Clash Verge.lnk"
-    Delete "C:\Users\Public\Desktop\clash-verge.lnk"
+    Delete "C:\Users\Public\Desktop\CraftVPN.lnk"
+    Delete "C:\Users\Public\Desktop\CraftVPN.lnk"
 
     ; Remove legacy shortcuts from all user desktops
     DetailPrint "Removing ${PRODUCTNAME} shortcuts from all user desktops..."
@@ -1229,8 +1229,8 @@ Section Uninstall
       ReadRegStr $R3 HKLM "SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProfileList\$R2" "ProfileImagePath"
       ${If} $R3 != ""
         StrCpy $R4 "$R3\Desktop"
-        Delete "$R4\Clash Verge.lnk"
-        Delete "$R4\clash-verge.lnk"
+        Delete "$R4\CraftVPN.lnk"
+        Delete "$R4\CraftVPN.lnk"
       ${EndIf}
       IntOp $R1 $R1 + 1
       Goto LegacyUserLoop
@@ -1239,22 +1239,22 @@ Section Uninstall
 
     ; Remove legacy start menu folders
     SetShellVarContext current
-    RMDir /r /REBOOTOK "$SMPROGRAMS\Clash Verge"
-    RMDir /r /REBOOTOK "$SMPROGRAMS\clash-verge"
+    RMDir /r /REBOOTOK "$SMPROGRAMS\CraftVPN"
+    RMDir /r /REBOOTOK "$SMPROGRAMS\CraftVPN"
     !insertmacro SetContext
-    RMDir /r /REBOOTOK "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Clash Verge"
-    RMDir /r /REBOOTOK "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\clash-verge"
+    RMDir /r /REBOOTOK "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\CraftVPN"
+    RMDir /r /REBOOTOK "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\CraftVPN"
 
     ; Clean legacy registry keys
     SetRegView 64
-    DeleteRegKey HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\Clash Verge.exe"
-    DeleteRegKey HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\clash-verge.exe"
-    DeleteRegKey HKLM "Software\Clash Verge Rev"
-    DeleteRegKey HKLM "Software\Clash Verge"
-    DeleteRegKey HKCU "Software\Clash Verge Rev"
-    DeleteRegKey HKCU "Software\Clash Verge"
-    DeleteRegKey HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\ClashVerge"
-    DeleteRegKey HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Clash Verge"
+    DeleteRegKey HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\CraftVPN.exe"
+    DeleteRegKey HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\CraftVPN.exe"
+    DeleteRegKey HKLM "Software\CraftVPN"
+    DeleteRegKey HKLM "Software\CraftVPN"
+    DeleteRegKey HKCU "Software\CraftVPN"
+    DeleteRegKey HKCU "Software\CraftVPN"
+    DeleteRegKey HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\CraftVPN"
+    DeleteRegKey HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\CraftVPN"
 
     StrCpy $R1 0
     LegacyUninstallLoop:
@@ -1264,8 +1264,8 @@ Section Uninstall
       ${EndIf}
       ReadRegStr $R3 HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$R2" "DisplayName"
       ${If} $R3 != ""
-        StrCmp $R3 "Clash Verge" 0 +3
-        StrCmp $R3 "clash-verge" 0 +2
+        StrCmp $R3 "CraftVPN" 0 +3
+        StrCmp $R3 "CraftVPN" 0 +2
         DeleteRegKey HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$R2"
       ${EndIf}
       IntOp $R1 $R1 + 1
