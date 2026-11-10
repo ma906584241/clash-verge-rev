@@ -60,7 +60,9 @@ it.each([
     expect(html).toContain('Close the related app or stop the leftover process')
     expect(html).toContain(detail)
     if (operation === 'sidecar') {
-      expect(html).toContain('service-core-permissions')
+      expect(html).toContain(
+        'https://github.com/ma906584241/clash-verge-rev#service',
+      )
       expect(html).toContain('PID 123')
     }
   },
