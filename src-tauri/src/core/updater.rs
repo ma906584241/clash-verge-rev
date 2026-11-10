@@ -196,29 +196,19 @@ pub enum DownloadEvent {
     Finished,
 }
 
-const MIRRORS: [&str; 2] = ["https://update.hwdns.net/", "https://gh-proxy.org/"];
+/// In-app updates stay off so CraftVPN cannot fetch Clash Verge builds or
+/// accept the upstream signing key. Host updates from this repository, with
+/// a key generated for CraftVPN, before turning this on.
+const fn updates_enabled() -> bool {
+    false
+}
 /// A source delivering less than this per window is dropped for the next one.
 const MIN_PROGRESS: u64 = 1024 * 1024;
 const PROGRESS_WINDOW: Duration = Duration::from_secs(30);
 
-/// The manifest's URL, then the other mirror, then GitHub itself.
+/// Uses only the manifest URL. Third-party mirrors of Clash Verge updates are not consulted.
 fn download_sources(url: &tauri::Url) -> Vec<tauri::Url> {
-    let origin = MIRRORS
-        .iter()
-        .find_map(|mirror| url.as_str().strip_prefix(mirror))
-        .unwrap_or(url.as_str());
-    let mut sources = vec![url.clone()];
-    if origin.starts_with("https://github.com/") {
-        let candidates = MIRRORS.iter().map(|mirror| format!("{mirror}{origin}"));
-        for candidate in candidates.chain([origin.to_owned()]) {
-            if let Ok(candidate) = tauri::Url::parse(&candidate)
-                && !sources.contains(&candidate)
-            {
-                sources.push(candidate);
-            }
-        }
-    }
-    sources
+    vec![url.clone()]
 }
 
 /// Tries every source with a throughput floor, then again stopping only on a stall, so a link
@@ -282,6 +272,9 @@ impl SilentUpdater {
     /// Checks the server; Windows receives `/LANG` to suppress the NSIS language dialog,
     /// see `packages/windows/installer.nsi`.
     async fn check(app_handle: &tauri::AppHandle) -> Result<Option<Update>> {
+        if !updates_enabled() {
+            return Ok(None);
+        }
         let updater_builder = app_handle.updater_builder();
         #[cfg(target_os = "windows")]
         let updater_builder = {
@@ -298,7 +291,7 @@ impl SilentUpdater {
 
     /// Installs a newer cached update before normal startup, if the user confirms.
     pub async fn try_install_on_startup(&self, app_handle: &tauri::AppHandle) -> bool {
-        if !Config::verge().await.latest_arc().auto_check_update.unwrap_or(true) {
+        if !updates_enabled() || !Config::verge().await.latest_arc().auto_check_update.unwrap_or(false) {
             Self::delete_cache();
             return false;
         }
@@ -489,7 +482,7 @@ impl SilentUpdater {
         use tauri::{WebviewUrl, WebviewWindowBuilder};
 
         let window = match WebviewWindowBuilder::new(app_handle, "update-splash", WebviewUrl::App("index.html".into()))
-            .title("Clash Verge - Updating")
+            .title("CraftVPN - Updating")
             .inner_size(300.0, 180.0)
             .resizable(false)
             .maximizable(false)
@@ -567,10 +560,13 @@ impl SilentUpdater {
 
 impl SilentUpdater {
     async fn check_and_download(&self, app_handle: &tauri::AppHandle) -> Result<()> {
+        if !updates_enabled() {
+            return Ok(());
+        }
         // Registered before reading the switch, so `discard_pending` either cancels it or ran first.
         let cancel = CancellationToken::new();
         *self.background_cancel.lock() = Some(cancel.clone());
-        let auto_check = Config::verge().await.latest_arc().auto_check_update.unwrap_or(true);
+        let auto_check = Config::verge().await.latest_arc().auto_check_update.unwrap_or(false);
         if !auto_check {
             logging!(debug, Type::System, "Silent update skipped: auto_check_update is false");
             return Ok(());
@@ -633,7 +629,7 @@ impl SilentUpdater {
 
         // Serialized with `discard_pending` in the verge patch, which holds the same lock.
         let _config_write = Config::lock_config_write().await;
-        if cancel.is_cancelled() || !Config::verge().await.latest_arc().auto_check_update.unwrap_or(true) {
+        if cancel.is_cancelled() || !Config::verge().await.latest_arc().auto_check_update.unwrap_or(false) {
             logging!(
                 info,
                 Type::System,
@@ -654,6 +650,10 @@ impl SilentUpdater {
     }
 
     pub async fn start_background_check(&self, app_handle: tauri::AppHandle) {
+        if !updates_enabled() {
+            logging!(info, Type::System, "Silent updater is disabled for CraftVPN");
+            return;
+        }
         // Permanent watcher: daily update cycles for the lifetime of the app.
         logging!(info, Type::System, "Silent updater: background task started");
 

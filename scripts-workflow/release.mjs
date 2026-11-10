@@ -345,7 +345,7 @@ function releaseBody(tag, sha, tags, publishing) {
       .join('\n\n') || 'No new commits.'
   return `## ${titleFor(tag)}
 
-@clash-verge-rev/release
+CraftVPN is a modified fork of clash-verge-rev.
 
 Source: \`dev\` · [${sha}](${url}/commit/${sha})  \n${comparison}
 ${
@@ -669,7 +669,7 @@ function prepareDraft() {
     api('releases', {
       tag_name: tag,
       target_commitish: env.SOURCE_SHA,
-      name: `Clash Verge Rev ${tag}`,
+      name: `CraftVPN ${tag}`,
       body: 'Draft release, will be updated later.',
       draft: true,
       prerelease: isRc(tag),

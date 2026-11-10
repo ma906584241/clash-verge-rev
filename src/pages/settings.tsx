@@ -1,4 +1,4 @@
-import { GitHub, HelpOutlineRounded, Telegram } from '@mui/icons-material'
+import { GitHub, HelpOutlineRounded } from '@mui/icons-material'
 import { Box, ButtonGroup, IconButton, Grid } from '@mui/material'
 import { useLockFn } from 'ahooks'
 import { useTranslation } from 'react-i18next'
@@ -21,19 +21,15 @@ const SettingPage = () => {
   }
 
   const toGithubRepo = useLockFn(() =>
-    openExternalUrl('https://github.com/clash-verge-rev/clash-verge-rev').catch(
+    openExternalUrl('https://github.com/ma906584241/clash-verge-rev').catch(
       onError,
     ),
   )
 
   const toGithubDoc = useLockFn(() =>
-    openExternalUrl('https://clash-verge-rev.github.io/index.html').catch(
-      onError,
-    ),
-  )
-
-  const toTelegramChannel = useLockFn(() =>
-    openExternalUrl('https://t.me/clash_verge_re').catch(onError),
+    openExternalUrl(
+      'https://github.com/ma906584241/clash-verge-rev#readme',
+    ).catch(onError),
   )
 
   const mode = useThemeMode()
@@ -66,15 +62,6 @@ const SettingPage = () => {
                 >
                   <HelpOutlineRounded fontSize="inherit" />
                 </IconButton>
-                <IconButton
-                  size="medium"
-                  color="inherit"
-                  title={t('settings.page.actions.telegram')}
-                  onClick={toTelegramChannel}
-                >
-                  <Telegram fontSize="inherit" />
-                </IconButton>
-
                 <IconButton
                   size="medium"
                   color="inherit"

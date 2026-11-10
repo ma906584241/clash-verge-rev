@@ -1,3 +1,5 @@
+> 以下是上游 clash-verge-rev 的历史更新记录，不是 CraftVPN 的官方发布说明。CraftVPN 是该项目的 GPL-3.0 修改版（2026-11-10），与 Clash Verge 官方版本没有隶属关系。
+
 ## v2.5.10
 
 <details>

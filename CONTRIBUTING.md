@@ -1,6 +1,6 @@
 # CONTRIBUTING
 
-Thank you for your interest in contributing to **Clash Verge Rev**! This guide provides instructions to help you set up your development environment and start contributing effectively.
+Thank you for your interest in contributing to **CraftVPN**! This repository is a GPL-3.0 modified fork of [clash-verge-rev](https://github.com/clash-verge-rev/clash-verge-rev), modified on 2026-11-10. It is not an official Clash Verge release. This guide provides instructions to help you set up your development environment and start contributing effectively.
 
 ## Internationalization (i18n)
 

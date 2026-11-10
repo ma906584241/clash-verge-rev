@@ -3,22 +3,22 @@
   "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
   "bundle": {
     "active": true,
-    "longDescription": "Clash Verge Rev",
+    "homepage": "https://github.com/ma906584241/clash-verge-rev",
+    "longDescription": "CraftVPN is a GPL-3.0 modified fork of clash-verge-rev. It is not an official Clash Verge release.",
     "icon": [
       "icons/32x32.png",
       "icons/128x128.png",
       "icons/128x128@2x.png",
       "icons/icon.icns",
-      "icons/icon.ico",
-      "icons/Assets.car"
+      "icons/icon.ico"
     ],
     "resources": ["resources"],
-    "publisher": "Clash Verge Rev",
+    "publisher": "CraftVPN",
     "externalBin": ["sidecar/verge-mihomo", "sidecar/verge-mihomo-alpha"],
-    "copyright": "GNU General Public License v3.0",
+    "copyright": "GPL-3.0. Modified fork of clash-verge-rev (2026-11-10).",
     "category": "DeveloperTool",
-    "shortDescription": "Clash Verge Rev",
-    "createUpdaterArtifacts": true
+    "shortDescription": "CraftVPN",
+    "createUpdaterArtifacts": false
   },
   "build": {
     "beforeBuildCommand": "pnpm run web:build",
@@ -27,15 +27,14 @@
     "devUrl": "http://localhost:3000/",
     "removeUnusedCommands": true
   },
-  "productName": "Clash Verge",
-  "identifier": "io.github.clash-verge-rev.clash-verge-rev",
+  "productName": "CraftVPN",
+  "identifier": "io.github.ma906584241.craftvpn",
   "plugins": {
     "updater": {
-      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEQyOEMyRjBCQkVGOUJEREYKUldUZnZmbStDeStNMHU5Mmo1N24xQXZwSVRYbXA2NUpzZE5oVzlqeS9Bc0t6RVV4MmtwVjBZaHgK",
+      "active": false,
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEYyOUFCNUMxN0E4MEY5NUEKUldUeW1yWEJlb0Q1V3BZQXFKam1UWVlpZWQxQzc1MC94VDdmZWZjWURkS0NPcnRMVDk5M1VvL2oK",
       "endpoints": [
-        "https://github.com/clash-verge-rev/clash-verge-rev/releases/download/updater/update.json",
-        "https://update.hwdns.net/https://github.com/clash-verge-rev/clash-verge-rev/releases/download/updater/update-proxy.json",
-        "https://gh-proxy.org/https://github.com/clash-verge-rev/clash-verge-rev/releases/download/updater/update-proxy.json"
+        "https://github.com/ma906584241/clash-verge-rev/releases/download/updater/update.json"
       ],
       "windows": {
         "installMode": "passive"
@@ -43,7 +42,7 @@
     },
     "deep-link": {
       "desktop": {
-        "schemes": ["clash", "clash-verge"]
+        "schemes": ["craftvpn"]
       }
     }
   },
